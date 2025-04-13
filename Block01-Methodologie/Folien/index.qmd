@@ -182,7 +182,7 @@ Die **inhaltliche Relevanz** einer Studie beschreibt, inwiefern die Forschungsfr
 Die **ethische Strenge** einer Studie beschreibt, inwiefern die Studie Standards der Wissenschafts- und Forschungsethik genügt. Dazu gehört beispielsweise die Einhaltung der Datenschutzbestimmungen (Forschungsethik), die Vermeidung von Überinterpretationen (Wissenschaftsethik) oder das Nichtdurchführen von Studien mit geringer methodischer Strenge [@doering2016].
 
 #### Konstruktvalidität
-Die **Konstruktvalidität** einer Studie beschreibt, die Qualität der verwendeten Messinstrumente (z.B. Fragebögen) [@cronbach1955].
+Die **Konstruktvalidität** einer Studie beschreibt die Qualität von Messinstrumenten [@cronbach1955].
 
 
 ## Definitionen { .smaller}
@@ -420,7 +420,7 @@ Bei [**Feldstudien**]{.imp} werden die Merkmalsträger:innen in ihrer natürlich
 
 ## [Experiment, Quasi- und Nicht-Experiment]{style="font-size:.91em"} {.smaller}
 ::: {style="font-size:.8em"}
-> [**Experimente und Quasiexperimente**]{.imp} teilen Proband:innen in Gruppen ein, welche Sie unterschiedlichen Interventionen (auch »Behandlungen« oder »Treatments«) unterziehen.  
+> [**Experimente und Quasiexperimente**]{.imp} teilen Proband:innen in Gruppen ein, welche sie unterschiedlichen Interventionen (auch »Behandlungen« oder »Treatments«) unterziehen.  
 [**Nicht-Experimente**]{.imp} verzichten hierauf.  
 Bei Experimenten liegt die Gruppeneinteilung in der Hand der Forschenden, wohingegen die Gruppen bei Quasi-Experimenten durch andere Mechanismen zustande kommen oder bereits feststehen.
 :::
@@ -480,9 +480,9 @@ In Deutschland gibt es vergleichsweise viele und aufwändige deskriptive Trendst
 :::
 
 
-## Übung {{< fa brain >}} {.smaller .scrollable}
+## Übung {{< fa brain >}} {.smaller}
 
-> Ein Team von Forscher:innen untersucht die Lernförderlichkeit von **formativem Feedback** (*»du kannst Plusaufgaben schon sicher über den Zehner, übe doch als nächstes dieses Blatt mit Minusaufgaben über den Zehner«*) gegenüber summativem Feedback (*»Plusaufgaben mit Zehnerübergang 2+, Minusaufgaben mit Zehnerübergang 3-4«*) nach der Theorie von Hattie & Timperley (2006) . Dazu ermitteln Sie mithilfe einer Videostudie, in welchen Klassen in Mathematik besonders oft formatives Feedback gegeben wird und erheben dort die fachlichen Leistungen. 
+> Ein Team von Forscher:innen untersucht die Lernförderlichkeit von **formativem Feedback** (*»du kannst Plusaufgaben schon sicher über den Zehner, übe doch als nächstes dieses Blatt mit Minusaufgaben über den Zehner«*) gegenüber summativem Feedback (*»Plusaufgaben mit Zehnerübergang 2+, Minusaufgaben mit Zehnerübergang 3-4«*) nach der Theorie von Hattie & Timperley [-@hattie2007]. Dazu ermitteln Sie mithilfe einer Videostudie, in welchen Klassen in Mathematik besonders oft formatives Feedback gegeben wird und erheben dort die fachlichen Leistungen. 
 
 :::: {.columns}
 

@@ -7,7 +7,7 @@ date: today
 date-format: "[Sommersemster] YYYY"
 
 logo: img/ph-logo.svg
-footer: Folien {{< iconify streamline:creative-commons-solid >}} {{< iconify fa6-brands:creative-commons-by >}} unter ogy.de/test24
+footer: Folien {{< iconify streamline:creative-commons-solid >}} {{< iconify fa6-brands:creative-commons-by >}} unter ogy.de/mvl-sose-25
 
 format: 
   revealjs:
@@ -195,15 +195,16 @@ timevis(data,
 :::
 
 ## Forschung $\Rightarrow$ Effektiverer Unterricht {.smaller}
-::: {.fragment}
+
 :::: {.columns}
-
-
 ::: {.column width='70%'}
+::: {.fragment}
 **Fragt man Lehramtsstudierende** »*Inwieweit stimmen Sie der These zu, dass es verschiedene Lernstile (z. B. auditiv, visuell oder kinästhetisch) gibt, die ein effektiveres Lernen ermöglichen?*« mit den Antwortmöglichkeiten 1 = »*Ich stimme überhaupt nicht zu*«; 5 = »*Ich stimme voll und ganz zu*« erhält man die folgenden Daten [@menz2020].
+:::
 :::
 
 ::: {.column width='30%'}
+::: {.fragment}
 ```{r}
 #| fig-width: 6
 #| 
@@ -255,9 +256,12 @@ ggplot(educational_data, aes(x = response, y = percentage, fill = response)) +
   ylim(0, 100)
 ```
 :::
-
-::::
 :::
+::::
+
+
+
+
 
 ::: {.fragment}
 :::: {.columns}
@@ -306,7 +310,6 @@ ggplot(learning_data,
 
 ::: {.notes}
 Weitere Potentielle Wahr/Falsch abfragen im Hörsaal:
-* Bedient man den von Schülern bevorzugten VARK Lernstil (visual [V], auditiv [A], read/write [R], kinesthetic [K]), lernen diese mehr.		
 * Wenn Schüler berichten, eine Lernaktivität fühle sich anstrengend an, spricht das dafür, dass diese Lernaktivität nicht optimal geplant war.		
 * Eine Reduktion der durchschnittlichen Klassengröße von 25 auf 15 steigert die Leistungsfähigkeit der Schüler stark.		
 * Wenn Lehrer »Schüler« (generisches Maskulinum) sagen, werden weibliche und männliche Personen gleichermaßen adressiert. »Schülerinnen und Schüler« zu sagen ist also eher überkompliziert.		
@@ -395,15 +398,15 @@ Menschliche Wahrnehmung ist **selektiv** <br><br>
     * üben diese anhand geschlossener, parametrisierter Aufgaben &
     * wenden diese dann gemeinsam auf spannende & aktuelle Studien an.
 * Im Tutorium
-    * wiederholen wir zentrale Begriffe 
-    * üben diese nochmals
-    * ist noch mehr Raum für Fragen 
+    * wiederholen wir zentrale Begriffe,
+    * üben diese nochmals,
+    * ist noch mehr Raum für Fragen.
 
 ## Klausuren {.smaller}
 * 4 **fakultative** Teilklausuren
    * Closed Book, Bring Your Own Device, 10 Minuten Dauer.
-   * Teilklausuren decken jeweils einen Themenblock ab, der auch inder Hauptklausur geprüft wird
-   * Es können 10 Punkte je Teilklausur erreicht werden. Als Anreiz **auch** nach erfolgreicher Teilklausur noch auf die Hauptklausur zu lernen, werden maximal 8 Punkte($\equiv$ "gut") verbucht
+   * Teilklausuren decken jeweils einen Themenblock ab, der auch in der Hauptklausur geprüft wird
+   * Es können 10 Punkte je Teilklausur erreicht werden. Als Anreiz **auch** nach erfolgreicher Teilklausur noch auf die Hauptklausur zu lernen, werden maximal 8 Punkte (entspricht der Note "gut") verbucht
    * Termine siehe moodle
 * 1 **obligatorische** Hauptklausur 
    * 90 Minuten (gemeinsam mit Psychologie)
@@ -418,21 +421,21 @@ Menschliche Wahrnehmung ist **selektiv** <br><br>
 > [...] sind bestanden, wenn die oder der Studierende mindestens [60 Prozent der zu erreichenden Gesamtpunktzahl]{.imp} erreicht hat. Die Prüfung ist auch bestanden, wenn die vom Prüfling erreichte Punktzahl um nicht mehr als 20 Prozent die durchschnittlichen Prüfungsleistungen aller Prüfungsteilnehmerinnen und Prü- fungsteilnehmer an dieser Prüfung unterschreitet (relative Bestehensgrenze). Kommt die relative Bestehensgrenze zur Anwendung, so müssen für das Bestehen der Prüfung mindestens 50 Prozent der möglichen Gesamtpunkte erreicht werden.
 
 ## Teilnahme an »Live-Forschung«
-> Wir führen direkt in der Vorlesung kleinere und größere Experimente durch, besprechen deren Design und werten deren Ergebnisse aus. Die Teilnahme daran ist **obligatorisch**. **Freiwillig** können Sie zudem Ihre so generierten Daten für die wissenschaftliche Auswertung spenden {{< iconify mdi:donation >}}
+> Wir führen direkt in der Vorlesung kleinere und größere Experimente durch, besprechen deren Design und werten deren Ergebnisse aus. Die Teilnahme daran ist **obligatorisch**. **Freiwillig** können Sie zudem Ihre so generierten Daten für die wissenschaftliche Auswertung spenden {{< iconify mdi:donation >}}.
 
 ## Anforderungen {.center}
 * Sie bekommen 3CP $\Rightarrow \frac{3 \cdot 30h}{15\;Wochen} = 6\frac{h}{Woche}$ 
 * Meine Prognose: Wenn Sie diese Zeit investieren, bestehen Sie die Klausur recht sicher 
-* Befragung aus dem Wintersemester22/23: Über 90% der Studierenden bringt weniger Zeit auf als durch die CP gefordert
+* Befragung aus dem Wintersemester 22/23: Über 90% der Studierenden bringt weniger Zeit auf als durch die CP gefordert
 
 
 ## <!-- Image -->{background-image="img/practice_resultsWiSe2223.png" background-size="contain"}
 ::: {.footer}
 :::
 
-## Vorschlag »Studierverhalten« {.smaller}
+## Vorschlag »Studierverhalten«
 1. Vorlesung
-   * Anwesenheit und aktive Teilnahme
+   * Anwesenheit und konzentrierte, aktive Teilnahme
 2. evtl. Tutorium oder Materialien aus dem Tutorium
 3. Selbststudium (20-60 Minuten pro Woche)
 
