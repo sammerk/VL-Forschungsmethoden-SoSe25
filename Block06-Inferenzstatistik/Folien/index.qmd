@@ -1,0 +1,703 @@
+---
+title: "Inferenzstatistik" 
+subtitle: "Grundprinzipien statistischer Parameterschätzung & Hypothesentestung"
+author: "Samuel Merk & Cora Parrisius"
+format: 
+  revealjs:
+    auto-stretch: false
+    controls: true
+    slide-number: false
+    logo: img/PHlogo.svg
+    theme: [default, css/custom.scss]
+    fullscreen: true
+    pdfexport: true
+    pointer:
+      color: '#8cd000'
+      size: 8
+bibliography: references.bib
+csl: apa.csl
+editor_options: 
+  chunk_output_type: console
+revealjs-plugins:
+  - pointer  
+---
+
+## Inhalte dieses Vorlesungsblocks {.center .smaller}
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+#| cache: true
+
+## in terminal ########
+# quarto install extension quarto-ext/fontawesome
+# quarto install extension schochastics/academicons
+#
+
+########################
+library(fontawesome)
+library(tidyverse)
+library(faux)
+library(bayestestR)
+library(hrbrthemes)
+library(quartoMorphSvg)
+set.seed(848265)
+
+# Change css to lecker PH green
+if(!dir.exists("img"))
+dir.create("img")
+if(!dir.exists("css"))
+dir.create("css")
+fileConn<-file("css/custom.scss")
+writeLines(c("/*-- scss:defaults --*/",
+             "$link-color: #8cd000 !default;",
+             ".imp {color: #8cd000;}",
+             ".em15 {font-size:1.5em;}",
+             ".c {text-align: right !important;}",
+             ".callout-title {background-color: #8cd000 !important;}",
+             "#vcenter {vertical-align: middle;}"),
+           fileConn)
+close(fileConn)
+```
+
+. . .
+
+[{{< fa yin-yang >}}]{.imp} Unterscheidung von Inferenz- und Deskriptivstatistik
+
+. . .  
+
+[{{< fa bullseye >}}]{.imp} Parameterschätzung vs. Hypothesentestung
+
+. . .  
+
+[{{< fa circle-question >}}]{.imp} Hypothesentestung
+
+. . .
+
+[[{{< fa dice >}}]{.imp} *p*-Werte]{style="padding-left:80px;"}  
+
+. . .
+
+[[{{< fa scale-unbalanced >}}]{.imp} Bayes-Faktoren]{style="padding-left:80px"}  
+
+
+## <!--Inferenz- vs. Deskriptivstatistik--> {.center .smaller}
+[{{< fa yin-yang >}} Inferenz- und Deskriptivstatistik]{.em15 .c .imp}
+
+## Inferenz- und Deskriptivstatistik {.smaller}
+::: {.incremental}
+[Deskriptivstatistiken machen Aussagen über vorliegende Datensätze]{.imp}
+
+* *»Median aller Noten eines Zeugnisses«*
+* *»Kendall's $\tau$ von Erst- und Zweitkorrektur bei Abschlussarbeiten eines Jahrgangs«*
+* *»Cliff's d der Gehälter von Frauen und Männern einer Hochschule«*
+
+[Inferenzstatistiken machen anhand von Daten Aussagen über (hypothetische) Mechanismen, die diese Daten erzeugen [@eid2013]]{.imp}
+
+* *»Zeigt eine Münze von 30 Würfen 16 mal Kopf, wie wahrscheinlich ist es dann, dass die Münze unfair ist?«*
+* *»Befürworten von 100 zufällig ausgewählten Erwachsenen 63 Ziffernnoten in der Grundschule, wie sicher liegt dann eine Zustimmung (> 50%) in der Gesamterwachsenenbevölkerung vor?«*
+* *»Zeigt sich in einer Stichprobe mit N $= 56$ ein Cohen's d = .6, wie wahrscheinlich hat die Intervention dann eigentlich nur einen kleinen Effekt?«*
+:::
+
+##
+![](img/ying yang-3.svg){}
+
+##
+![](img/ying yang-2.svg){}
+
+##
+![](img/ying yang-1.svg){}
+
+##
+![](img/ying yang-4.svg){}
+<br><center>
+[Inferenz- & Deskriptivstatistik sind komplementär, ergänzen sich]{style="color:#8cd000; font-size:.7em"} </center>
+
+
+## <!--Parameterschätzung--> {.center .smaller}
+[{{< fa bullseye >}} Parameterschätzung vs. Hypothesentestung]{.em15 .c .imp}
+
+## Schätzung vs. Testung {.smaller .center}
+
+|                    |  [ [Frequentistische<br>Statistik]{.imp}]{.fragment fragment-index=3}   |      [[Bayesianische<br>Statistik]{.imp}]{.fragment fragment-index=4}      |
+|--------------------|:-------------------:|:-----------------------:|
+| [[Parameterschätzung]{.imp}]{.fragment fragment-index=1} | [Konfidenzintervalle]{.fragment fragment-index=5} | [Posterior Distributions]{.fragment fragment-index=5} |
+|    [ [Hypothesentest]{.imp}]{.fragment fragment-index=2} |       [p-Werte]{.fragment fragment-index=6}       |      [Bayes Faktoren]{.fragment fragment-index=7}     |
+
+<br> 
+
+[(Inferenzstatistische) [*Schätzung*]{.imp} (estimation with quantified uncertainty) trifft anhand von Stichproben Aussagen über Parameter der Grundgesamtheit (Population) aus der die Stichprobe gezogen wurde.  
+(Inferenzstatistische) [*Hypothesentests*]{.imp} bewerten anhand von Stichprobendaten die Gültigkeit von Hypothesen in der Grundgesamtheit (Population) aus der die Stichprobe gezogen wurde.]{.fragment fragment-index=7}
+
+
+## Bsp.: Parameterschätzung {.smaller}
+> Forschungsfrage: Welcher Anteil der Eltern befürwortet eine Grundschule mit Noten?
+
+. . .
+
+:::: {.columns}
+
+::: {.column width='60%'}
+```{r}
+#| fig-width: 5
+#| fig-height: 4
+#| out-width: 100%
+library(tidyverse)
+library(hrbrthemes)
+n <- 4
+y <- 3
+x <- seq(0, 1, by=.01)
+prior <- dbeta(x, 1, 1)
+posterior <- dbeta(x, (1 + y), (1 + n - y))
+
+ggplot(tibble(x = x, y = y)) + 
+  geom_line(aes(x=x, y=y), color = "#d77d00") +
+  theme_modern_rc() +
+  xlab("Anteil Befürworter »mit Noten«") +
+  ylab("Wahrscheinlichkeit(sdichte)") +
+  theme(axis.text.y = element_blank()) +
+  ggtitle("Annahme vor Datenerhebung", "»Prior Distribution«")
+```
+:::
+
+
+::: {.column width='40%'}
+:::: {.fragment}
+Daten: 
+
+* 3 für »mit Noten«
+* 1 für »ohne Noten«
+::::
+:::
+
+::::
+
+
+## Bsp.: Parameterschätzung {.smaller}
+> Forschungsfrage: Welcher Anteil der Eltern befürwortet eine Grundschule mit Noten?
+
+:::: {.columns}
+
+::: {.column width='60%'}
+```{r}
+#| fig-width: 5
+#| fig-height: 4
+#| out-width: 100%
+library(tidyverse)
+library(hrbrthemes)
+n <- 4
+y <- 3
+x <- seq(0, 1, by=.01)
+prior <- dbeta(x, 1, 1)
+posterior <- dbeta(x, (1 + y), (1 + n - y))
+dat <- data.frame(x, prior, posterior)
+        dat_long <- gather(dat, distribution, value, -x)
+
+ggplot(dat_long) + 
+  geom_line(aes(x=x, y=value, color=distribution)) +
+  theme_modern_rc() +
+  scale_color_manual(values = c("#8cd000", "#d77d00")) +
+  xlab("Anteil Befürworter »mit Noten«") +
+  ylab("Wahrscheinlichkeit(sdichte)") +
+  theme(axis.text.y = element_blank()) +
+  ggtitle("Posterior Estimation", "with quantified uncertainty")
+```
+:::
+
+
+::: {.column width='40%'}
+Daten: 
+
+* 3 für »mit Noten«
+* 1 für »ohne Noten«
+:::
+
+::::
+
+
+## Bsp.: Parameterschätzung {.smaller}
+> Forschungsfrage: Welcher Anteil der Eltern befürwortet eine Grundschule mit Noten?
+
+:::: {.columns}
+
+::: {.column width='60%'}
+```{r}
+#| fig-width: 5
+#| fig-height: 4
+#| out-width: 100%
+library(tidyverse)
+library(hrbrthemes)
+n <- 4
+y <- 3
+x <- seq(0, 1, by=.010)
+prior <- dbeta(x, 1, 1)
+posterior <- dbeta(x, (1 + y), (1 + n - y))
+dat <- data.frame(x, prior, posterior)
+        dat_long <- gather(dat, distribution, value, -x)
+
+ggplot(dat_long) + 
+  geom_line(aes(x=x, y=value, color=distribution)) +
+  stat_function(fun = dbeta, args = list((1 + y), (1 + n - y)), 
+                geom = "area", 
+                fill = "#8cd00030", 
+                color = "#ffffff00",
+                alpha = 0.25,
+                xlim = c(qbeta(.025,(1 + y), (1 + n - y)), 
+                         qbeta(.975,(1 + y), (1 + n - y)))) + 
+  theme_modern_rc() +
+  scale_color_manual(values = c("#8cd000", "#d77d00")) +
+  xlab("Anteil Befürworter »mit Noten«") +
+  ylab("Wahrscheinlichkeit(sdichte)") +
+  theme(axis.text.y = element_blank()) +
+  labs(title = "Posterior Estimation", 
+       subtitle = "with quantified uncertainty",
+       caption = paste("Der »Vertrauensbereich« (95% Highest Densitiy Interval)\nreicht von ",
+                       round(qbeta(.025,(1 + y), (1 + n - y)), 2),
+                       " bis ",
+                       round(qbeta(.975,(1 + y), (1 + n - y)), 2)))
+```
+:::
+
+
+::: {.column width='40%'}
+Daten: 
+
+* 3 für »mit Noten«
+* 1 für »ohne Noten«
+:::
+
+::::
+
+
+## Bsp.: Parameterschätzung {.smaller}
+> Forschungsfrage: Welcher Anteil der Eltern befürwortet eine Grundschule mit Noten?
+
+:::: {.columns}
+
+::: {.column width='60%'}
+```{r}
+#| fig-width: 5
+#| fig-height: 4
+#| out-width: 100%
+library(tidyverse)
+library(hrbrthemes)
+n <- 41
+y <- 32
+x <- seq(0, 1, by=.010)
+prior <- dbeta(x, 1, 1)
+posterior <- dbeta(x, (1 + y), (1 + n - y))
+dat <- data.frame(x, prior, posterior)
+        dat_long <- gather(dat, distribution, value, -x)
+
+ggplot(dat_long) + 
+  geom_line(aes(x=x, y=value, color=distribution)) +
+  stat_function(fun = dbeta, args = list((1 + y), (1 + n - y)), 
+                geom = "area", 
+                fill = "#8cd00030", 
+                color = "#ffffff00",
+                alpha = 0.25,
+                xlim = c(qbeta(.025,(1 + y), (1 + n - y)), 
+                         qbeta(.975,(1 + y), (1 + n - y)))) + 
+  theme_modern_rc() +
+  scale_color_manual(values = c("#8cd000", "#d77d00")) +
+  xlab("Anteil Befürworter »mit Noten«") +
+  ylab("Wahrscheinlichkeit(sdichte)") +
+  theme(axis.text.y = element_blank()) +
+  labs(title = "Posterior Estimation", 
+       subtitle = "with quantified uncertainty",
+       caption = paste("Der »Vertrauensbereich« (95% Highest Densitiy Interval)\nreicht von ",
+                       round(qbeta(.025,(1 + y), (1 + n - y)), 2),
+                       " bis ",
+                       round(qbeta(.975,(1 + y), (1 + n - y)), 2)))
+```
+:::
+
+
+::: {.column width='40%'}
+Daten: 
+
+* 32 für »mit Noten«
+* 9 für »ohne Noten«
+:::
+
+::::
+
+## Bsp.: Parameterschätzung {.smaller}
+> Forschungsfrage: Welcher Anteil der Eltern befürwortet eine Grundschule mit Noten?
+
+:::: {.columns}
+
+::: {.column width='60%'}
+```{r}
+#| fig-width: 5
+#| fig-height: 4
+#| out-width: 100%
+library(tidyverse)
+library(hrbrthemes)
+n <- 423
+y <- 299
+x <- seq(0, 1, by=.001)
+prior <- dbeta(x, 1, 1)
+posterior <- dbeta(x, (1 + y), (1 + n - y))
+dat <- data.frame(x, prior, posterior)
+        dat_long <- gather(dat, distribution, value, -x)
+
+ggplot(dat_long) + 
+  geom_line(aes(x=x, y=value, color=distribution)) +
+  stat_function(fun = dbeta, args = list((1 + y), (1 + n - y)), 
+                geom = "area", 
+                fill = "#8cd00030", 
+                color = "#ffffff00",
+                alpha = 0.25,
+                xlim = c(qbeta(.025,(1 + y), (1 + n - y)), 
+                         qbeta(.975,(1 + y), (1 + n - y)))) + 
+  theme_modern_rc() +
+  scale_color_manual(values = c("#8cd000", "#d77d00")) +
+  xlab("Anteil Befürworter »mit Noten«") +
+  ylab("Wahrscheinlichkeit(sdichte)") +
+  theme(axis.text.y = element_blank()) +
+  labs(title = "Posterior Estimation", 
+       subtitle = "with quantified uncertainty",
+       caption = paste("Der »Vertrauensbereich« (95% Highest Densitiy Interval)\nreicht von ",
+                       round(qbeta(.025,(1 + y), (1 + n - y)), 2),
+                       " bis ",
+                       round(qbeta(.975,(1 + y), (1 + n - y)), 2)))
+```
+:::
+
+
+::: {.column width='40%'}
+Daten: 
+
+* 299 für »mit Noten«
+* 124 für »ohne Noten«
+:::
+
+::::
+
+## <!--Hypothesentestung--> {.center .smaller}
+[{{< fa circle-question >}} Hypothesentestung]{.em15 .c .imp}
+
+## Bsp. Hypothesentestung (*p*-Werte) {.smaller}
+:::: {.columns}
+
+::: {.column width='40%'}
+* Hypothesen 
+    * Nullhypothese: *Der Anteil der Befürworter\*innen einer Grundschule mit Noten ist ≤ 50%.*<br>
+    * Alternativhypothese: *Mehr als 50% der Eltern befürworten eine Grundschule mit Noten.*
+* Daten: 
+    * 3 für »mit Noten«
+    * 1 für »ohne Noten«
+:::
+
+::: {.column width='60%'}
+::: {.r-stack}
+![](img/BinomBaumNoten-5.svg){.fragment width="60%"}
+
+![](img/BinomBaumNoten-4.svg){.fragment width="60%"}
+
+![](img/BinomBaumNoten-3.svg){.fragment width="60%"}
+
+![](img/BinomBaumNoten-2.svg){.fragment width="60%"}
+
+![](img/BinomBaumNoten-1.svg){.fragment width="60%"}
+:::
+:::
+
+::::
+
+. . .
+
+$\text{p-Wert}= P\left(\text{vorl. o. extremer gegen }H_0\text{ sprechende Daten} | H_0 \text{ist wahr}\right) = \color{#0FA5D7}{5} \cdot 0.5^4 = .31$
+
+
+
+## <!--*p*-Werte--> {.center .smaller}
+[{{< fa dice >}} *p*-Werte]{.em15 .c .imp}
+
+## p-Werte: Definition {.smaller .center}
+Im binären Entscheidungskonzept von Neyman-Pearson [-@neyman1928use] dienen p-Werte zur Entscheidung, ob eine Nullhypothese zu Gunsten einer Alternativhypothese verworfen werden kann. Dazu werden vor der Datenerhebung
+
+* $H_0$, 
+* $H_A$ & 
+* das sogenante $\alpha$-Niveau 
+
+festgelegt (typischerweise gilt $\alpha = .05$). Dieses entspricht der Wahrscheinlichkeit unter die ein *p*-Wert fallen muss um die Nullhypothese zugunsten der Alternativhypothese zu verwerfen (»der p-Wert wird signifikant«). Gilt *p* ≥ $\alpha$ ist der Test inkonklusiv (es wurde keine neue Information generiert).
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa book-open >}} Weiterführende Literatur
+Lakens, Daniël. (2022). Improving Your Statistical Inferences (v1.0.0). Zenodo. https://doi.org/10.5281/ZENODO.6409077
+:::
+
+## Testung mit *p*-Wert: Beispiel 1 {.smaller .center}
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa question-circle >}} Forschungsfrage & -design
+Forschende fragen sich inwiefern die Visualisierung von Magnetfeldern mithilfe von Augmented Reality das konzeptuelle Verständnis der Schülerinnen und Schüler fördern kann. Sie führen ein randomisiert kontrolliertes Experiment durch, indem ein Gruppe mit und eine Gruppe ohne Augmented Reality arbeitet. Anschließend wird in beiden Gruppen das konzeptuelle Verständnis mit einem Test erfasst.
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa chart-column >}} Ergebnis
+Ein Vergleich der beiden Gruppen im Posttest ergibt ein Cliff's $d = .31$ zugunsten der Gruppe mit Augmented Reality mit einem *p*-Wert von .012 für die Nullhypothese $H_0:\; d = 0$ und die Alternativhypothese $H_A:\; d > 0$
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa lightbulb >}} Interpretation
+In den Daten liegt ein Effekt substantieller Größe vor. $H_0$ kann zugunsten von $H_A$ verworfen werden.
+:::
+
+
+
+## Testung mit *p*-Wert: Beispiel 2 {.smaller}
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa question-circle >}} Forschungsfrage & -design
+Forschende versuchen den Lernstilmythos zu widerlegen. Dazu befragen Sie Probandinnen nach ihrem vermeintlichen Lernstil. Diese durchlaufen danach eine Unterrichtseinheit zum Thema Photosynthese entweder (randomisiert) gemäß dieses vermeintlichen Lernstils oder nicht gemäß diesem.
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa chart-column >}} Ergebnis
+Ein Vergleich der beiden Gruppen mit einem Posttest ergibt ein Cohen's $U_3 = .53$ mit einem *p*-Wert von .073 für die Nullhypothese $H_0:\; U_3 = .5$ und die Alternativhypothese $H_A:\; U_3 > .5$.
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa lightbulb >}} Interpretation
+Da der *p*-Wert über dem $\alpha$-Wert von .05 liegt ist die Studie inkonklusiv. Die Forschenden wissen nach der Studie genau gleich viel wie zuvor, es wurde keine Erkenntnis generiert.
+:::
+
+## Testung mit *p*-Wert: Beispiel 3 {.smaller}
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa question-circle >}} Forschungsfrage & -design
+Forschende untersuchen ob Schülerinnen und Schüler aus ländlichen Gebieten seltener vom Religionsunterricht abgemeldet werden. Dazu führen Sie eine Sekundäranalyse eines großen Paneldatensatzes durch.
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa chart-column >}} Ergebnis
+Ein Vergleich der beiden Gruppen ergibt ein Cliff's d von .04 mit einem *p*-Wert von .008 für die Nullhypothese $H_0:\; d = 0$ und die Alternativhypothese $H_A:\; d > 0$
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa lightbulb >}} Interpretation
+In den Daten liegt ein Effekt sehr geringer Größe vor. Dennoch kann $H_0$ zugunsten von $H_A$ verworfen werden.
+:::
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgaben 6.1 - 6.3** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+## <!--Bayes-Faktoren--> {.center .smaller}
+[{{< fa scale-unbalanced >}} Bayes-Faktoren]{.em15 .c .imp}
+
+## Bayes-Faktoren: Definition {.smaller .center}
+Im Gegensatz zu *p*-Werten bieten Bayes-Faktoren [relative Evidenz]{.imp}. D.h. sie relationieren die Passung der vorliegenden Daten zur Alternativhypothese zur Passung der vorliegenden Daten zur Nullhypothese. Dadurch sind Bayes-Faktoren (im Gegensatz zu *p*-Werten) in der Lage auch Evidenz für eine Nullhypothese zu generieren. Typischerweise unterscheidet man zwei Bayes-Faktoren, $BF_{10}$ und $BF_{01}$.
+
+$$BF_{10} = \frac{P(vorl.\;Daten|H_1)}{P(vorl.\;Daten|H_0)}\;\;\;\;\;\;\;\;\;BF_{01} = \frac{P(vorl.\;Daten|H_0)}{P(vorl.\;Daten|H_1)}$$
+
+Gilt $BF_{10}=1$ oder $BF_{01}=1$ muss $P(vorl.\;Daten|H_1)=P(vorl.\;Daten|H_0)$ gelten. Damit bieten die Daten keine relative Evidenz für $H_0$ oder $H_1$ womit der Test inkonklusiv ausfällt. Gilt bspw. $BF_{10}$ = 10.3 ist $P(vorl.\;Daten|H_1)$ 10.3-fach wahrscheinlicher als $P(vorl.\;Daten|H_0)$. Damit liegt relative Evidenz für $H_1$ vor.
+
+
+## {background-iframe="https://shinylive.io/r/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKegZzvoEoAOhF7M27LgAtaEVoOENRHUrQAmrAG5xGXOHJEsOk6awBWXOUICutAAQAeALQ3UUAOZwA+gDNq1leyEbG1IJOHgbAF4bbg8QsLgAiCCbATB6VwcVFgBrVMiUsABiAA4CFQAGStTcQOTCmwBhElJGImouYNCbKAICClIbdjgMVwxcGwlWVC06CGzx+ktSUhJxuFICPhtiaiJtWqDURloYA3zUkrLK8uqDmx1iCCy2c6LSiqq8O9TpVCWHeh7FRaBw7PZ5KIXd7XVK1Pg1JJBAgsfzIxgqDyAtTsAjUKBcDqQtIZZ65PATAAsATAADVaFxLFA6FxaFpLBBXIgbAAhKCsOAdABiUGyK0YqT4koRQTxrCISw8O0sMAgHgA7sxUIlktsUTiUR5QlBgYwcXiCa90pkctUCgAFdmiyaoIhxHQQCXSnU6tEYrEcO7eoI8VRaACSED+pG1QdjBTipCgAEZbakABJTV2hHQ2JNcgCCZDgtGoNjtrRsAHEAJy3RFx70waT5cpehs604AD3ySbb7aC6iZljg+QwFL7-a45FQo5T9bj8MDQZDJojUZj-aCqQTUAATKmwBmXW6R7uC0WS2WKzW65vkk2klFW0uG12exP24PfCOohgAGwfg2U5wDOv5zv2kqLvOvr6uihpwMaWhmvihIFFapIHgAIlA5AemAUENr6mJENiL7ehAypaLQBBrksG79qkRxEK4tZfPO7apBAgCBBPk3JwF4AA-jBqnspDsq4VasYBsYPi20lBl+w49s+7FAdOPYEe2FHwMcNGRnRZHeoxrSuMUt6bpxgBBBLx-FCSJjBiRyVZmWxd6yU+8k6opP42AArJ5yTAaBuZyA2kHjLUMFEUaJrUgAMrQ2RwHQEhECRHTsioPJ8gKNjCgQYq2riKGWiSNr4YBRH+uIUgyAQBK7Ih2iIIgaq0CEADKqDSBASGoLspAAPJLOujEDZ62xtHsryXB8Nz4UIkqLUIK0QDojCaIw9hOF47IFbQJDsL8SzjPKpBRuMOgEgdEBbCAtTfBA9RJI4NgAMzlDY9QAHLsHI9RENw202Lun3HaQAAkTEsUI9Q7kmwMYL5X02ODEPw7DnTrHuiMAOwo2jO77k9Nhqkl7UI69BCpUQOjsBAp3cHwABU8MAHqA1wzPsEmDjw3wbP0w4nNbPUZPFqQSZ-Zj4vtbuwPU2ldMMzYIus6Eia7hz3Dc7zRMC0LIso7LpC7tLHpPYU9QEJYU5EDANiMAh+2aDY3kdFbnte97Pu+37-v+0I33A07PTKJo7AgGj0PFDYADUqP6ZD0PVgAvhYEAm5TTh3KHLsJCAiu0wkv3wikql3kE0cmdWLOExryZs9XzHVszhkNjzDj19jSYG6XXdJ1DNd8Onq0m-Lr25874cF0XdOlxFFeV83LF14PRNN4PKdt0v7ad93mt939A9RkPLcjxnnvbKH5A2FkiZfQHT-Py-r+e0I99QCH0+0BH93zk7MSjAID0R1Iweg0h-DKHoPQagCRsg9kQAvdu-ZgpzxLn9cY2Q16n3ZtkXWJ8ljowbr3QW-dsGL0rrGHc+R8QYGpiwMOSED7JilCg5I0DYHwMQcg3em40E03npgmw2DmYsK1vg-e68G67iPnwBwFCtx8P7DQqIdCGHMAKsw6R2NZGShsAAUgAHwGPLpXGASwcIJE5h4OAABHDwCCohOKiKXLYxjTHsKCPiWIDAuHmx1HIUeFsr79VdI-N+kSonRPfhAM6p8wkDFek7J4Wg7QDUjqtGwrhXCJL+vHO49RjRZTVKlOB0RpD21oEyO+9IWgMCWDdDobUQjdGoKgCQUA7juHth4HQrh4BkHYJ-fIn98keLMVQ9sXgSzkFNKoqILDe6UKmVAAU7BuzOJsE4DAvYbCdgoFlLZDhdnjFYHJGw-Inj5FQGXLxPoppbSJLNa4f55pbDjt0uAvT+mDOjCMqIYz3EmMmVM5IMzqBzPYAsxOuCZF3OUUGNZXANn5AQQnU5+zDlovjpi85HlLnYqiLclZVCwRPIKIUegBAkz0GrFAXy7yCnziKSoLKOg4FaKyhAuJTYakqDqccRYygSDNPaqlJYbSOldPnD0mAfS4ADP6MMnCX9AWqvGSC+5sYIVQphUsmwAAyERkRFlb2HqSyuyLUXHJsJig51zjl4ouVco5zhxjkpmtCT4+jPmyu+fK35yqAV3w1cCzxiKGy6qQvqnRmsjUmoiGahJFrQVWvWZsk1GK9kOrdei51BLXU3I9Y8ma1LaX0olB8u4cR4AeAfCcJk+S-U6jlbEOAnZ-mqvyJwuBNrYVEJTmc-IJzKj+TTWC6hHaBjEvxOQak3JBSRFTJGyd0y9inFIA0dgWc-oAHpx7CO1WuqhXgN04VeHAFdJ6b1xgFa4dqqE9GaU3NazsZzxh4noMlHt07fV3E7F+6khYABeUAJDUAlPHS5QHUgAHVwPaGpsWeQ1NyakCgy25IOTlCkD7akPiTtqYUScsCDovJ+RcAcMKUUewuAHm-bYB0cwQiZhPHhat84uDIjgYqR5HhQxkHahwaA4QiQJSSilNKKhzK3uiKHbIqECDUheZ8CKRRy10q6RVY9DYv3JSU9SI8GBcwHiPCDDAnpdNxlcH4HyqQ4HuCeBKIQwTYZWzvnARYEkYm+b8wHIQ8SiHAm89-VJjByzSGjP-UNiZzZuYgKnVaRgZD5nQOwaw+RrCXS0JtfI61Np8DAKnAAukAA"}
+<!--
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+library(bslib)
+library(shiny)
+library(tidyverse)
+library(shinyjs)
+
+ui <- page_fluid(
+  theme = bs_theme(
+   "bg-dark" = "#8cd000",
+    # Controls the accent (e.g., hyperlink, button, etc) colors
+    primary = "#8cd000",
+    secondary = "#8cd000",
+    "input-border-color" = "#8cd000"
+  ),
+   card(card_body(class = "bg-dark", h4("Visualisierung: Bayes Faktor"))),
+  layout_column_wrap(
+    card(card_header(class = "bg-dark", "Punkthypothesen"),
+         card_body(
+           sliderInput(
+               "theta1", "Hypothese 1: Anteil Pro G9",
+               min = 0,
+               max = 1,
+               value = .4,
+               step = .1
+           ),
+           sliderInput(
+               "theta2", "Hypothese 2: Anteil Pro G9",
+               min = 0,
+               max = 1,
+               value = .6,
+               step = .1
+           ))),
+    card(card_header(class = "bg-dark", "Daten"),
+         card_body(
+            numericInput(
+              "prog9",
+              "n₁ = Befürwortung G9",
+              min = 0,
+              value = 10,
+              step = 1),
+           numericInput(
+             "prog8",
+             "n₂ = Befürwortung G8",
+             min = 0,
+             value = 5,
+             step = 1)
+         ))), 
+  card(card_header("Likelihoods und Bayes Factor", class = "bg-dark"),
+       card_body(shinycssloaders::withSpinner(plotOutput("plot"), color = "#8cd000")
+))
+)
+
+
+server <- function(input, output, session) {
+  
+    
+# n <- 30 # N()
+# obs <- 20 input$prog9
+# theta1 <- .5 # input$theta1
+# theta2 <- .7 # input$theta2
+# wkeit1 <- choose(n, obs)*theta1^obs*(1-theta1)^(n-obs) # wkeit1()
+# wkeit2 <- choose(n, obs)*theta2^obs*(1-theta2)^(n-obs) # wkeit2()
+
+### custom reactive values #####################################################
+N <- reactive({input$prog8 + input$prog9})
+
+wkeit1 <- 
+    reactive({choose(N(), 
+                     input$prog9)*input$theta1^input$prog9*
+                  (1-input$theta1)^(N()-input$prog9)})
+
+wkeit2 <- 
+    reactive({choose(N(), 
+                     input$prog9)*input$theta2^input$prog9*
+                  (1-input$theta2)^(N()-input$prog9)})
+
+### create data ################################################################
+data <- reactive({
+    return(
+        rbind(tibble(k = 1:N(),
+                     p = choose(N(), k)*input$theta1^k*(1-input$theta1)^(N()-k), 
+                     theta = as.character(input$theta1)),
+              tibble(k = 1:N(),
+                     p = choose(N(), k)*input$theta2^k*(1-input$theta2)^(N()-k),  
+                     theta = as.character(input$theta2))) %>% 
+              mutate(obs_eq_k = k == N()) %>% 
+              as_tibble()
+    )
+})
+
+### plot #######################################################################
+output$plot <- renderPlot({
+
+ ggplot() +
+    # add whole binomial distributions with alpha
+    geom_segment(data = data() %>% 
+                          filter(theta == input$theta1), 
+                 aes(x = k - .1, xend = k -.1, y = 0, yend = p), 
+                 color = "#8cd00060") +
+    geom_segment(data = data() %>% 
+                     filter(theta == input$theta2), 
+                 aes(x = k + .1, xend = k +.1, y = 0, yend = p), 
+                 color = "#bc1b9a50") +
+    # add selected binomial distributions without alpha
+    geom_segment(data = data() %>% 
+                     filter(theta == input$theta1 & k == input$prog9), 
+                 aes(x = k - .1, xend = k -.1, y = 0, yend = p, color = "#8cd000")) +
+    geom_segment(data = data() %>% 
+                     filter(theta == input$theta2 & k == input$prog9), 
+                 aes(x = k + .1, xend = k +.1, y = 0, yend = p, color = "#bc1b9a")) +
+    theme_minimal() +
+    geom_text(data = tibble(x = input$prog9, y = -.005, 
+                            text = paste("BF =", 
+                                         formatC(wkeit1()/wkeit2(), 
+                                                 format = "e", 
+                                                 digits = 2))),
+              aes(x, y, label = text)) +
+    xlab("Anzahl") + ylab("Wahrscheinlichkeit") +
+    ggtitle("Berechnung des Bayes-Faktors", "bei Punkthypothesen") +
+    scale_color_identity(name = "Likelihood",
+                         breaks = c("#8cd000", "#bc1b9a"),
+                         labels = c("Hyp. 1", "Hyp 2."),
+                         guide = "legend")
+})
+
+### debug ######################################################################
+output$debug <- renderPrint({
+ data()
+})
+
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+-->
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 6.4** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+
+## Testung mit Bayes-Faktor: Beispiel 1 {.smaller .center}
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa question-circle >}} Forschungsfrage & -design
+Forschende fragen sich inwiefern die Visualisierung von Magnetfeldern mithilfe von Augmented Reality das konzeptuelle Verständnis der Schülerinnen und Schüler fördern kann. Sie führen ein randomisiert kontrolliertes Experiment durch, indem ein Gruppe mit und eine Gruppe ohne Augmented Reality arbeitet. Anschließend wird in beiden Gruppen das konzeptuelle Verständnis mit einem Test erfasst.
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa chart-column >}} Ergebnis
+Ein Vergleich der beiden Gruppen im Posttest ergibt ein Cliff's $d = .31$ zugunsten der Gruppe mit Augmented Reality mit einem $BF_{01} = .01 = \frac{1}{10}$ für die Nullhypothese $H_0:\; d = 0$ und die Alternativhypothese $H_A:\; d > 0$
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa lightbulb >}} Interpretation
+In den Daten liegt ein Effekt substantieller Größe vor. Da die Daten unter Annahme der Alternativhypothese 10 mal wahrscheinlicher sind, als unter der Annahme der Nullhypothese liegt auch starke inferenzstatistische Evidenz für die Existenz des Effektes in der Population vor. 
+:::
+
+
+
+## Testung mit Bayes-Faktor: Beispiel 2 {.smaller}
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa question-circle >}} Forschungsfrage & -design
+Forschende versuchen den Lernstilmythos zu widerlegen. Dazu befragen Sie Probandinnen nach ihrem vermeintlichen Lernstil. Diese durchlaufen danach eine Unterrichtseinheit zum Thema Photosynthese entweder (randomisiert) gemäß dieses vermeintlichen Lernstils oder nicht gemäß diesem.
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa chart-column >}} Ergebnis
+Ein Vergleich der beiden Gruppen mit einem Posttest ergibt ein Cohen's $U_3 = .53$ mit einem $BF_{10}=.001 = \frac{1}{1000}$ für die Nullhypothese $H_0:\; U_3 = .5$ und die Alternativhypothese $H_A:\; U_3 > .5$.
+:::
+
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa lightbulb >}} Interpretation
+Da die Daten unter der Annahme von $H_0$ 1000 mal wahrscheinlich sind, als unter der Annahe von $H_A$ liegt sehr starke inferenzstatistische Evidenz für einen Nulleffekt vor.
+:::
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgaben 6.5 - 6.7** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+
+## Literatur
+
+<style>
+div.callout {border-left-color: #8cd000 !important;
+</style>

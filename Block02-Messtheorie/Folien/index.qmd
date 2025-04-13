@@ -1,0 +1,429 @@
+---
+title: "Grundbegriffe der Messtheorie"
+author: "Samuel Merk & Cora Parrisius"
+format: 
+  revealjs:
+    controls: true
+    slide-number: false
+    logo: img/PHlogo.svg
+    theme: [default, css/custom.scss]
+    chalkboard:
+      theme: whiteboard
+      boardmarker-width: 3
+      buttons: true
+      chalk-effect: 0
+    fullscreen: true
+    pdfexport: true
+bibliography: references.bib
+csl: apa.csl
+---
+
+## Inhalte dieses Vorlesungsblocks {.center}
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+
+## in terminal ########
+# quarto install extension quarto-ext/fontawesome
+# quarto install extension schochastics/academicons
+#
+
+########################
+library(fontawesome)
+library(tidyverse)
+set.seed(848265)
+
+# Change css to lecker PH green
+if(!dir.exists("img"))
+dir.create("img")
+if(!dir.exists("css"))
+dir.create("css")
+fileConn<-file("css/custom.scss")
+writeLines(c("/*-- scss:defaults --*/",
+             "$link-color: #8cd000 !default;",
+             ".imp {color: #8cd000;}",
+             ".em15 {font-size:1.5em;}",
+             ".c {text-align: right !important;}",
+             ".callout-title {background-color: #8cd000 !important;}"),
+           fileConn)
+close(fileConn)
+```
+
+. . .
+
+[{{< fa scale-unbalanced >}}]{.imp} Was ist eine Messung?
+
+. . .  
+
+[{{< fa ruler-combined >}}]{.imp} Typologien von Variablen  
+
+. . .
+
+[{{< fa medal >}}]{.imp} Gütekriterien einer Messung  
+
+. . .
+
+[{{< fa route >}}]{.imp} Erhebungsverfahren
+
+. . .
+
+[{{< fa thumbs-up >}}]{.imp } Dos and Don'ts bei der Fragebogenerstellung
+
+. . .
+
+[{{< fa brain >}}]{.imp } Übung & Anwendung
+
+## <!--Was ist eine Messung--> {.center}
+[{{< fa scale-unbalanced >}} Was ist eine Messung?]{.em15 .c .imp}
+
+## Messung als Homomorphismus {.smaller}
+::: {style="font-size:.8em;"}
+> Eine Messung („measurement“) meint in der quantitativen Sozialforschung eine [Zuordnung von Objekten zu Zahlen]{.imp}, sofern diese Zuordnung eine [homomorphe (strukturerhaltende) Abbildung]{.imp} eines empirischen Relativs in ein numerisches Relativ ist [@orth1983].
+:::
+
+::: {.r-stack}
+![](img/MessungLF-6.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-5.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-4.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-3.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-2.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF.png){.fragment width="60%" fig-align="center"}
+
+![](img/KMessungLF.png){.fragment width="60%" fig-align="center"}
+:::
+
+## Messung als Homomorphismus {.smaller .center}
+
+::: {.r-stack}
+
+![](img/MessungGE-7.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungGE-6.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungGE-5.png){.fragment width="60%" fig-align="center"}
+
+![](img/KMessungGE.png){.fragment width="60%" fig-align="center"}
+:::
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa book-open >}} Weiterführende Literatur
+Eid, M., Gollwitzer, M., & Schmitt, M. (2013). Statistik und Forschungsmethoden: Lehrbuch. Mit Online-Materialien. Beltz.
+Steyer, R., & Eid, M. (2013). Messen und Testen. Springer-Verlag.
+:::
+
+## Aufgabe
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 2.1** unter [https://ogy.de/mvl-messtheorie](https://ogy.de/mvl-messtheorie)
+
+
+## <!--Typologien von Variablen--> {.center}
+[{{< fa ruler-combined >}} Typologien von Variablen]{.em15 .c .imp}
+
+## Typologie I: Skalenniveaus {.smaller .center auto-animate="true"}
+> Das Skalenniveau einer Variable beschreibt, welche Relationen im numerischen Relativ sinnvoll sind [@doering2016].  
+
+<br>
+```{r}
+tibble(Skalenniveau = c("Nominalskala", "Ordinalskala", "Intervallskala"),
+         `Sinnvolle Relationen` = c("Gleichheit", "Gleichheit + Ordnung", 
+                                    "Gleichheit + Ordnung + Abstand"),
+         `Beispiel` = c("Lieblingsfach", "Grundschulempfehlung", 
+                        "tägl. Internetnutzung")) |> 
+  knitr::kable()
+```
+
+## Aufgabe
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 2.2** unter [https://ogy.de/mvl-messtheorie](https://ogy.de/mvl-messtheorie)
+
+## Typologie II: Inferenzniveau {.smaller .center}
+> Das Inferenzniveau einer Variable beschreibt, in welchem Ausmaß bei einer Messung geschlussfolgert/abstrahiert wird [@lotz2013a].
+
+<br>
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Niedriginferente Variablen
+* Sind mehr oder weniger direkt beobachtbar
+* Werden durch "Kodierungen" generiert
+* _Beispiel: "Anzahl der Fehltage einer Schülerin"_
+:::
+
+::: {.column width='50%'}
+#### Hochinferente Variablen
+* Sind nicht direkt beobachtbar
+* Werden durch "Ratings" generiert
+* _Beispiel: "Kognitive Aktivierung"_
+:::
+
+::::
+
+## Aufgabe
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 2.3** unter [https://ogy.de/mvl-messtheorie](https://ogy.de/mvl-messtheorie)
+
+
+## [Typologie  III: Theo. Kausalzusammenhang]{style="font-size:0.9em"} {.smaller}
+::: {.fragment fragment-index=4}
+> [Als [abhängige Variable (AV)]{.imp} wird eine (kausal) beeinflusste Variable bezeichnet, während die [unabhängige Variable (UV)]{.imp} die beeinflussende Variable darstellt. Eine [Mediatorvariable (MeV)]{.imp} ist zugleich AV und UV. Beeinflusst eine Variable eine Wirkung bezeichent man sie als [moderierende Variable (MoV)]{.imp} [@eid2013].]{style="font-size:.8em; line-height:1px !important;"}
+:::
+
+::: {.r-stack}
+![](img/Kausalzusammenhang-3.png){.fragment fragment-index=1 width="80%" fig-align="center"}
+
+![](img/Kausalzusammenhang-2.png){.fragment fragment-index=2 width="80%" fig-align="center"}
+
+![](img/Kausalzusammenhang.png){.fragment fragment-index=3 width="80%" fig-align="center"}
+:::
+
+::: {.fragment fragment-index=5}
+::: {.callout-tip icon=false collapse="false"}
+## {{< fa book-open >}} Weiterführende Literatur
+Pearl, J., Glymour, M., & Jewell, N. P. (2016). Causal inference in statistics: A primer. Wiley.
+:::
+:::
+
+
+## Aufgabe
+> Bearbeiten Sie mehrere Versionen der **Aufgaben 2.4 & 2.5** unter [https://ogy.de/mvl-messtheorie](https://ogy.de/mvl-messtheorie)
+
+
+## <!--Gütekriterien einer Messung--> {.center}
+[{{< fa medal >}} Gütekriterien einer Messung]{.em15 .c .imp}
+
+## Objektivität {.smaller .center}
+> Zur Beschreibung der Objektivität einer Messung oder eines Tests wird typischerweise zwischen der [Durchführungsobjektivität]{.imp}, der [Auswertungsobjektivität]{.imp} und der [Interpretationsobjektivität]{.imp} differenziert [@doering2016], also der Unabhängigkeit des Ergebnisses der Messung/des Test von der durchführenden, auswertenden bzw. interpretierenden Person.
+
+<br>
+
+::: {.r-stack}
+![](img/Objektivität-3.png){.fragment fragment-index=1 width="110%" fig-align="center"}
+
+![](img/Objektivität-2.png){.fragment fragment-index=2 width="110%" fig-align="center"}
+
+![](img/Objektivität.png){.fragment fragment-index=3 width="110%" fig-align="center"}
+:::
+
+
+## Reliabilität {.center .smaller}
+> Reliabilität ist Ausmaß an Messfehlerfreiheit
+
+<br>
+
+::: {.r-stack}
+![](img/Reliabilitaet-2.png){.fragment fragment-index=1 width="120%" fig-align="center"}
+
+![](img/Reliabilitaet.png){.fragment fragment-index=2 width="120%" fig-align="center"}
+:::
+
+## Validität {.center .smaller}
+::: {.fragment}
+####  Kriteriumsvalidität
+"Ein Test weist Kriteriumsvalidität auf, wenn vom Verhalten der Testperson innerhalb der Testsituation erfolgreich auf ein »Kriterium«, nämlich auf ein Verhalten außerhalb der Testsituation, geschlossen werden kann" [@moosbrugger2020].  
+:::
+
+## Validität {.center .smaller}
+::: {.fragment fragment-index=1}
+####  Konstruktvalidität
+Das Ausmaß der theoretischen und empirischen Belege für die Angemessenheit der Interpretation von Testwerten [@cronbach1955].
+:::
+<br>  
+
+::: {.r-stack}
+![](img/Konstruktval-2.png){.fragment fragment-index=2 width="100%" fig-align="center"}
+
+![](img/Konstruktval.png){.fragment fragment-index=3 width="100%" fig-align="center"}
+:::
+
+## Aufgabe
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 2.6** unter [https://ogy.de/mvl-messtheorie](https://ogy.de/mvl-messtheorie)
+
+
+## <!--(Einige) Erhebungsverfahren--> {.center}
+[{{< fa route >}} Erhebungsverfahren]{.em15 .c .imp}
+
+## Beobachtung {.smaller .center}
+Wissenschaftliche Beobachtung ist die systematische und [regelgeleitete Registrierung des Auftretens]{.imp} und der Ausprägung von ausgewählten, psychologisch relevanten Merkmalen oder Ereignissen. Sie folgt einem zuvor festgelegten Beobachtungsplan, der festlegt, [1)]{.imp} was beobachtet werden soll, [2)]{.imp} welche Aspekte weniger oder nicht relevant sind, [3)]{.imp} welchen Interpretationsspielraum der Beobachtende bei der Beobachtung hat , [4)]{.imp} wann, wie lange und wo die Beobachtung erfolgt und [5)]{.imp} auf welche Weise das Beobachtete registriert und protokolliert wird [@hussy2013]. 
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Potentielle Vermeidung von Reaktanz
+* Teilw. höhere Reliabilität
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Oft nicht ökonomisch
+* Kognitive und psychische Variablen oft nur schwierig zugänglich
+:::
+
+::::
+
+
+## Selbstauskünfte {.smaller .center}
+Interview, Fragebögen und Tests stellen Beispiele für Selbstauskünfte dar.
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Kognitive und psychische Variablen zugänglich
+* Teilweise sehr ökonomisch
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Reaktanz oft höher
+* Entwicklung von Fragebögen und Tests oft sehr aufwändig
+:::
+
+::::
+
+
+## Physiologische Messung {.smaller .center}
+Beispiele für physiologische Messungen im bildungswissenschaftlichen Bereich stellen die Messung der Hautleitfähigkeit und der Blickbewegungen dar.
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Teilweise nur schwer verfälschbar
+* Unbewusste Prozesse werden zugänglich
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Meist nicht verdeckt durchführbar
+* Oft Laborbedingungen erforderlich
+:::
+
+::::
+
+
+## Dokumentenanalyse {.smaller .center}
+Bei der Dokumentenanalyse werden bereits existierende schriftliche Artefakte untersucht (z.B. Schriftliche Leitbilder, Klassentagebücher, Schriftwechsel, Homepages). Diese können sowohl in hoch- wie niedrig strukturierten Prozessen gesammelt, transformiert und analysiert werden (qualitative und quantitative Dokumentenanalyse). 
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Keine Genese von Daten notwendig
+* Teilweise sehr ökonomisch
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Beschränkte Auswahl an Variablen 
+* Artefakte müssen präexistieren
+:::
+
+::::
+
+
+
+
+## <!--Dos and Don'ts bei der Fragebogenerstellung--> {.center}
+[{{< fa thumbs-up >}} Dos and Don'ts bei der Fragebogenerstellung]{.em15 .c .imp}
+
+## Fragebogendesign: Begriffe {.smaller .center}
+::: {.incremental}
+* Item = Einzelfrage
+* Skala = Mehrere Items, die Operationalisierungen einer Variablen darstellen
+* Rating-Item = Item, das intervallskaliert ist
+* Likert-Item = Item, deren Stamm eine Aussage darstellt und deren Antwortmöglichkeit die abgestufte Zustimmung zu dieser Aussage enthält
+* Offenes Item = Item, bei dem die Antwortmöglichkeiten nicht vorgegeben sind
+* Mittelkategorie = Antwortmöglichkeit, die äquidistant zu den beiden Polen ist
+* Unipolares Item = Item, das geringe bis starke Ausprägungen eines einzigen Merkmals umfasst (z.B. »nie« bis »immer«)
+* Bipolares Item = Item, das von einem Pol über eine neutrale Kategorie bis zu einem anderen Pol formuliert ist (z.B. »lehne ab« über »neutral« bis »stimme zu«). 
+:::
+
+## Fragebogendesign: Faustregeln {.smaller .center}
+::: {.incremental}
+* Verwenden Sie nach Möglichkeit unbedingt etablierte (also von Wissenschaftler\*innen validierte) Items und Skalen. Dies wird umso wichtiger je höherinferent Ihre Variable ist.
+* Formulieren Sie Items so, dass Sie ein möglichst hohes Skalenniveau erhalten (statt »Rauchen Sie?«, »Wie viele Zigaretten rauchen Sie durchschnittlich pro Tag?«)
+* Vermeiden Sie mehrdimensionale Interpretationsmöglichkeiten (typisch bei und/oder Verknüpfungen z.B. »Ich fahre sehr gerne und sehr schnell Auto«)
+* Vermeiden Sie (doppelte) Verneinungen (z.B. »Ich bin nicht oft unglücklich«)
+* Implementieren Sie Qualitätschecks (z.B. sog. Items mit sicherer Antwort im gleichen Antwortformat wie die vorherigen Items »Ich bin noch nie im Leben zu spät gekommen«)
+* Planen Sie für jedes Item eine Auswertungsstrategie **bevor** Sie die Daten erheben. 
+:::
+
+## Übung
+Bearbeiten Sie die folgenden Impulsfragen mit Ihrer Sitznachbarin bzw. Ihrem Sitznachbarn:
+
+* Worin unterscheiden sich Konstruktvalidität und interne Validität?
+* Ist ein Instrument, das hochgradig konstruktvalide ist, immer auch hochgradig reliabel?
+* Sie wollen in Ihrer Bachelorarbeit den Effekt eines AI-basierten Lautlesetutors untersuchen. Wie gehen Sie vor, um ein Instrument zur Messung der Leseflüssigkeit und Lesekorrektheit zu finden?
+
+## Bezugsnormen in der Praxis {.smaller}
+Neben der **Messung** schulischer Fähigkeiten stellt die **Bewertung** selbiger eine zentrale Herausforderung für LuL dar [@bohl2004]. Grundsätzlich wird dabei zwischen **formativem** und **summativem** Assessment unterschieden. Bei ersterem dient die Leistungsmessung der Ermittlung des Unterschieds zwischen Lernstand und Lernziel und der dadurch notwendigen nächsten Lernschritte [@schuetze2018].  
+Bei der summativen Leistungsbewertung wird typischerweise zwischen drei Bezugsnormen unterschieden:  
+![](img/Abbildung 1.png){width="30%" fig-align="center"}
+
+## Bezugsnormen {.smaller}
+Unter Bezugsnormen versteht man den ‚Standard‘, der zur Bewertung einer Leistung herangezogen wird [@heckhausen1974].  
+
+* Die **‚soziale Bezugsnorm‘** liegt vor, wenn das zu bewertende Ergebnis mit den Ergebnissen einer Vergleichsgruppe, die denselben Test durchlaufen hat, abgeglichen wird.  
+* Die **‚kriteriale Bezugnorm‘** (auch ‚sachliche Bezugnorm‘; Rheinberg & Fries, @rheinberg2010a) legt a priori inhaltlich fest, was eine ‚gute‘ Leistung auszeichnet.  
+* Die **‚individuelle Bezugsnorm‘** (auch ‚temporale‘, ‚intraindividuelle‘ oder ‚ipsative Bezugsnorm‘) vergleicht (wie die soziale Bezugsnorm) zur Bewertung einer Leistung diese ebenfalls mit anderen realen (empirisch gemessenen) Leistungen. Allerdings stammen jene Leistungen vom selben Merkmalsträger (Individuum).
+
+## Bezugsnormen
+* Die Notenvergabeverordnung Baden-Württemberg impliziert klar die Anwendung der kriterialen Bezugsnorm unter Berücksichtigung der individuellen Bezugsnorm in speziellen Fällen (z.B. Probeversetzung).
+* Die Anwendung der individuellen Bezugsnorm gilt jedoch klar als stärker motivations- und lernförderlich [@rheinberg2010a]
+* Lehrerinnen und Lehrer wenden in der Praxis wohl meist implizit eine Mischung von Bezugsnormen an. Dies senkt die Konstruktvalidität der Leistungsmessung
+
+## Aufgabe
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 2.7** unter [https://ogy.de/mvl-messtheorie](https://ogy.de/mvl-messtheorie)
+
+<!--
+## Leistungsmessung in der Bildungsforschung {.smaller}
+In der Bildungsforschung werden statistische Modelle zur Konstruktion von Leistungsmessungsinstrumenten herangezogen. Das am weitesten verbreitetste Modell ist die sogenannte Item-Response-Theorie [@kelava2020]. Diese postuliert unter anderem, dass die Wahrscheinlichkeit, dass eine Schüler:in $p$ eine Testfrage $i$ richtig beantwortet $P(X_{pi} = 1)$ lediglich von der Schwierigkeit der Frage $\beta_i$ und der Ausprägung der Leistung der Schüler:in $\theta$ abhängt, wobei diese Größen wie folgt in Beziehung stehen.
+$$
+P\left(X_{p i}=1\right)=\frac{e^{\theta_p-\beta_i}}{1+e^{\theta_p-\beta_i}}
+$$
+
+## Leistungsm. in der Bildungsforsch. {.smaller}
+Zur Erstellung von Tests, die diesem Modell folgen, wird ein großer Pool aus curricular validen Aufgaben erstellt, der dann an einer Eichstichprobe verankert wird. Nach Aussortieren nicht modellkonformer Aufgaben werden die Aufgabenschwierigkeitsparameter bestimmt. Eine Post-Hoc-Analyse der Aufgabenschwierigkeiten führt dann zur Festlegung von Kompetenzstufen:
+![](img/Abbildung 2.png){width="32%"} 
+
+Lehrkräfte kommen bei der Durchführung von Vergleichsarbeiten, Lernstandserhebungen und diagnosegeleiteter Förderung (siehe nächste Folie) mit der Item-Response-Theorie in Berührung.
+
+## Diagnosegeleitete Förderung {.smaller}
+Sog. diagnosegeleitete Förderung oder Lernverlaufsdiagnostik vereint die Vorteile von wiss. Leistungsmessung (Obj., Rel., Konstruktval.) mit den Vorteilen formativen Assessments [@souvignier2014].  
+Befunde aus der Leseförderungsforschung implizieren etwa klar die Notwendigkeit der gestuften Förderung von Leserichtigkeit, Leseflüssigkeit und Textverständnis. Proprietäre und lizenzoffene Diagnoseplattformen wie [www.quop.de](www.quop.de) oder [www.levumi.de](www.levumi.de) erlauben Lehrkräften die konstruktvalide Erfassung von Lernständen bzgl. spezifischer Kompetenzen und bieten passgenaues, differenziertes Fördermaterial an [@blumenthalstefan2022].
+
+Hier hätte der Samuel gerne noch 1-2 Studien um deren interne Validität zu besprechen 
+z.B. 
+
+Collins, M., & Lundstedt, J. (2024). The effects of more informative grading on student outcomes. Journal of Economic Behavior & Organization, 218, 514–549. https://doi.org/10.1016/j.jebo.2023.12.001
+
+
+-->
+
+
+## Literatur
+<style>
+div.callout {border-left-color: #8cd000 !important;
+</style>
+

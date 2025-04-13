@@ -1,0 +1,579 @@
+---
+title: "Beschreibung von Verteilungen"
+author: "Samuel Merk & Cora Parrisius"
+format: 
+  revealjs:
+    html-math-method: mathjax
+    include-in-header:
+      - text: |
+          <script src="//cdn.wordart.com/wordart.min.js" async defer></script>
+    auto-stretch: false
+    controls: true
+    slide-number: false
+    logo: img/PHlogo.svg
+    theme: [default, css/custom.scss]
+    chalkboard:
+      theme: whiteboard
+      boardmarker-width: 3
+      buttons: true
+      chalk-effect: 0
+    fullscreen: true
+    pdfexport: true
+filters:
+  - shinylive
+bibliography: references.bib
+csl: apa.csl
+---
+<head>
+<script src="//cdn.wordart.com/wordart.min.js" async defer></script>
+</head>
+
+
+## Inhalte dieses Vorlesungsblocks{.center}
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+
+## in terminal ########
+# quarto install extension quarto-ext/fontawesome
+# quarto install extension schochastics/academicons
+#
+
+########################
+library(fontawesome)
+library(tidyverse)
+set.seed(848265)
+
+# Change css to lecker PH green
+if(!dir.exists("img"))
+dir.create("img")
+if(!dir.exists("css"))
+dir.create("css")
+fileConn<-file("css/custom.scss")
+writeLines(c("/*-- scss:defaults --*/",
+             "$link-color: #8cd000 !default;",
+             ".imp {color: #8cd000;}",
+             ".em15 {font-size:1.5em;}",
+             ".c {text-align: right !important;}",
+             ".callout-title {background-color: #8cd000 !important;}",
+             "#vcenter {vertical-align: middle;}"),
+           fileConn)
+close(fileConn)
+```
+
+. . .
+
+[{{< fa chart-column >}}]{.imp} Empirische Häufigkeitsverteilungen
+
+. . .  
+
+[{{< fa crosshairs >}}]{.imp} Maße der zentralen Tendenz (Arithm. Mittel, Median, Modus)  
+
+. . .
+
+[{{< fa arrows-alt-h >}}]{.imp} Maße der Streuung (MAD, Var, SD)
+
+. . .
+
+[{{< fa chart-area >}}]{.imp } Vielgipflichkeit (Modalität)
+
+. . .
+
+[{{< fa balance-scale-left >}}]{.imp } Schiefe (Skewness)
+
+. . .
+
+[{{< fa pencil >}}]{.imp } Einige grafische Darstellungen
+
+
+
+## <!--Empirische Häufigkeitsverteilungen--> {.center}
+[{{< fa chart-column >}} Empirische Häufigkeitsverteilungen]{.em15 .c .imp}
+
+## Beispiel zum Einstieg {.smaller .center}
+> @keppens2019 haben bei $N=4344$ Schülerinnen und Schülern den unautorisierten Absentismus erfasst.
+Was denken Sie: Welche Abbildung stellt die Ergebnisse korrekt dar? 
+
+<br>
+
+. . .
+
+
+
+```{r}
+#| label: absenceplot
+#| fig-width: 12
+#| fig-height: 4
+#| out-width: 80%
+#| echo: false
+#| fig-format: svg
+#| fig-align: center
+#| cache: true
+
+library(tidyverse)
+library(PearsonDS)
+library(hrbrthemes)
+library(patchwork)
+set.seed(2505)
+
+trunc_to_0_20 <- function(x){ifelse(x <= 20 & x >= 0, x, sample(0:21,1))}
+
+data_absence <- 
+  tibble(`A` = trunc_to_0_20(sample(0:21, 
+                       4344, 
+                       replace = T, 
+                       prob = c(61.9, 14.8,7.6,3.9,2.4,1.9,1.3,1.3,0.8,0.6,
+                                1.7/6,1.7/6,1.7/6,1.7/6,1.7/6,1.7/6,
+                                0.9/6,0.9/6,0.9/6,0.9/6,0.9/6,0.9/6))),
+         `B` = round(trunc_to_0_20(abs(rnorm(4344, 2.221685,  7.781657))), 0),
+         `C` = round(trunc_to_0_20(abs(1 + rpearson(4344, moments = c(2.221685,  3.781657, 0.1, 20)))), 0),
+         `D` = round(trunc_to_0_20(c(sample(`A`, 3800), rnorm(544, 15, 1))), 0))
+# PearsonDS::empMoments(data_absence$orig)
+absenceplot <- ggplot(data_absence%>%gather(var, val), aes(val)) + 
+  facet_wrap(~var, scales = "free_x", ncol = 4) + 
+  geom_histogram(fill = "#abfc04", color = "#abfc04", 
+                 binwidth = 1, center = 1) +
+  ggtitle("Verteilung der Fehltage", "Welche Grafik stellt die wahren Daten dar?") + 
+  ylab("Anzahl SuS") +
+  xlab("Anzahl Tage") +
+  theme(strip.text = element_text(color = "white")) +
+  theme_modern_rc()
+absenceplot
+```
+
+## Beispiel zum Einstieg {.smaller .center}
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+#| out-width: 65%
+#| fig-format: svg
+#| fig-align: center
+#| cache: true
+absenceplot
+```
+
+. . .
+
+:::: {.columns}
+
+::: {.column width='50%' #vcenter}
+<center>
+<div style="width: 300px; height: 300px;" data-wordart-src="//cdn.wordart.com/json/anwk22s6sz99"></div>
+</center>
+:::
+
+::: {.column width='50%' #vcenter}
+::: {.incremental}
+* zentrale Tendenz
+* Vielgipflichkeit (Modalität)
+* Streuung (Dispersion)
+* Schiefe (Skewness)
+
+:::
+:::
+
+::::
+
+
+## <!--Maße der zentralen Tendenz--> {.center}
+[{{< fa crosshairs >}} Maße der zentralen Tendenz]{.em15 .c .imp}
+
+## Zentrale Tendenz {.smaller}
+
+::: {style="font-size:0.8em;"}
+```{r}
+
+dummydata <- tibble(`Schüler*in` = c("S1","S2","S3","S4","S5"),
+                    `Fehltage` = c(13, 4, 14, 4, 10),
+                    `Selbsteinschätzung` = c("nie", "selten", "selten", "oft", "selten"),
+                    Geschlecht = c("m", "j", "m", "j", "j"))
+library(reactable)
+options(reactable.theme = reactableTheme(
+  color = "hsl(233, 9%, 87%)",
+  backgroundColor = "#a51e4100",
+  borderColor = "#ffffff",
+  stripedColor = "hsl(233, 12%, 22%)",
+  highlightColor = "hsl(233, 12%, 24%)",
+  inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)")
+))
+
+tinytable::tt(
+  dummydata
+)
+```
+:::
+<br>
+
+::: {style="font-size:0.8em;" .incremental}
+* Bei [intervallskalierten Variablen]{.imp} kann die zentrale Tendenz als "Durchschnitt" ([arithmetisches Mittel]{.imp}) angegeben werden (alle Datenpunkte aufsummieren und diese Summe durch die Anzahl der Datenpunkte teilen).
+* Bei [ordinalen Daten]{.imp} entspricht der [Median]{.imp} der zentralen Tendenz. Man erhält ihn, indem man alle Datenpunkte der Größe nach ordnet und dann den Wert in der Mitte nimmt. Ist die Anzahl der Datenpunkte eine gerade Zahl, entspricht der Median dem arithm. Mittel der beiden mittleren Werte.
+* Bei [nominalen Daten]{.imp} kann man den [Modus]{.imp} (Kategorie mit der häufigsten Ausprägung) als zentrale Tendenz auffassen.
+
+:::
+
+
+---
+## Zentrale Tendenz: Definitionen {.smaller .center}
+
+Wenn $X = \{x_1, x_2, ..., x_n\}$ eine empirische Variable (= Datenreihe darstellt) sind das [arithmetische Mittel $\bar x$]{.imp} und der [Median $\widetilde{x}$]{.imp} wie folgt definiert:
+$$\bar{x}=\frac{1}{n} \sum_{i=1}^{n} x_{i}$$
+
+. . .
+
+$$\widetilde{x}=
+   \begin{cases}
+   x_{m+1} &   \text{für ungerades }n = 2m + 1 \\ 
+   \frac{1}{2}(x_m + x_{m+1}) & \text{für gerades }n = 2m \\
+   \end{cases}$$
+
+## Aufgaben
+> Bearbeiten Sie mehrere Versionen der **Aufgaben 3.1 - 3.3** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+
+
+
+## <!--Maße der Streuung--> {.center}
+[{{< fa arrows-alt-h >}} Maße der Streuung]{.em15 .c .imp}
+
+## Mean Average Deviation {.smaller .center}
+$$Fehltage = 13, 4, 14, 4, 10$$
+
+::: {.r-stack}
+![](img/MAD-4.png){.fragment fragment-index=1 width="110%" fig-align="center"}
+
+![](img/MAD-3.png){.fragment fragment-index=2 width="110%" fig-align="center"}
+
+![](img/MAD-2.png){.fragment fragment-index=3 width="110%" fig-align="center"}
+:::
+
+. . .
+
+$$MeanAD(\text{Fehltage}) = \frac{4+5+5+5+1}{5} = 4$$
+
+## Varianz & Standardabweichung {.smaller}
+
+::: {.r-stack}
+![](img/var2.png){.fragment fragment-index=1 width="70%" fig-align="center"}
+
+![](img/var1.png){.fragment fragment-index=2 width="70%" fig-align="center"}
+
+![](img/var3.png){.fragment fragment-index=3 width="70%" fig-align="center"}
+:::
+
+. . .
+
+$$Varianz =s^2(\text{Fehltage}) = \frac{16+25+25+25+1}{4} = 23$$
+$$Standardabweichung = \sqrt{s^2} = \sqrt{23}$$
+
+## Streuungsmaße: Definitionen {.smaller .center}
+::: {style="font-size:.9em;"}
+Wenn $X = \{x_1, x_2, ..., x_n\}$ eine intervallskalierte empirische Variable darstellt, sind die _Mean Average Deviation_ $MeanAD$, die _Median Average Deviation_ $MedianAD$, die _Varianz_ $s^2$, die Standardabweichung $s$, die Quartile $Q_1$, $Q_2$, $Q_3$, sowie der Interquartilsbereich $IQR$ wie folgt definiert: 
+$$Range = [min(x_i);\;max(x_i)]$$
+$$MeanAD = \frac{1}{n} \sum_{i=1}^{n} \left(|\overline{x} - x_i |\right)  \;\;\;\;  MedianAD = \frac{1}{n} \sum_{i=1}^{n} \left(|\widetilde{x} - x_i |\right)$$
+$$s^2 = \frac{1}{n-1} \sum_{i=1}^{n} \left(\overline{x} - x_i \right)^2  \;\;\;\;  s = \sqrt{s^2} = \sqrt{ \frac{1}{n-1} \sum_{i=1}^{n} \left(\overline{x} - x_i \right)^2}$$
+$$\text{Quartil 1} = \text{Median aller } x_i ≤ \widetilde{x} \text{; } \text{Quartil 2} = \widetilde{x} \text{; } \text{Quartil 3} = \text{Median aller } x_i ≥ \widetilde{x} \text{; }$$
+$$IQR = \left[\text{Quartil 1}; \text{Quartil 3} \right] $$
+:::
+
+## Streuung ordinaler Variablen {.smaller .center}
+> Die Definitionen des Range, der Quartile und des IQR sind auch auf ordinale Variablen anwendbar, allerdings bei Variablen mit wenigen Ausprägungen nicht sehr informativ. In vielen Anwendungsfällen ist eine qualitative grafische Abschätzung sinnvoll.
+
+<br>
+
+![](img/VERA-3.png){.fragment fragment-index=1 width="70%" fig-align="center"}
+
+
+## Aufgaben
+> Bearbeiten Sie mehrere Versionen der **Aufgaben 3.4 - 3.5** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+
+
+## <!--Modalität--> {.center}
+[{{< fa chart-area >}} Modalität]{.em15 .c .imp}
+
+## Modalität{.smaller .center}
+> Mit Modalität wird die »Vielgipflichkeit« einer Verteilung bezeichnet. Die Modi entsprechen oftmals in den Daten enthaltenen Subgruppen [@eid2013].
+
+<br>
+
+![](img/Bimod.png){.fragment fragment-index=1 width="60%" fig-align="center"}
+
+
+
+## <!--Schiefe--> {.center}
+[{{< fa balance-scale-left >}} Schiefe]{.em15 .c .imp}
+
+## Schiefe {.smaller .center}
+> Die Verteilung einer (unimodalen) intervallskalierten Variable ist schief, wenn die Streuungen der oberen/unteren Hälfte unterschiedlich sind [@vonhippel2005].   
+
+![](img/Netto.png){.fragment width="75%" fig-align="center"}
+
+
+## <!--Einige grafische Darstellungen--> {.center}
+[{{< fa pencil >}} Einige grafische Darstellungen]{.em15 .c .imp}
+
+## Aufgaben
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 3.7** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+
+## Einige grafische Darstellungen {.center}
+<!--
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+library(shiny)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(Hmisc)
+library(bslib)
+ 
+ 
+ 
+ ui <- fluidPage(
+    theme = bs_theme(
+  #    heading_font = font_google("Source Sans Pro"),
+  #    base_font = font_google("Source Sans Pro"),
+      preset = "shiny",
+  #   bg = "#ffffff",
+  #   fg = "#000",
+     primary = "#8cd000"
+      ),
+    
+   titlePanel("Verteilungen visualisieren"),
+   
+   sidebarLayout(
+     
+     # Sidebar with a slider input
+     sidebarPanel(
+       sliderInput("sample_n", "Größe der Stichprobe", 1, 800, 164),
+       selectInput("Eigenschaft", "Streuung, Schiefe & Modalität:",
+                    choices = c("große Streuung" = "große Streuung",
+                                "kleine Streuung" = "kleine Streuung",
+                                "Bimodalität" = "Bimodalität",
+                                "Rechtsschiefe" = "Rechtsschiefe")),
+     selectInput(
+       "plottype",
+       "Art der Visualisierung",
+       c("Histogramm" = "Histogramm",
+         "Dotplot" = "Dotplot",
+         "Densityplot" = "Densityplot",
+         "Violinplot" = "Violinplot",
+         "Sinaplot" = "Sinaplot",
+         "Jitterplot" = "Jitterplot",
+         "Boxplot" = "Boxplot",
+         "Errorbarplot" = "Errorbarplot"))
+     ),
+
+     
+ mainPanel(
+     uiOutput("plotUI")
+ )
+ )
+)
+
+
+server <- function(input, output, session) {
+ # bs_themer()
+ # adapt data to input
+ data_subsetted <- reactive({
+   tibble(`kleine Streuung` = rbeta(input$sample_n, 30, 10)*15,
+          `große Streuung` = rbeta(input$sample_n, 9, 3)*15,
+          `Bimodalität` = c(rbeta(floor(input$sample_n/2), 38, 15)*15,
+                            rbeta(ceil(input$sample_n/2), 28, 35)*15),
+          `Rechtsschiefe` = rbeta(input$sample_n, 2, .5)*15) %>%
+     gather(Variable, Notenpunkte)%>%
+     mutate(dummy = 1) %>%
+     filter(Variable == input$Eigenschaft) %>%
+     sample_n(input$sample_n) %>%
+     mutate(Note = (Notenpunkte - 7.5) * (-6 / 15) + 4)
+ })
+ 
+ # adapt plot title to input
+ subtitle_reactive <- reactive({
+   if(input$Eigenschaft == "große Streuung")
+     sr <- "Verteilung mit vglw. großer Streuung"
+   if(input$Eigenschaft == "kleine Streuung")
+     sr <- "Verteilung mit vglw. kleiner Streuung"
+   if(input$Eigenschaft == "Bimodalität")
+     sr <- "Bimodale Verteilung"
+   if(input$Eigenschaft == "Rechtsschiefe")
+     sr <- "Rechtsschiefe Verteilung"
+   return(sr)
+ })
+ 
+ output$plot <- renderPlot({
+   
+   
+   if (input$plottype == "Dotplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note)) +
+       geom_dotplot(
+         method = "histodot",
+         binwidth = .1,
+         right = F, # intervalls cloed to the left
+         #dotsize = .5,
+         fill = "#8cd000",
+         color = "#8cd000"
+       ) +
+       theme_minimal(base_size = 18) +
+       labs(
+         title = "Dotplot",
+         subtitle = paste(subtitle_reactive()),
+         y = "Anzahl Schüler*innen"
+       ) +
+       xlim(.5, 6.5)
+   
+   if (input$plottype == "Histogramm")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note)) +
+       geom_histogram(
+         binwidth = .5,
+         fill = "#8cd000",
+         color = "#8cd000"
+       ) +
+       theme_minimal(base_size = 18) +
+       labs(
+         title = "Histogramm",
+         subtitle = paste(subtitle_reactive()),
+         y = "Anzahl Schüler*innen"
+       ) +
+       xlim(.5, 6.5)
+   
+   if (input$plottype == "Boxplot")
+     plot <-
+       ggplot(data_subsetted(), 
+              aes(y = Note, x = dummy)) + 
+       geom_boxplot(color = "#8cd000",
+                    fill = "#8cd00020") + 
+       coord_flip() +
+       labs(
+         title = "Boxplot",
+         subtitle = paste(subtitle_reactive()),
+         x = ""
+       ) +
+       ylim(1, 6) +
+       xlim(0, 2)+
+       theme_minimal(base_size = 18) +
+       theme(axis.text.y = element_blank())
+ 
+   if (input$plottype == "Jitterplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note, y = dummy)) + 
+       geom_jitter(color = "#8cd000") + 
+       labs(title = "Jitterplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Densityplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note)) + 
+       geom_density(color = "#8cd000",
+                    fill = "#8cd00020") + 
+       labs(title = "Densityplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       #ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Violinplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note, y = dummy)) + 
+       geom_violin(color = "#8cd000",
+                   fill = "#8cd00020") + 
+       labs(title = "Violinplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Sinaplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note, y = dummy)) + 
+       ggforce::geom_sina(color = "#8cd000") + 
+       labs(title = "Sinaplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Errorbarplot")
+     plot <-
+       ggplot(data_subsetted(), aes(y=Note, x = dummy)) + 
+       stat_summary(fun.data = mean_sdl, 
+                    geom = "linerange", 
+                    fun.args = list(mult = 1), 
+                    color = "#8cd000") + 
+       stat_summary(fun.y = mean, 
+                    geom = "point",
+                    color = "#8cd000",
+                    size = 3) + 
+       coord_flip() +
+       labs(title = "Errorbarplot",
+            subtitle = paste(subtitle_reactive()),
+            x = "") + 
+       ylim(1,6)+
+       theme_minimal(base_size = 18) +
+       theme(axis.text.y = element_blank())
+   
+   return(plot)
+ })
+ 
+ output$plotUI <- renderUI({
+   plotOutput("plot", 
+              height = case_when(input$plottype == "Dotplot" ~ "400px",
+                                 input$plottype == "Histogramm" ~ "400px",
+                                 input$plottype == "Boxplot" ~ "200px",
+                                 input$plottype == "Jitterplot" ~ "300px",
+                                 input$plottype == "Densityplot" ~ "400px",
+                                 input$plottype == "Violinplot" ~ "330px",
+                                 input$plottype == "Sinaplot" ~ "330px",
+                                 input$plottype == "Errorbarplot" ~ "200px")
+   )
+ })
+}
+
+shinyApp(ui = ui, server = server)
+```
+-->
+
+<iframe id="VerteilungenDarstellen" src="https://shinylive.io/r/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw4BzSampFSAJmGiGzNuwAms1o2Vi1HUrQ069qiewASMWpwJnx60tzgwoR+yP0X6nMcoACESCIEICAV1oAgB4AWgCAM2pIjQAFKEk4dmCA3OdXOACAXgDfAH18+GzQgIBiXNyXKA0+STKEklJixM6yySIiSWosoTAAZSJwxgJCsagITgDUxiJRgVwc+ob6KE44ds7ujrI+gaGR8cnp2fnF5dWwdZyGgNRGOD2uktGePlZRjY1LalSTdUa1BKQqEAzYNBKg75gWoABlRMJqDTetDcbDBSIAHAQNKjkaNng0nhjnpxjHAdowADJQViTUjVF5hF71Ma0+kBADutGcASgAT8tMYAT4qHCpHJYt5LHSEDg1HZHLFdA0cEYAEkIDK2T9YLJ9hAAUEwABxRgAN4A+4VtZKxh5uG8iPQ4BaAIy4AL41H+n0ANgALJSNWLVXACKR9YbsmAAKK0TILAjcKAJOV4S2u97hcIQST+saZ2hwBKFABkAQAskQNFA6KQACekRDoqM9jmZoi0GaLEoEJOSFaOgIFuBFkujPHjoiT6ezyTd3sbzeWgDWwz4s1IheLa7AeN3cH3U8PM+P663945owAQtimy2hR354iXzA363P3g8oPveoxYLG3CkJwdi8FW3qnoiYGZpB0GVtWayRi8ezDHGCayuqj5gLI8ikKwqBwYCUajAAgowXTOgEABqtjhO+NI6regEYi8o6jJYtikIMzAwDAX6WnxnACeOsAiZxvajAAIvIRG5niimkMpd4agpFA0iRGnwZa8k6UKpFyLmFE9qMTFEHQBpmaJVm0DZ0r2bJlnjHwaCuXiPLQPpFmUWAABSQrkIw+l4iFpBhf5QENM+RAAB4Rd+SWxVxBHJowKyMPSKWWllOV5a5AiBC8lLysEbh8Mqqr4bkkQAPKyomozKQAqrqazBIEyjKCIIh7IwABuOoxPECTFnGTkQOw0qyv6rKGv6exQTNAgBCAwT1OUlQ6uwgT1M0aB0e4ooCVKBqysEzakFAZScOEvhwNFcAaONATvFA02jewW0YkY9D0MM7AAAbnpeK7HqD3S5S9UBzVdpAACScCawxlBA-oAMzIsGyICAAVD6ACsAVRqDi7Lteq4wyUcN3Yjhqo+jZr+gAnDjROk+TGqgz+f4fqQdMBKODMI0kAyMEzsoszApqYwA9EoOP4sGJPc2TcXARq4vsDMtBqvNKNo-LGMQMr6wBAoasBNjGvExrvMcqDiEQVBFawSLevG3LCtY9b-oYA7pMbQApAAfGH8qSO4LjSwxLC0FAwNwP6ABy8gUDKEDbuQAiR9HGUwLK7hZBo4TCaw3Q+uHUfygkhthewieMMnqfFCUvupum0HZqQddFxypv+zLJus5jg-yiXd3kOwmfkN089Z1dueL-EADswcbYTATsLEIYBIrAShwEADUAQRsEAC+gTbSKzaoF0ykBEYpDDK-RCXYawSPfQb8Yy+j9QocRPpwG+kYX6-0Gi0ASGPZGPcdKZn7p3S0VMDxHjnI8eUnBJSgKsjqcghtjwBBsF0YaQx+QYACOgl0NMOLPFgfAxBGYsw5lQaMCGKoryYJPGVBouCPoENoheZIJZSFCgCBQ6gVCAhcLGlDLBjC4HdzTEgthXxvyvmbP+XM-DciCPwWAAWOjCgMUIaIhhGImGqN7sg9hRQELgWQp7NC2CMqGPiKBZxHsYLVkYhY4hSiMTvFIFMWauDAi32CMEJassX6gPeBAZ0qQzJ-WeBk6xCQ96+2UnpQojjDJKRKvKBJsQ4rSGUpoM6D0nqfHIBoA6-ooAfHYIlboC84ClXPhUuARAYBlA0MU+Q9UOTwGcE2PEvAJJNnkJpDk9A+CCg0MKEoGA-Ta0+mmCC3QABi-p6h8DCsNFs1BFgEDkG9T+r8XABGGDmTZtQhmQVoAALwKQEYOzs4SG2oHiWohJiRojclGYgchJSIgBUSEkZIMq5A2mfOKe0yg2AgNiFs7Adh7Aem8j5Pp8QIritQFOnBRkvAAR8hSwzzKbL-hS7oqBdhzzpUKQB4DgEHQwlGauiIqIQFeVAbgfzyzcAAD-DEYITPgKpzRgDioSuFAREp0BgOwL5AQQzb0yTA7J8C8mkQKYicSkkhIyX0a8My40KkyDSbde6f96lvSaSKVp7SSidO6YixVmR+llGmSa2AZLthLOMKsz5WtFW5EbtQP5kLAUwpBRqMFRAIWWihUC0kcrFUKqjMi1F6K1RYv2DSd5NcCU9MVcS3wQa8isspWAY1glpLzMwk9elJRGUSSyCy9++wgGQKyKVb5uQeWWj5QKoVU5Mzip1FKiAMrYVRhzRqZV2I1Vkw1VqqkWSclI2RvqsiHDjFpRKRlMp1qql2tqc9V6jSrabI5C00lo7On+jdQECuVdPWcg5D6gZ9AT0jOTam8E8bgXDq3NG2NaawPIgUJmhFP7uJSw0O0OgqADoVqjFW0lmz22WifIBmlkaxRtrrQypl3ayO9rKP22gv0h2bPfWSLNS6sMalYCq9gfoNXLo5Ku1VeNrYCC9bmlw8AUV8ALZi3YxbcVlr4+S8TWQoCJVsBgcgiVSAYFHTGeAJxgbzG3JymJO69VmXyUeqKMVT0cnPd6m1Iyr0Opeg051T62kdKzv6Udn6YCCEQ7031AArUK+1gP-Ng2sc+SGGg4fYPh0Y1mdTpS3D2j+HbKNcGo2yiB9HB1ct7KOljgXFWcbXXjJQ7H+Ncb9CGETSLlOSbRW4QtsmcWlpKPi0rYmCjsFU+pzT2ndPDH06QMohnc4me3Tq3dzMD2GsMsZPStmXj2ajJU21NSXO3vc66rz+cesaj-YM5bHAItxuheBh9G4oORau3BhDMWiUkoS+RxERkFgmVS5udLHzO3Mpy329lA7OUQYaMVuVjxnuKtqOVwTuAquiZXbV3A9XkccjzVJ1rMnsUlrxeWi+jW+sDc4BpuAWmdPdD0xQcbk3jOlW1bkWBc34kWYNUe6ytl9LmvW8dxzbJnN1Nc06q2Hn32voCL5yu-nv1BYGcNJytl9Y2RTfdjNLb7x3cuxm+D0WieVte4lsAXOXJzMTT2P7FGu3Zf-nW2jIP8tg5u1LvE+vYsjq45VxTDQBPcbRw1xVWOWsYqLR1gnR3MfKf62psnQ2qclBpwZ4lU3GczeZ7q3J7PD2FNGL5Ly5veeWriBerbd1r2Orvc0-b7rvOu5KH5gLMONuSA6NcRAiATs0mgCr8F6uE2R5ePF43+efsbit5lm3f2Hd5YY4VnskP3dxXh+wb31WXh+7q4H3rEn8047D-jhTzeNR7Rj4Ninw3qejdpxNlPDP+HKNZyjBbR7CopuKoX0pxfykOcvdt4Xu2YurSrARQku76jecuiqEk7gtSwkFgk0EAGAdq3Q8A8wD0Gg1A-oLuPYf6eItkOo8wmQFo2BUYCBGALAkgw4dy-E7AJc1AXwJ896JGm4yyYaPoGA2M4OG4F2MGD2S+UBs8sBOIHAZBo6qBAcJBx2fSMAeIqAA4ZAmu94PBoGfBFuwEh+JQ2Mg+DQxAKaqGSQtAGGPuuQw+72BU2U7+LAY+vYE+rwWW0+dGc+XBSqbu0OBu3KqO6OxOu+2Ooe7WGhJ8hO3hKmse5OlOI2BQyeRm028UISL04S7AykUSd8oQcSz+ZknUH0SSzonU6SGIykzU6keEbUrkWBzBLwLg2yDBBA7W-ILgs0WexEHOueYAakEUAAfpaGGKiKgIlIoTrL2I0dFM0UavxE2sJPOJ0aMN0ciL0f0QMVGEMZZi0YRslN5FMWAPBrMX0WoQsYMXui-i0cluFOsZaLjNsfMXsS8EsSMUtl9itubgEBsTMXMbsVcRqDcTnoiKbnZI8RsdjLjK8c4e8Z8Ytnnp5B0WcYCTscCVcaCa-hYblFYacaMFsa8fwskSINfANAsLwPwFROgOwJEN0JECtDqKNKmkNBSQIGANfAALpAA" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" id="iframe_container" frameborder="0" ></iframe>
+</center>
+<style>
+#VerteilungenDarstellen {height: 500px; width: 900px; margin-top: 0.0cm; border:0px;}
+</style>
+
+<!--
+<iframe id="VerteilungenDarstellen" src="https://sammerk.shinyapps.io/Verteilungen-darstellen" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" id="iframe_container" frameborder="0" ></iframe>
+</center>
+<style>
+#VerteilungenDarstellen {height: 500px; width: 900px; margin-top: 0.0cm; border:0px;}
+</style>
+-->
+
+## Cheat Sheet - Plottypes {.center}
+![](img/Plottypes_embedded.svg){width="140%" fig-align="center"}
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgaben 3.8 - 3.10** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+
+## Literatur
+<style>
+div.callout {border-left-color: #8cd000 !important;
+</style>
+

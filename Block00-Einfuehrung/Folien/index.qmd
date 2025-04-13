@@ -1,0 +1,445 @@
+---
+title: "VL Forschungsmethoden"
+subtitle: "Einführung in qualitative und quantitative Forschungsmethoden"
+author: "Samuel Merk & Cora Parrisius"
+
+date: today
+date-format: "[Sommersemster] YYYY"
+
+logo: img/ph-logo.svg
+footer: Folien {{< iconify streamline:creative-commons-solid >}} {{< iconify fa6-brands:creative-commons-by >}} unter ogy.de/test24
+
+format: 
+  revealjs:
+    slide-number: c
+    include-in-header:
+      - text: |
+          <script src="//cdn.wordart.com/wordart.min.js" async defer></script>
+brand: _template/_brand.yml    
+
+lang: de
+
+bibliography: references.bib
+csl: apa.csl
+---
+
+
+## Herzlich willkommen!  [{{< fa door-open >}}]{.imp} {.center}
+
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+
+## in terminal ########
+# quarto install extension quarto-ext/fontawesome
+# quarto install extension schochastics/academicons
+#
+
+########################
+library(fontawesome)
+library(tidyverse)
+
+# Change css to lecker PH green
+if(!dir.exists("img"))
+dir.create("img")
+if(!dir.exists("css"))
+dir.create("css")
+fileConn<-file("css/custom.scss")
+writeLines(c("/*-- scss:defaults --*/",
+             "$link-color: #8cd000 !default;"), fileConn)
+close(fileConn)
+```
+
+```{css}
+.callout-title {background-color: #267326 !important;}
+
+.imp {
+  color: #267326;
+}
+
+.em08{
+  font-size: .8em;
+}
+.em07{
+  font-size: .7em;
+}
+
+
+figure>figcaption {
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+.citation {
+  font-size267326.8em;
+  color: #267326;
+}
+
+
+.timevis.html-widget .vis-background .vis-minor.vis-odd {
+  background: #26732630;
+  }
+  
+.vis-text {
+  color: #267326 !important;
+  }
+  
+.vis-timeline {
+  border: transparent;
+  }
+  
+.vis-item {
+  border-color: #267326; 
+  background-color: #267326; 
+  color: #ffffff !important;
+}
+
+
+
+.vis-current-time {
+  background-color: #8CD00000;
+}
+  
+```
+
+
+## <!--Mit wem haben Sie es zu tun?--> {.center}
+### [{{< fa chalkboard-teacher >}}]{.imp} Cora Parrisius 
+<br> 
+
+```{r, echo = F, warning=FALSE}
+library(timevis)
+data <- data.frame(
+  id      = 1:4,
+  content = c("Item one", "Item two",
+              "Ranged item", "Item four"),
+  start   = c("2016-01-10", "2016-01-11",
+              "2016-01-20", "2016-02-14 15:00:00"),
+  end     = c(NA, NA, "2016-02-04", NA)
+)
+
+data <- data.frame(
+  #id      = 1:4,
+  content = c("Erstes SE",
+              "Promotion Tü", "Jun. Prof. KA"),
+  start   = c("2018-01-10",
+              "2021-04-01", "2022-04-01"),
+  end     = c(rep(NA, 3))
+)
+
+timevis(data, 
+        loadDependencies = F, 
+        showZoom = F,
+        fit = T,
+        height = "400px")
+```
+
+## <!--Mit wem haben Sie es zu tun?--> {.center}
+### [{{< fa chalkboard-teacher >}}]{.imp} Samuel Merk 
+<br> 
+
+```{r, echo = F, warning=FALSE}
+library(timevis)
+data <- data.frame(
+  id      = 1:4,
+  content = c("Item one", "Item two",
+              "Ranged item", "Item four"),
+  start   = c("2016-01-10", "2016-01-11",
+              "2016-01-20", "2016-02-14 15:00:00"),
+  end     = c(NA, NA, "2016-02-04", NA)
+)
+
+data <- data.frame(
+  #id      = 1:4,
+  content = c("Erstes SE"  ,"Zweites SE",
+              "Promotion", "Jun. Prof. TÜ", "Jun. Prof. KA", "Prof. KA",
+              "Geschwister-Scholl-Schule Tübingen"),
+  start   = c("2010-01-10", "2011-06-11", "2016-07-10", 
+              "2017-04-01", "2020-04-01", "2023-04-01", "2010-02-01"),
+  end     = c(rep(NA, 6), "2016-07-31")
+)
+
+timevis(data, 
+        loadDependencies = F, 
+        showZoom = F,
+        fit = T,
+        height = "400px")
+```
+
+## Heutige Vorlesung {.large .center}
+<br> 
+[{{< fa charging-station >}}]{.imp} Motivierung: Warum _Forschung_ in der Lehrer:innenbildung?
+
+. . . 
+
+[{{< fa sitemap >}}]{.imp} Organisatorische Einführung
+
+. . .
+
+[{{< fa question-circle >}}]{.imp} Ihre Fragen
+
+. . .
+
+[{{< fa microscope >}}]{.imp} Inhaltliche Einführung: Was ist Wissenschaft? 
+
+## <!--Motivierung-->[{{< fa charging-station >}} Motivierung:]{.imp} {.center}
+#### [Warum _Forschung_ in der Lehrer:innenbildung?]{.imp}
+
+
+## Forschung ist ein *»Muss«*
+
+:::{.callout-note collapse=false appearance='default' icon=false}
+## [{{< fa book-open >}} Auszug der KMK-Standards]{style="color:#FFFFFF;"}
+* *Die Absolventinnen und Absolventen kennen Grundlagen und Ergebnisse der Schul- und Unterrichtsforschung und können diese anwendungsbezogen reflektieren*
+* *Die Absolventinnen und Absolventen rezipieren und bewerten Ergebnisse der Bildungs- und Schulforschung*
+:::
+
+## Forschung $\Rightarrow$ Effektiverer Unterricht {.smaller}
+::: {.fragment}
+:::: {.columns}
+
+
+::: {.column width='70%'}
+**Fragt man Lehramtsstudierende** »*Inwieweit stimmen Sie der These zu, dass es verschiedene Lernstile (z. B. auditiv, visuell oder kinästhetisch) gibt, die ein effektiveres Lernen ermöglichen?*« mit den Antwortmöglichkeiten 1 = »*Ich stimme überhaupt nicht zu*«; 5 = »*Ich stimme voll und ganz zu*« erhält man die folgenden Daten [@menz2020].
+:::
+
+::: {.column width='30%'}
+```{r}
+#| fig-width: 6
+#| 
+# Load required libraries
+library(tidyverse)
+library(hrbrthemes)
+
+# Benötigte Bibliotheken laden
+library(tidyverse)
+
+# Daten-Tibble erstellen und ins Deutsche übersetzen
+educational_data <- tibble(
+  category = "Lernstile",
+  response = c("Überhaupt nicht", "Eher nicht", "Weder/noch", "Eher", "Voll & ganz"),
+  count = c(5, 17, 24, 193, 697),
+  percentage = c(0.5, 1.8, 2.6, 20.6, 74.4),
+  N = 936,
+  M = 4.67,
+  SD = 0.67
+)
+
+# Balkendiagramm mit dem angegebenen Farbthema erstellen
+ggplot(educational_data, aes(x = response, y = percentage, fill = response)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  scale_fill_manual(values = c(
+    "Überhaupt nicht" = alpha("#236327", 0.2),
+    "Eher nicht" = alpha("#236327", 0.4),
+    "Weder/noch" = alpha("#236327", 0.6),
+    "Eher" = alpha("#236327", 0.8),
+    "Voll & ganz" = "#236327"
+  )) +
+  scale_x_discrete(limits = c("Überhaupt nicht", "Eher nicht", "Weder/noch", "Eher", "Voll & ganz")) +
+  geom_text(aes(label = paste0(count, " (", percentage, "%)")), vjust = -0.5, size = 3.5) +
+  labs(
+    #title = "Antworten zu Pädagogisch-Psychologischen Themen: Lernstile",
+    #subtitle = paste0("N = ", unique(educational_data$N), ", M = ", unique(educational_data$M), ", SD = ", unique(educational_data$SD)),
+    x = "",
+    y = "Prozentsatz (%)"
+  ) +
+  theme_ipsum() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(face = "bold"),
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(fill = "#f2f2f2", color = NA)
+  ) +
+  ylim(0, 100)
+```
+:::
+
+::::
+:::
+
+::: {.fragment}
+:::: {.columns}
+
+::: {.column width='70%'}
+**Untersucht man Lernende**, indem ihren wahrgenommenen Lernstil (auditiv oder visuell-textlich) »erfasst« [@rundle2010learning] und anschließend auslost, ob sie mit einem Hörbuch oder einem e-Text lernen, erhält man **Evidenz für einen Nulleffekt der »Lernstilpassung«** [@rogowsky2015]
+:::
+
+::: {.column width='30%'}
+```{r}
+#| fig-width: 6
+library(ggdist)
+library(tidyverse)
+library(bayestestR)
+
+# Daten-Tibble erstellen
+learning_data <- tibble(
+  `verm. Lernstil` = rep(c("Auditiv", "Visuell"), each = 60),
+  Lernmaterial = c(rep(c("Hörbuch", "e-Text"), times = 30), rep(c("Hörbuch", "e-Text"), times = 30)),
+  `Anz. richtiger Aufgaben` = c(
+    distribution_poisson(30, 29.8), # Auditiv - Hörbuch
+    distribution_poisson(30, 31.5), # Auditiv - e-text
+    distribution_poisson(30, 34.6), # Visuell - Hörbuch
+    distribution_poisson(30, 34.2)  # Visuell - e-text
+  ))
+
+ggplot(learning_data, 
+       aes(x = `verm. Lernstil`, 
+           y = `Anz. richtiger Aufgaben`)) +
+  stat_dots(  # anstatt geom_dots
+    fill = "#236327",
+    color = "#236327",
+    geom = "dots",
+    binwidth = 1,
+    dotsize = 1,
+    stackratio = 1,
+    ) +
+  facet_wrap(~Lernmaterial) +
+  theme_ipsum() +
+  theme(plot.background = element_rect(fill = "#f2f2f2", color = NA))
+```
+:::
+
+::::
+:::
+
+::: {.notes}
+Weitere Potentielle Wahr/Falsch abfragen im Hörsaal:
+* Bedient man den von Schülern bevorzugten VARK Lernstil (visual [V], auditiv [A], read/write [R], kinesthetic [K]), lernen diese mehr.		
+* Wenn Schüler berichten, eine Lernaktivität fühle sich anstrengend an, spricht das dafür, dass diese Lernaktivität nicht optimal geplant war.		
+* Eine Reduktion der durchschnittlichen Klassengröße von 25 auf 15 steigert die Leistungsfähigkeit der Schüler stark.		
+* Wenn Lehrer »Schüler« (generisches Maskulinum) sagen, werden weibliche und männliche Personen gleichermaßen adressiert. »Schülerinnen und Schüler« zu sagen ist also eher überkompliziert.		
+* Gruppenarbeit ist meist weniger effektiv als Standardmethoden und fördert auch affektive Zielvariablen wie Motivation und Emotionen von Schülern nicht.
+
+:::
+
+## Forschung $\Rightarrow$ {.smaller}
+### (Bildungs-)realität erkennen und verstehen
+
+:::: {.columns}
+
+::: {.column width='50%'}
+Menschliche Wahrnehmung ist **verzerrt** <br><br>
+
+![Ebbinghaustäuschung<br> [@massaro1971]](img/Ebbinghaus.png){width=50%}
+:::
+
+::: {.column width='50%'}
+Menschliche Wahrnehmung ist **selektiv** <br><br>
+{{< video img/CIF.mp4 >}}
+:::
+
+::::
+
+
+## Forschung $\Rightarrow$ 
+### (Bildungs-)realität erkennen und verstehen
+![Selektive/Verzerrte Unterrichtswahrnehmung. <br> Daten aus [@klieme2008]](img/DESI_Redeanteil-2.svg){width="50%" fig-align="center"}
+
+## Forschung $\Rightarrow$ 
+### (Bildungs-)realität erkennen und verstehen
+![Selektive/Verzerrte Unterrichtswahrnehmung. <br> Daten aus [@klieme2008]](img/DESI_Redeanteil.svg){width="50%" fig-align="center"}
+
+
+## Forschung $\Rightarrow$ 
+### (Bildungs-)realität erkennen und verstehen
+![Was davon ist relevant?](img/gender_disparities_PISA_SCSH.png){width=60%}
+
+
+## Forschung $\Rightarrow$ 
+### (Bildungs-)realität erkennen und verstehen
+![Wie dieses Kind fördern?](img/Lesediagnostik.png)
+
+## »Wo ist die Praxisrelevanz?« {.smaller .center}
+:::: {.columns}
+
+::: {.column width='40%'}
+<center>
+<div style="width: 100%" data-wordart-src="//cdn.wordart.com/json/kpd8f5jpbst4"></div>
+
+[Charakteristika des Unterrichts nach Doyle [-@doyle1986]]{style="font-size:.6em"}
+</center>
+:::
+
+::: {.column width='60%'}
+![Relationierung von Theorie und Praxis nach Dewe, Ferchhoff, & Radtke [-@dewe1992]](img/Vier_Relationierungen.png){width=100%}
+:::
+
+::::
+
+
+
+> Schulisches Geschehen ist hochgradig komplex. Welche Rolle kann Forschung daher (nicht) spielen?
+
+
+## Bildungsziel dieser Vorlesung
+<br>
+[{{< fa check >}}]{.imp} Forschung/Studien erleben, verstehen, interpretieren, bewerten & ggfs. zum Kompetenzaufbau nutzen. 
+
+. . .
+
+<br> 
+[{{< fa times-circle >}}]{.imp} Ausbildung zur Forscherin bzw. zum Forscherin.
+
+
+## <!--Organisatorische Einführung-->[{{< fa sitemap >}} Organisatorische Einführung]{.imp} {.center}
+
+
+## Organisatorische Einführung [{{< fa sitemap >}}]{.imp} {.smaller .center}
+
+> Die Vorlesung umfasst 5 inhaltliche Blöcke.
+
+* In der Vorlesung
+    * lernen wir Grundbegriffe,
+    * üben diese anhand geschlossener, parametrisierter Aufgaben &
+    * wenden diese dann gemeinsam auf spannende & aktuelle Studien an.
+* Im Tutorium
+    * wiederholen wir zentrale Begriffe 
+    * üben diese nochmals
+    * ist noch mehr Raum für Fragen 
+
+## Klausuren {.smaller}
+* 4 **fakultative** Teilklausuren
+   * Closed Book, Bring Your Own Device, 10 Minuten Dauer.
+   * Teilklausuren decken jeweils einen Themenblock ab, der auch inder Hauptklausur geprüft wird
+   * Es können 10 Punkte je Teilklausur erreicht werden. Als Anreiz **auch** nach erfolgreicher Teilklausur noch auf die Hauptklausur zu lernen, werden maximal 8 Punkte($\equiv$ "gut") verbucht
+   * Termine siehe moodle
+* 1 **obligatorische** Hauptklausur 
+   * 90 Minuten (gemeinsam mit Psychologie)
+   * Präsenz, synchron, digital, Bring Your Own Device, »Open-Book mit analogen Unterlagen«
+   * Vor. Termin: Mittwoch 02.08.2025 11:00
+  
+## Prinzip der Teilklausuren
+![Ein Beispiel für die Verrechnung von Teil- und Hauptklausur](img/Verbuchung.svg){width="75%" fig-align="center"}
+
+## {.smaller}
+### Aus unserer Rahmenprüfungsordnung
+> [...] sind bestanden, wenn die oder der Studierende mindestens [60 Prozent der zu erreichenden Gesamtpunktzahl]{.imp} erreicht hat. Die Prüfung ist auch bestanden, wenn die vom Prüfling erreichte Punktzahl um nicht mehr als 20 Prozent die durchschnittlichen Prüfungsleistungen aller Prüfungsteilnehmerinnen und Prü- fungsteilnehmer an dieser Prüfung unterschreitet (relative Bestehensgrenze). Kommt die relative Bestehensgrenze zur Anwendung, so müssen für das Bestehen der Prüfung mindestens 50 Prozent der möglichen Gesamtpunkte erreicht werden.
+
+## Teilnahme an »Live-Forschung«
+> Wir führen direkt in der Vorlesung kleinere und größere Experimente durch, besprechen deren Design und werten deren Ergebnisse aus. Die Teilnahme daran ist **obligatorisch**. **Freiwillig** können Sie zudem Ihre so generierten Daten für die wissenschaftliche Auswertung spenden {{< iconify mdi:donation >}}
+
+## Anforderungen {.center}
+* Sie bekommen 3CP $\Rightarrow \frac{3 \cdot 30h}{15\;Wochen} = 6\frac{h}{Woche}$ 
+* Meine Prognose: Wenn Sie diese Zeit investieren, bestehen Sie die Klausur recht sicher 
+* Befragung aus dem Wintersemester22/23: Über 90% der Studierenden bringt weniger Zeit auf als durch die CP gefordert
+
+
+## <!-- Image -->{background-image="img/practice_resultsWiSe2223.png" background-size="contain"}
+::: {.footer}
+:::
+
+## Vorschlag »Studierverhalten« {.smaller}
+1. Vorlesung
+   * Anwesenheit und aktive Teilnahme
+2. evtl. Tutorium oder Materialien aus dem Tutorium
+3. Selbststudium (20-60 Minuten pro Woche)
+
+## Ihre Fragen {.center}
+
+
+## Literatur
+<style>
+div.callout {border-left-color: #267326 !important;
+</style>

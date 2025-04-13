@@ -1,0 +1,304 @@
+---
+title: "Qualitative Methoden"
+subtitle: "Charakteristika und Beispiele"
+author: "Samuel Merk & Cora Parrisius"
+format: 
+  revealjs:
+    auto-stretch: false
+    self-contained: true
+    slide-number: false
+    preview-links: false
+    pdf-separate-fragments: true
+    controls: true
+    logo: img/PHlogo.svg
+    theme: [default, css/custom.scss]
+    fullscreen: true
+    pdfexport: true
+bibliography: references.bib
+csl: apa.csl
+lightbox: true
+---
+
+## Inhalte dieses Vorlesungsblocks {.center .smaller}
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+#| cache: true
+
+## in terminal ########
+# quarto install extension quarto-ext/fontawesome
+# quarto install extension schochastics/academicons
+#
+
+########################
+library(fontawesome)
+library(tidyverse)
+set.seed(848265)
+
+# Change css to lecker PH green
+if(!dir.exists("img"))
+dir.create("img")
+if(!dir.exists("css"))
+dir.create("css")
+fileConn<-file("css/custom.scss")
+writeLines(c("/*-- scss:defaults --*/",
+             "$link-color: #8cd000 !default;",
+             ".imp {color: #8cd000;}",
+             ".em15 {font-size:1.5em;}",
+             ".c {text-align: right !important;}",
+             ".callout-title {background-color: #8cd000 !important;}",
+             "#vcenter {vertical-align: middle;}"),
+           fileConn)
+close(fileConn)
+```
+
+. . .
+
+[{{< iconify fa6-solid:chart-diagram >}}]{.imp} Der Qualitative Forschungsprozess
+
+. . .
+
+[{{< fa layer-group >}}]{.imp} Sinnebenen und Charakteristika qualitativer Forschung
+
+. . .
+
+[{{< fa puzzle-piece >}}]{.imp} Bsp. qualitativer Forschung 
+
+
+
+## Typische Forschungsprozesse {.smaller .center}
+
+::: columns
+::: {#vcenter .column width="50%"}
+![Typ. quant. Forschungsprozess](img/bortz_doring_ablauf_quantibg.png){.lightbox}
+:::
+
+::: {.column width="50%"}
+::: fragment
+![Typ. quali. Forschungsprozess](img/Qualiablauf.png){.lightbox}
+:::
+:::
+:::
+
+## Typische Forschungsprozesse {.smaller}
+
+::: columns
+::: {.column width="50%"}
+#### (Typ.) Quant. Forschung
+
+-   Erkenntnisinteresse (desk./explo./expla.) ist vor der Datenerhebung festgelegt
+-   Forschungslogik ist meist entweder induktiv (Exploration) oder deduktiv (Explanation)
+-   Untersuchungsdesign und Datenanalyse **ergeben** sich aus Forschungsfrage
+:::
+
+::: {.column width="50%"}
+#### (Typ.) Qual. Forschung
+
+-   Forschungsfrage kann sich im Prozess ändern
+-   Forschungslogik ist meist induktiv und abduktiv [@flick1995]
+-   Untersuchungsdesign, Datenanalyse und Forschungsfrage können sich im Lauf des Forschungsprozesses ändern
+:::
+:::
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.1** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+## Mixed Methods {.smaller}
+
+Meist erfolgen Mixed Methods Studien entweder im sogenannten Vorstudien- oder im Vertiefungsmodell
+
+::: columns
+::: {.column width="50%"}
+#### Vorstudienmodell
+
+*Relativ häufig wird eine qualitative Studie vorgeschaltet, welche z. B. der Generierung und Präzisierung von Hypothesen dient (z. B. qualitative Interviewstudie), die dann in der zweiten Teilstudie quantitativ getestet werden (z. B. quantitative Fragebogenstudie).* [@doering2016]
+:::
+
+::: {.column width="50%"}
+#### Vertiefungsmodell
+
+*Auch die umgekehrte Reihenfolge ist möglich und sinnvoll: Zu einer gut etablierten Theorie wird eine hypothesenprüfende quantitative Studie durchgeführt (z. B. quantitative Dokumentenanalyse). Statistisch nachgewiesene Effekte werden in einer zweiten qualitativen Teilstudie detaillierter beschrieben und an Fallbeispielen illustriert (z. B. qualitative Dokumentenanalyse).* [@doering2016]
+:::
+:::
+
+# Sinnebenen Qualitativer Forschung
+
+## Sinnebenen nach Lamnek [-@lamnek2010] {.scrollable}
+
+::: {style="font-size: 35%;"}
++-------------------------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------+
+|                         | Subjektiver Sinn                                                                         | Sozialer Sinn                                                            | Objektiver Sinn                                                        |
++=========================+==========================================================================================+==========================================================================+========================================================================+
+| **Erkenntnisziel**      | Erfassung, Beschreibung und Nachvollzug\                                                 | Rekonstruktion sozial geteilter Sinngehalte                              | Rekonstruktion eher invarianter Tiefenstrukturen                       |
+|                         | subjektiv-intentionaler Sinngehalte                                                      |                                                                          |                                                                        |
+|                         |                                                                                          | -   Deutungsmuster                                                       | -   Kommunikative Basisregeln                                          |
+|                         |                                                                                          | -   Erfahrungsräume                                                      | -   Prozessstrukturen des Lebenslaufs                                  |
+|                         |                                                                                          | -   Lebenswelten                                                         |                                                                        |
++-------------------------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------+
+| **Basisparadigmen**     | -   Verstehende Soziologie                                                               | -   Symbolischer Interaktionismus                                        | -   Psychoanalyse                                                      |
+|                         | -   Symbolischer Interaktionismus                                                        | -   Phänomenologie                                                       | -   Genetischer Strukturalismus                                        |
+|                         | -   Phänomenologie                                                                       | -   Wissenssoziologie                                                    | -   Ethnomethodologie                                                  |
+|                         |                                                                                          | -   Konstruktivismus                                                     |                                                                        |
++-------------------------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------+
+| **Erhebungsmethoden**   | -   Alle Arten offener Interviews                                                        | -   Leitfadeninterview                                                   | -   Narratives Interview                                               |
+|                         |                                                                                          | -   Gruppendiskussion                                                    | -   Aufzeichnung natürlicher Interaktionen                             |
+|                         |                                                                                          | -   Beobachtungsmethoden                                                 | -   Dokumentenanalyse                                                  |
+|                         |                                                                                          | -   Dokumentenanalyse                                                    |                                                                        |
++-------------------------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------+
+| **Auswertungsmethoden** | Unterschiedliche Arten offener Interpretation, meist eng am Gegenstand (paraphrasierend) | -   Offenes und theoriegeleitetes Kodieren                               | -   Sequenzielle Interpretation                                        |
+|                         |                                                                                          | -   Fallkontrastierungen                                                 | -   Objektive Hermeneutik                                              |
+|                         |                                                                                          | -   Ethnografie                                                          | -   Tiefenhermeneutik                                                  |
+|                         |                                                                                          | -   Dokumentarische Methode der Interpretation                           | -   Narrationsanalyse                                                  |
+|                         |                                                                                          |                                                                          | -   Konversationsanalyse                                               |
++-------------------------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------+
+| *Beispiele*             | *Rekonstruktion eines naturwissenschaftlichen Fehlkonzepts (z.B. Luft hat keine Masse)*  | *Typologisierung des Umgangs von Lehrer:innen mit Schuler:innentraumata* | *Rekonstruktion des Umgangs mit Flucht/Migration von Bildungssystemen* |
++-------------------------+------------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------+
+:::
+
+# Charakteristika Qualitativer Forschung
+
+## Ganzheitlichkeit und Rekonstruktion {.smaller}
+
+> *"Ontologisch wird die im qualitativen Paradigma empirischer Sozialforschung untersuchte soziale Wirklichkeit auf der Ebene der alltäglichen Lebenswelt der Individuen angesiedelt. Denn menschliches Erleben und Handeln lässt sich im Verständnis des qualitativen Paradigmas nicht durch allgemeine Gesetzmäßigkeiten kausal erklären, sondern nur anhand der jeweils individuellen Weltsichten und Sinngebungen der Beteiligten in ihren jeweiligen Alltagszusammenhängen verstehen und intentional erklären. Durch diese Gegenstandsbestimmung befinden sich nicht-lebensweltliche Makro- und Mikro-Phänomene außerhalb des Fokus der qualitativen Sozialforschung"* [@doering2016].
+
+## Theoretische Offenheit {.smaller}
+
+> *"Erkenntnisgewinn zielt im Paradigma der qualitativen Sozialforschung vor allem auf die Bildung neuer Hypothesen und Theorien ab, die passgenau auf den jeweiligen Untersuchungsgegenstand (d. h. ein lebensweltliches soziales Phänomen) zugeschnitten sind. Deswegen sollen sich die Forschenden eben nicht mit einer bereits im Vorfeld ausgewählten fertigen Theorie und vordefinierten theoretischen Konstrukten mit einem durchstrukturierten Forschungsprozess dem Gegenstand nähern. Stattdessen sollen sie ihr (immer in gewisser Weise vorhandenes und auch notwendiges) Vorverständnis kritisch hinterfragen und ausdrücklich offen sein für Fälle, Situationen und Daten, die ihren Vorannahmen widersprechen und somit über die bisherigen theoretischen Vorstellungen hinaus neue Kenntnisse über den Untersuchungsgegenstand vermitteln"* [@doering2016].
+
+## Zirkularität des Forschungsprozesses {.smaller}
+
+> *"Der qualitative Forschungsprozess wird nicht vorab vollständig durchgeplant, festgelegt und dann linear abgearbeitet, sondern idealerweise flexibel gestaltet: In mehreren Untersuchungszyklen innerhalb einer Studie sollen anhand der Zwischenergebnisse jeweils das Untersuchungsdesign, die Auswahl der Fälle und/oder die Datenerhebungs- und Datenanalyse-Hilfsmittel überarbeitet (Flexibilität des Vorgehens) und dem untersuchten Gegenstand somit schrittweise immer besser angepasst werden (Zirkularität bzw. Spiralförmigkeit der verstehenden Annäherung an den Untersuchungsgegenstand)"* [@doering2016].
+
+## Forschung als Kommunikation {.smaller}
+
+> *"Da der qualitative Ansatz in der Regel auf die Rekonstruktion der Sichtweisen der am untersuchten sozialen Phänomen Beteiligten abzielt, ist die direkte (zuweilen auch medienvermittelte) Kommunikation zwischen Forschenden und Beforschten das zentrale Erkenntnismittel. Damit diese Kommunikation ein möglichst weitreichendes Fremdverstehen ermöglicht, ist eine kooperative Haltung auf beiden Seiten notwendig. Die Beforschten müssen sich vertrauensvoll öffnen und die Forschenden müssen sich persönlich in den Kontakt einbringen und ein dem jeweiligen Gegenüber und dem Forschungsziel angemessenes Arbeitsbündnis aufbauen, dieses reflektieren und dokumentieren"* [@doering2016].
+
+## Selbstreflektion der Forschenden {.smaller}
+
+> *"Das qualitative Paradigma empirischer Sozialforschung vertritt eine subjektivistische Erkenntnistheorie, dergemäß der Erkenntnisprozess immer untrennbar mit der Person der Forschenden ihrer Subjektivität und Perspektivität – verknüpft ist. Ihr persönliches Verhältnis zum jeweiligen Untersuchungsgegenstand und zu den Untersuchungspersonen müssen Forschende deswegen kritisch reflektieren. Die Reflexion der Subjektivität und Perspektivität gilt als zentrale Erkenntnisquelle und muss entsprechend auch dokumentiert werden. Das betrifft nicht zuletzt die Position und Perspektive der Forschenden im Kontext sozialer Hierarchien und gesellschaftlicher Machtverhältnisse"* [@doering2016].
+
+# Unterscheidung qualitativer & quantitativer Sozialforschung
+
+## Unterscheidung qualitativer & quantitativer Sozialforschung {.smaller}
+
+-   Qualitative & quantitative Sozialforschung wurden oft als zwei distinkte Kategorien aufgefasst
+-   Wissenschaftssoziologisch und -historisch bestanden/bestehen durchaus Konkurrenzverhältnisse
+-   Quasi alle modernen Lehrbücher betonen jedoch,
+    -   dass sich qualitative & quantitative Sozialforschung zwar in ontologischen, epistemologischen und axiologischen Annahmen unterscheiden,
+    -   jedoch ein fließender Übergang zwischen den Paradigmen vorliegt
+-   Es macht also Sinn sich qualitative & quantitative Sozialforschung als Pole eines Spektrums hochgradig vorstrukturierter und niedrig vorstrukturierter Forschung vorzustellen
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.2** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+# Beispiele qualitativer Sozialforschung
+
+## Bezugsnormen im Kontext Form. Ass. [{{< fa square-up-right >}}](https://lernergebnisse-einschaetzen.formr.org/?code=228) {.smaller}
+
+::: {style="font-size: 75%;"}
+**Abstract**. Formatives Assessment bezeichnet die Idee Information über den aktuellen Leistungsstand von Lernenden prospektiv für die Planung adäquater nächster Lernschritte zu nutzen (anstatt zur retrospektiven Bewertung vergangenen Verhaltens). Digitale Werkzeuge, können Lehrkräften dabei Unterstützung bieten indem z.B. automatisiert korrigieren und konstruktvalide Aufgabensets zur Verfügung stellen. Damit die Grundfunktion **formativen** Assessments aber erhalten bleibt, sollten Lehrkräfte inbesondere die intraindividuelle Entwicklung von Lernenden fokussieren (und nicht etwa den sozialen Vergleich präferieren). Um dies zu erreichen bieten sich theoriegeleitet verschiedene grafische Hervorhebungen. Die Wirksamkeit dieser wurde in einem within-person Experiment untersucht indem *N* = 223 Proband:innen zunächst eine neutrale Darstellung von Ergebnissen eines formativen Assessments sehen und in einem offenen Textfeld ihre subjektiv wahrgenommene zentrale Information dieser Daten äußern sollen. Danach sehen die Proband:innen die Daten einer anderen Klasse in einer Darstellung in der eine Bezugsnorm grafisch hervorgehoben ist und sollen wieder die zentrale Information der Daten in ein offenes Textfeld schreiben. Eine induktiv-deduktive Kodierung der Antworten zeigte zu Messzeitpunkt 1 eine klar dominante Prävalenz der kriterialen Bezugsnorm (142 Nennungen). Weiterhin wurde ein signifikanter Einfluss der Darstellungsform auf die Häufigkeit der gewählten Bezugsnorm in den offenen Antworten gefunden (*p* \< .05).
+:::
+
+> Kategorisieren Sie die Studie als explanativ/explorativ/deskriptiv, querschnittlich/längsschnittlich, experimentell/quasi-experimentell/nicht-experimentell und bewerten Sie die interne, externe und Konstruktvalidität
+
+## Materialien {.smaller}
+
+| Klasse | Neutrale Abbildung             | Hervorhebung ind. Bezugsnorm   | Hervorhebung soz. Bezugsnorm   | Hervorhebung soz. Bezugsnorm   |
+|--------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
+| 1      | ![](img/x_neut.png){width=70% .lightbox group="my-gallery"} | ![](img/x_ind.png){width=70% .lightbox group="my-gallery"}  | ![](img/x_soz.png){width=70% .lightbox group="my-gallery"}  | ![](img/x_krit.png){width=70% .lightbox group="my-gallery"} |
+| 2      | ![](img/w_neut.png){width=70% .lightbox group="my-gallery2"} | ![](img/w_ind.png){width=70% .lightbox group="my-gallery2"}  | ![](img/w_soz.png){width=70% .lightbox group="my-gallery2"}  | ![](img/w_krit.png){width=70% .lightbox group="my-gallery2"} |
+
+## Kodiermanual {.smaller}
+Für die Überführung der Freitextantworten in Kodierungen der angewendeten Bezugsnorm wurde eine sog. qualitative Inhaltsanalyse nach Mayring [-@mayring2019] durchgeführt. 
+
+{{< pdf img/Kategorienschema-BZNKodierung.pdf width=100% height=530 >}}
+
+## Ergebnisse {.centered}
+<center>
+![](img/mosaik_refnorm.png){width=75%}
+</center>
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.3** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+## Die Arbeitslosen von Marienthal {.smaller}
+
+:::: {.columns}
+
+::: {.column width='80%'}
+> "*Ziel der vorliegenden Untersuchung war mit den Mitteln moderner Erhebungsmethode ein Bild von der psychologischen Situation eines Arbeitslosen Ortes zu geben. Es waren uns von Anfang an zwei Aufgaben wichtig. Die inhaltliche: zum Problem der Arbeitslosigkeit Material beizutragen - und die methodische: zu versuchen, eine sozialpsychologischen Tatbestand umfassend objektiv darzustellen."* [@jahoda2021]
+:::
+
+::: {.column width='20%'}
+![](img/cover_marienthal.jpeg){}
+:::
+
+::::
+
+
+
+::: {.notes}
+* Es gab 1930 nur zwei Datenquellen, amtliche Statistiken udn SOzialreportagen
+* Zwischen den nackten Ziffern der offiziellen Statistik und den allen Zufällen ausgesetzten Eindrücken des sozialen Reportage kraft eine Lücke. Die auszufüllen Sinn unseres Versuchs ist, was uns forschte, war eine Methode der Darstellung, die die Verwendung exakten Zahlenmaterials, mit dem sich Einleben in die Situation verband.
+
+* Erste Auflage musste ohne Namensnennung der Autor:innen auskommen, aber auch das reichte nicht. Die Nazis verboten das später ganz.
+:::
+
+## Erhebungsdesign {.smaller}
+
+::: {style="font-size: 75%;"}
+|  | Quantitative Daten | Qualitative Daten |
+| ----: | :---: | :---: |
+| Sekundäranalyse | Bevölkerungsstatistik <br> Wahlstatistik <br> Beschwerden bei Behörden |  |
+| Standardisierte <br> Daten | Haushaltsinventarlisten <br> Zeitverwendungsbögen |  |
+| Dokumenten- <br> analyse | Bibliotheksbesuche <br> Zeitungsabonnements <br> Vereinsmitglieder | Tagebücher <br> Schulaufsätze <br> Preisausschreiben |
+| (Teilnehmende) <br> Beobachtung | Messung der Gehgeschwindigkeit | Kleidersammlung <br> Ärztesprechstunden <br> Erziehungsberatung <br> Turn- und Schnittzeichenkurse |
+| Experten- <br> interviews |  | Lehrer, Pfarrer, Bürgermeister, <br> Ärzte, Geschäftsleute, <br> Vereinsfunktionäre |
+| Narrative <br> Interviews |  | Arbeitslose |
+:::
+
+## Ausgewählte zentrale Daten
+#### Quantitative Daten aus Dokumentenanalyse
+- Anzahl der entliehenen Bücher sinkt von 1929 bis 1931 um knapp die Hälfte
+- Zahl der Mitglieder im Turn- bzw. Gesangsverein sinkt von 1927 bis 1931 um mehr als die Hälfte
+- Zahl der Abonnenten der „Arbeiterzeitung" sinkt von 1927 bis 1930 um 60 Prozent gesunken, der Mitglieder der Sozialdemokratischen Partei um ein Drittel
+
+## Ausgewählte zentrale Daten {.smaller}
+#### Interviewtranskripte
+*"Immer wieder verschwinden Katzen. Die Katze von Herrn H. ist erst vor wenigen Tagen verschwunden. Katzenfleisch ist sehr gut. Auch Hunde werden gegessen. [...] Erst vor wenigen Tagen bekam ein Mann von einem Bauern einen Hund geschenkt, unter der Bedingung, daß er ihn schmerzlos erschlägt."*
+
+#### Gehgeschwindigkeit und Häufigkeit des Stehenbleibens auf Dorfstraße
+
+|  | Männer | Frauen |
+| :--- | :---: | :---: |
+| 3x und mehr | 39 | 3 |
+| 2x | 7 | 2 |
+| 1x | 16 | 15 |
+| 0x | 6 | 12 |
+
+## Zentrales Ergebnis: Typologie {.smaller}
+::: {style="font-size: .95em;"}
+**Die Resignierten** (48%)   
+*"Das gleichmütig erwartungslose Dahinleben, die Einstellung: man kann ja doch nichts gegen die Arbeitslosigkeit machen, dabei eine relativ ruhige Stimmung, sogar immer wieder auftauchende heitere Augenblicksfreude, verbunden mit dem Verzicht auf eine Zukunft, die nicht einmal mehr in der Phantasie als Plan eine Rolle spielt [...]"* (S. 70)
+
+**Die Ungebrochenen** (16%)
+*"Ihre Haushaltungsführung ist ebenso geordnet wie die der Resignierten, aber ihre Bedürfnisse sind weniger reduziert, ihr Horizont ist weiter, ihre Energie größer."* (S. 71)
+
+**Die Verzweifelten** (11%)
+*"Diese Menschen sind völlig verzweifelt, und nach dieser Grundstimmung erhielt die Verhaltensgruppe ihren Namen. Wie die Ungebrochenen und Resignierten halten auch sie in ihrem Haushalt noch Ordnung, pflegen auch sie ihre Kinder."* (S. 71)
+
+**Die Apathischen** (2%)
+*"Mit apathischer Indolenz läßt man den Dingen ihren Lauf, ohne den Versuch zu machen, etwas vor dem Verfall zu retten. [...] Das Hauptkriterium für diese Haltung ist das energielose, tatenlose Zusehen. Wohnung und Kinder sind unsauber und ungepflegt, die Stimmung ist nicht verzweifelt, sondern indolent."* (S. 71f.)
+:::
+
+
+## Aufgaben {.center}
+> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.4** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+## Literatur
+
+```{=html}
+<style>
+div.callout {border-left-color: #8cd000 !important;
+</style>
+```

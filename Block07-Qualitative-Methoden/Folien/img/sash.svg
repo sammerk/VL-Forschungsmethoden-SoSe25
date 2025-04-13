@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='720.00pt' height='360.00pt' viewBox='0 0 720.00 360.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: none;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHwzNjAuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='360.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHwzNjAuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMC4wMHwzOTguMjd8MC4wMHwzNjAuMDA='>
+    <rect x='0.00' y='0.00' width='398.27' height='360.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHwzOTguMjd8MC4wMHwzNjAuMDA=)'>
+<polygon points='0.52,237.75 276.01,-37.75 379.33,-37.75 0.52,341.06 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; fill: #8CD000;' />
+<text transform='translate(55.62,251.52) rotate(-45)' style='font-size: 28.45px;fill: #FFFFFF; font-family: "Arial";' textLength='7.90px' lengthAdjust='spacingAndGlyphs'> </text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHwzNjAuMDA=)'>
+</g>
+</svg>
