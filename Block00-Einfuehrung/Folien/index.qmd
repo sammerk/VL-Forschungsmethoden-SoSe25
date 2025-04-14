@@ -418,9 +418,7 @@ Folien:
 :::
 
 
-## Tutorien
-
-Im Tutorium können Sie ab VL-Woche 2 bzw. freiwillig üben.
+## Tutorien {.smaller}
 
 Vorläufige Termine:
 
