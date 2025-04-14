@@ -267,7 +267,7 @@ ggplot(educational_data, aes(x = response, y = percentage, fill = response)) +
 :::: {.columns}
 
 ::: {.column width='70%'}
-**Untersucht man Lernende**, indem ihren wahrgenommenen Lernstil (auditiv oder visuell-textlich) »erfasst« [@rundle2010learning] und anschließend auslost, ob sie mit einem Hörbuch oder einem e-Text lernen, erhält man **Evidenz für einen Nulleffekt der »Lernstilpassung«** [@rogowsky2015]
+**Untersucht man Lernende**, indem man ihren wahrgenommenen Lernstil (auditiv oder visuell-textlich) »erfasst« [@rundle2010learning] und anschließend auslost, ob sie mit einem Hörbuch oder einem e-Text lernen, erhält man **Evidenz für einen Nulleffekt der »Lernstilpassung«** [@rogowsky2015]
 :::
 
 ::: {.column width='30%'}
@@ -393,6 +393,10 @@ Menschliche Wahrnehmung ist **selektiv** <br><br>
 
 > Die Vorlesung umfasst 5 inhaltliche Blöcke.
 
+:::: {.columns}
+
+::: {.column width='50%'}
+
 * In der Vorlesung
     * lernen wir Grundbegriffe,
     * üben diese anhand geschlossener, parametrisierter Aufgaben &
@@ -401,17 +405,47 @@ Menschliche Wahrnehmung ist **selektiv** <br><br>
     * wiederholen wir zentrale Begriffe,
     * üben diese nochmals,
     * ist noch mehr Raum für Fragen.
+    
+:::
+
+::: {.column width='50%'}
+
+Folien:
+
+![https://t1p.de/fome-005](img/QR Code t1p-de-fome-005.png){width=50%}
+:::
+
+:::
+
+
+## Tutorien
+
+Im Tutorium können Sie ab VL-Woche 2 bzw. freiwillig üben.
+
+Vorläufige Termine:
+
+* Mittwochs:
+    * 08:00 - 09:30, [1.013]{.imp}, Ruben Rothenhäusler (**ab 23.04.**)
+    * 16:00-17:30, [1.103]{.imp}, Florian Kühlwein (**ab 23.04.**)
+* Donnerstags:
+    * 14:00 - 15:30, [2.A020]{.imp}, Fabian Burkart (**ab 24.04.**)
+* Montags:
+    * 10:00-11:30, [2.A020]{.imp}, Nilani Suriakumar (**ab 28.04.**)
+    * 14:30-16:00, [3.211]{.imp}, Lisa Mayer (**ab 24.10.**)
+    * 14:30-16:00, [1.113]{.imp}, Ronja Barth (**ab 24.10.**)
+    
+Weitere Information finden Sie unter: [https://bit.ly/fome001](https://bit.ly/fome001){.imp}
 
 ## Klausuren {.smaller}
 * 4 **fakultative** Teilklausuren
    * Closed Book, Bring Your Own Device, 10 Minuten Dauer.
    * Teilklausuren decken jeweils einen Themenblock ab, der auch in der Hauptklausur geprüft wird
-   * Es können 10 Punkte je Teilklausur erreicht werden. Als Anreiz **auch** nach erfolgreicher Teilklausur noch auf die Hauptklausur zu lernen, werden maximal 8 Punkte (entspricht der Note "gut") verbucht
+   * Es können 10 Punkte je Teilklausur erreicht werden. Als Anreiz, **auch** nach erfolgreicher Teilklausur noch auf die Hauptklausur zu lernen, werden maximal 8 Punkte (entspricht der Note "gut") verbucht
    * Termine siehe moodle
 * 1 **obligatorische** Hauptklausur 
    * 90 Minuten (gemeinsam mit Psychologie)
    * Präsenz, synchron, digital, Bring Your Own Device, »Open-Book mit analogen Unterlagen«
-   * Vor. Termin: Mittwoch 02.08.2025 11:00
+   * Vor. Termin: Samstag, 02.08.2025, 11:00
   
 ## Prinzip der Teilklausuren
 ![Ein Beispiel für die Verrechnung von Teil- und Hauptklausur](img/Verbuchung.svg){width="75%" fig-align="center"}
