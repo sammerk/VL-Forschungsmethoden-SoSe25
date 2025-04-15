@@ -418,19 +418,20 @@ Folien:
 :::
 
 
-## Tutorien {.smaller}
-
-Vorläufige Termine:
+## Tutorien - Vorläufige Termine {.smaller .scrollable}
 
 * Mittwochs:
     * 08:00 - 09:30, [1.013]{.imp}, Ruben Rothenhäusler (**ab 23.04.**)
     * 16:00-17:30, [1.103]{.imp}, Florian Kühlwein (**ab 23.04.**)
-* Donnerstags:
-    * 14:00 - 15:30, [2.A020]{.imp}, Fabian Burkart (**ab 24.04.**)
+* ~~Donnerstags:~~
+    * ~~14:00 - 15:30, 2.A020, Fabian Burkart (**ab 24.04.**)~~
+* [Freitags:]{.imp}
+    * [10:00 - 11:30, online, Fabian Burkart (**ab 25.04.**)]{.imp}
+    * [12:00 - 13:30, Raum tbd, Ronja Barth (**ab 25.04.**)]{.imp}
 * Montags:
     * 10:00-11:30, [2.A020]{.imp}, Nilani Suriakumar (**ab 28.04.**)
-    * 14:30-16:00, [3.211]{.imp}, Lisa Mayer (**ab 28.04.**)
-    * 14:30-16:00, [1.113]{.imp}, Ronja Barth (**ab 28.04.**)
+    * 14:00-15:30, [3.211]{.imp}, Lisa Mayer (**ab 28.04.**)
+    * ~~14:00-15:30, 1.113, Ronja Barth (**ab 28.04.**)~~
     
 Weitere Information finden Sie unter: [https://t1p.de/fome-006](https://t1p.de/fome-006){.imp}
 
@@ -443,7 +444,7 @@ Weitere Information finden Sie unter: [https://t1p.de/fome-006](https://t1p.de/f
 * 1 **obligatorische** Hauptklausur 
    * 90 Minuten (gemeinsam mit Psychologie)
    * Präsenz, synchron, digital, Bring Your Own Device, »Open-Book mit analogen Unterlagen«
-   * Vor. Termin: Samstag, 02.08.2025, 11:00
+   * [Freitag, 01.08.2025, 12:30]{.imp}
   
 ## Prinzip der Teilklausuren
 ![Ein Beispiel für die Verrechnung von Teil- und Hauptklausur](img/Verbuchung.svg){width="75%" fig-align="center"}
