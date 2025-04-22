@@ -159,6 +159,21 @@ Es gibt zu jeder Forschungsfrage widersprüchliche Studien [@smaldino2016]: Es g
 
 ::::
 
+## Wissenschaftliche(re) Literatur finden {.smaller}
+* Um »starke Studien« (verglw.) sicher zu identifizieren und wissenschaftlichere von weniger wissenschaftlicherer Literatur zu unterscheiden, muss man die Methoden einer Studie verstehen und Alternativen kennen [sog. First Hand Evaluation, siehe Bromme & Goldman -@bromme2014d]
+* Da dazu jahrelanger Aufbau von Expertise notwendig ist, lohnt es sich auch anhand folgender sekundärer Kriterien zu bewerten (Second-Hand Evaluation)
+    * Sind die Autor:innen an Universitäten/Hochschulen tätig?
+    * Handelt es sich um einen wissenschaftlichen Verlag?
+    * Führt die Zeitschrift ein Peer-Review-Verfahren durch?
+    * Ist das Publikationsorgan im Social-Science Citation Index indiziert?
+    * Wird das Publikationsorgan von einer großen wissenschaftlichen Gesellschaft getragen?
+    * Wie oft werden Beiträge des Organs in indizierten Organen zitiert?
+
+## Wissenschaftliche(re) Literatur finden {.smaller}
+![](img/LI vs BrainGym.png){width=60%}
+
+## Wissenschaftliche(re) Literatur finden {.smaller}
+![](img/PHKABib.png)
 
 ## Kriterien der wiss. Qualität {.smaller .center}
 Im Bereich der quantitativen empirischen Sozialforschung sind die folgenden Kriterien vglw. unumstritten [@doering2016]:
