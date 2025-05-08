@@ -1,0 +1,56 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(tidyverse)
+# library(exams)
+bsp <- 
+  c("Nationalität", #1
+    "Religionszugehörigkeit", #2
+    "Familienstand", #3
+    "Postleitzahl",
+    "Geschlecht",
+    "Haarfarbe",
+    "Studiengang",
+    "Geburtsort",
+    "Lieblingsfach", #9
+    "Olympische Medaille", #10
+    "Grundschulempfehlung",
+    "Platzierung im IQB Ländervergleich", #12
+    "Erreichte Notenpunkte in einer Oberstufenklausur",
+    "Temperatur",
+    "Gehalt", #15
+    "Reaktionsgeschwindigkeit",
+    "Fachsemester",
+    "Dauer tgl. Internetnutzung") #19
+
+wievieltes_bsp <- sample(1:18, 1)
+```
+
+
+Question
+========
+Welches Skalenniveau sollte der folgenden Variable sinnvollerweise zugeschrieben werden?
+
+> _`r paste(bsp[wievieltes_bsp])`_
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(c("Nominales Skalenniveau",
+             "Ordinales Skalenniveau", 
+             "Intervallskaliertes Skalenniveau"), 
+           markup = "markdown")
+```
+
+Solution
+========
+
+```{r exsolutiongeneration, echo = F, results='hide'}
+ex_solution <- case_when(wievieltes_bsp %in% 1:9 ~ c(T,F,F),
+                         wievieltes_bsp %in% 10:12 ~ c(F,T,F),
+                         TRUE ~ c(F,F,T))
+```
+
+
+Meta-information
+================
+exname: "Skalenniveau erkennen"
+extype: schoice
+exsolution: `r mchoice2string(ex_solution)`
