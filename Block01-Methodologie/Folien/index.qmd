@@ -7,7 +7,7 @@ date: today
 date-format: "[Sommersemster] YYYY"
 
 logo: img/ph-logo.svg
-footer: Folien {{< iconify streamline:creative-commons-solid >}} {{< iconify fa6-brands:creative-commons-by >}} unter ogy.de/test24
+
 
 format: 
   revealjs:
