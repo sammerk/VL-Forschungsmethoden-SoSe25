@@ -198,7 +198,7 @@ Pearl, J., Glymour, M., & Jewell, N. P. (2016). Causal inference in statistics: 
 
 
 ## Reliabilität {.center .smaller}
-> Reliabilität ist Ausmaß an Messfehlerfreiheit
+> Reliabilität ist das Ausmaß an Messfehlerfreiheit
 
 <br>
 
@@ -224,6 +224,10 @@ Das Ausmaß der theoretischen und empirischen Belege für die Angemessenheit der
 
 ![](img/Konstruktvalidität.png)
 
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/guetekriterien-einer-messung-erkennen.html" title="Aufgabe"></iframe>
+</center>
 
 
 ## <!--(Einige) Erhebungsverfahren--> {.center}
@@ -348,14 +352,16 @@ Bei der Dokumentenanalyse werden bereits existierende schriftliche Artefakte unt
 * Planen Sie für jedes Item eine Auswertungsstrategie **bevor** Sie die Daten erheben. 
 :::
 
+<!-- Zusatz-Slide zum Wiedereinstieg
 ## Übung
 Bearbeiten Sie die folgenden Impulsfragen mit Ihrer Sitznachbarin bzw. Ihrem Sitznachbarn:
 
 * Worin unterscheiden sich Konstruktvalidität und interne Validität?
 * Ist ein Instrument, das hochgradig konstruktvalide ist, immer auch hochgradig reliabel?
 * Sie wollen in Ihrer Bachelorarbeit den Effekt eines AI-basierten Lautlesetutors untersuchen. Wie gehen Sie vor, um ein Instrument zur Messung der Leseflüssigkeit und Lesekorrektheit zu finden?
+-->
 
-## Bezugsnormen in der Praxis {.smaller}
+## Bezugsnormen {.smaller}
 Neben der **Messung** schulischer Fähigkeiten stellt die **Bewertung** selbiger eine zentrale Herausforderung für LuL dar [@bohl2004]. Grundsätzlich wird dabei zwischen **formativem** und **summativem** Assessment unterschieden. Bei ersterem dient die Leistungsmessung der Ermittlung des Unterschieds zwischen Lernstand und Lernziel und der dadurch notwendigen nächsten Lernschritte [@schuetze2018].  
 Bei der summativen Leistungsbewertung wird typischerweise zwischen drei Bezugsnormen unterschieden:  
 ![](img/Abbildung 1.png){width="30%" fig-align="center"}
@@ -373,7 +379,9 @@ Unter Bezugsnormen versteht man den ‚Standard‘, der zur Bewertung einer Leis
 * Lehrerinnen und Lehrer wenden in der Praxis wohl meist implizit eine Mischung von Bezugsnormen an. Dies senkt die Konstruktvalidität der Leistungsmessung
 
 ## Aufgabe
-> Bearbeiten Sie mehrere Versionen der **Aufgabe 2.7** unter [https://ogy.de/mvl-messtheorie](https://ogy.de/mvl-messtheorie)
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/bezugsnormen-erkennen.html" title="Aufgabe"></iframe>
+</center>
 
 <!--
 ## Leistungsmessung in der Bildungsforschung {.smaller}

@@ -14,7 +14,7 @@ format:
 #| warning: false
 
 library(exams2forms)
-download.file("https://raw.githubusercontent.com/sammerk/aufgaben/refs/heads/master/methodologie/erkenntnisinteresse/exams/Deskriptive_Explorative_Explanative_Studien_r.Rmd",
+download.file("https://raw.githubusercontent.com/sammerk/aufgaben/refs/heads/master/messtheorie/bezugsnormen-erkennen/exams/bezugsnormen-erkennen.Rmd",
               "tempfile.Rmd")
 exams2forms("tempfile.Rmd", n = 20)
 ```
