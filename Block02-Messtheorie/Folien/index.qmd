@@ -131,7 +131,7 @@ tibble(Skalenniveau = c("Nominalskala", "Ordinalskala", "Intervallskala"),
 :::: {.columns}
 
 ::: {.column width='50%'}
-#### Niedrigerinferente Variablen
+#### Niedrigerinferentere Variablen
 * Sind mehr oder weniger direkt beobachtbar
 * _Beispiel: "Anzahl der Fehltage einer Schülerin"_
 :::
@@ -233,7 +233,7 @@ Das Ausmaß der theoretischen und empirischen Belege für die Angemessenheit der
 ## <!--(Einige) Erhebungsverfahren--> {.center}
 [{{< iconify fa6-solid:route >}} Erhebungsverfahren]{style="font-size: 1.5em;"}
 
-## Beobachtung {.smaller .center}
+## (Externe) Beobachtung {.smaller .center}
 Wissenschaftliche Beobachtung ist die systematische und [regelgeleitete Registrierung des Auftretens]{.imp} und der Ausprägung von ausgewählten, psychologisch relevanten Merkmalen oder Ereignissen. Sie folgt einem zuvor festgelegten Beobachtungsplan, der festlegt, [1)]{.imp} was beobachtet werden soll, [2)]{.imp} welche Aspekte weniger oder nicht relevant sind, [3)]{.imp} welchen Interpretationsspielraum der Beobachtende bei der Beobachtung hat , [4)]{.imp} wann, wie lange und wo die Beobachtung erfolgt und [5)]{.imp} auf welche Weise das Beobachtete registriert und protokolliert wird [@hussy2013]. 
 <br> <br>
 
@@ -306,7 +306,7 @@ Beispiele für physiologische Messungen im bildungswissenschaftlichen Bereich st
 
 
 ## Dokumentenanalyse {.smaller .center}
-Bei der Dokumentenanalyse werden bereits existierende schriftliche Artefakte untersucht (z.B. Schriftliche Leitbilder, Klassentagebücher, Schriftwechsel, Homepages). Diese können sowohl in hoch- wie niedrig strukturierten Prozessen gesammelt, transformiert und analysiert werden (qualitative und quantitative Dokumentenanalyse). 
+Bei der Dokumentenanalyse werden bereits existierende schriftliche Artefakte untersucht (z.B. Schriftliche Leitbilder, Klassentagebücher, Schriftwechsel, Homepages). Diese können sowohl in hoch- wie niedrigstrukturierten Prozessen gesammelt, transformiert und analysiert werden (quantitative und qualitative Dokumentenanalyse). 
 <br> <br>
 
 . . .

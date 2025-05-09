@@ -225,7 +225,7 @@ Die **Präsentationsqualität** einer Studie beschreibt, inwiefern die Ergebniss
 ## [Empirische, theo. & methodische Studien ]{style="font-size: 0.92em"} {.smaller .center}
 
 ::: {style="font-size: 0.7em"}
-> [**Empirisch**]{.imp} meint auf Beobachtungen beruhend, die zielgerichtet für die Forschungsfrage generiert wurden. <br> [**Theoretisch**]{.imp} meint ohne direkten Rückgriff auf empirische Daten. <br> 
+> [**Empirisch**]{.imp} meint auf Eindrücken/Erfahrungen/Beobachtungen beruhend, die zielgerichtet für die Forschungsfrage generiert wurden. <br> [**Theoretisch**]{.imp} meint ohne direkten Rückgriff auf empirische Daten. <br> 
 [**Methodisch**]{.imp} meint eine wissenschaftliche Methode untersuchend.
 
 :::
