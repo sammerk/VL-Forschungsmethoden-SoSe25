@@ -1,0 +1,884 @@
+---
+title: "VL Forschungsmethoden"
+subtitle: "Messen und Beschreiben"
+author: "Samuel Merk & Cora Parrisius"
+
+date: today
+date-format: "[Sommersemster] YYYY"
+
+logo: img/PHlogo.svg
+
+format: 
+  revealjs:
+    embed-resources: true
+    slide-number: c
+    html-math-method: mathjax
+brand: _template/_brand.yml    
+
+lang: de
+
+bibliography: references.bib
+csl: apa.csl
+---
+
+## Inhalte dieses Vorlesungsblocks {.center}
+
+```{r hidden chunk which creates template stuff}
+#| echo: false
+
+library(fontawesome)
+library(tidyverse)
+library(exams2forms)
+```
+
+. . .
+
+[{{< iconify fa6-solid:scale-unbalanced >}}]{.imp} Was ist eine Messung?
+
+. . .  
+
+[{{< iconify fa6-solid:ruler-combined >}}]{.imp} Typologien von Variablen  
+
+. . .
+
+[{{< iconify fa6-solid:medal >}}]{.imp} Gütekriterien einer Messung  
+
+. . .
+
+[{{< iconify fa6-solid:route >}}]{.imp} Erhebungsverfahren
+
+. . .
+
+[{{< iconify fa6-solid:crosshairs >}}]{.imp} Maße der zentralen Tendenz & Streuung
+
+. . .
+
+[{{< iconify fa6-solid:chart-area >}}]{.imp } Vielgipflichkeit & Schiefe
+
+. . .
+
+[{{< iconify fa6-solid:pencil >}}]{.imp } Einige grafische Darstellungen
+
+
+## <!--Was ist eine Messung--> {.center}
+[{{< iconify fa6-solid:scale-unbalanced >}} Was ist eine Messung?]{style="font-size: 1.5em;"}
+
+## Messung als Homomorphismus {.smaller}
+::: {style="font-size:.8em;"}
+> Eine Messung („measurement“) meint in der quantitativen Sozialforschung eine [Zuordnung von Objekten zu Zahlen]{.imp}, sofern diese Zuordnung eine [homomorphe (strukturerhaltende) Abbildung]{.imp} eines empirischen Relativs in ein numerisches Relativ ist [@orth1983].
+:::
+
+::: {.r-stack}
+![](img/MessungLF-6.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-5.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-4.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-3.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF-2.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungLF.png){.fragment width="60%" fig-align="center"}
+
+![](img/KMessungLF.png){.fragment width="60%" fig-align="center"}
+:::
+
+## Messung als Homomorphismus {.smaller .center}
+
+::: {.r-stack}
+
+![](img/MessungGE-7.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungGE-6.png){.fragment width="60%" fig-align="center"}
+
+![](img/MessungGE-5.png){.fragment width="60%" fig-align="center"}
+
+![](img/KMessungGE.png){.fragment width="60%" fig-align="center"}
+:::
+. . .
+
+::: {.callout-tip icon=false collapse="false"}
+## {{< iconify fa6-solid:book-open >}} Weiterführende Literatur
+Eid, M., Gollwitzer, M., & Schmitt, M. (2013). Statistik und Forschungsmethoden: Lehrbuch. Mit Online-Materialien. Beltz.
+Steyer, R., & Eid, M. (2013). Messen und Testen. Springer-Verlag.
+:::
+
+
+## <!--Typologien von Variablen--> {.center}
+[{{< iconify fa6-solid:ruler-combined >}} Typologien von Variablen]{style="font-size: 1.5em;"}
+
+## Typologie I: Skalenniveaus {.smaller .center auto-animate="true"}
+> Das Skalenniveau einer Variable beschreibt, welche Relationen im numerischen Relativ sinnvoll sind [@doering2016].  
+
+<br>
+
+```{r}
+tibble(Skalenniveau = c("Nominalskala", "Ordinalskala", "Intervallskala"),
+         `Sinnvolle Relationen` = c("Gleichheit", "Gleichheit + Ordnung", 
+                                    "Gleichheit + Ordnung + Abstand"),
+         `Beispiel` = c("Lieblingsfach", "Grundschulempfehlung", 
+                        "tägl. Internetnutzung")) |> 
+  knitr::kable()
+```
+
+
+## Aufgabe
+<center>
+<iframe width="980" height="500" src="Integrierte Aufgaben/skalenniveau-erkennen.html" title="Aufgabe"></iframe>
+</center>
+
+
+## Typologie II: Inferenzniveau {.smaller .center}
+> Das Inferenzniveau einer Variable beschreibt, in welchem Ausmaß bei einer Messung geschlussfolgert/abstrahiert wird [@lotz2013a]. Da Werte im numerischen Relativ immer schlussfolgernd interpretiert werden müssen, macht es mehr Sinn von höh**er**inferenten/niedrig**er**inferenten Variablen zu sprechen als von hochinferenten/niedriginferenten Variablen.
+
+<br>
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Niedrigerinferentere Variablen
+* Sind mehr oder weniger direkt beobachtbar
+* _Beispiel: "Anzahl der Fehltage einer Schülerin"_
+:::
+
+::: {.column width='50%'}
+#### Hochinferentere Variablen
+* Sind nicht direkt beobachtbar
+* _Beispiel: "Kognitive Aktivierung"_
+:::
+
+::::
+
+## Aufgabe
+<center>
+<iframe width="980" height="500" src="Integrierte Aufgaben/inferenzniveauunterschied-erkennen.html" title="Aufgabe"></iframe>
+</center>
+
+
+## [Typologie  III: Theo. Kausalzusammenhang]{style="font-size:0.9em"} {.smaller}
+::: {.fragment fragment-index=4}
+Als **abhängige Variable (AV)** wird eine (kausal) beeinflusste Variable bezeichnet, während die **unabhängige Variable (UV)** die beeinflussende Variable darstellt. Eine **Mediatorvariable (MeV)** ist zugleich AV und UV. Beeinflusst eine Variable eine Wirkung bezeichent man sie als **moderierende Variable (MoV)** [@eid2013]
+:::
+
+::: {.r-stack}
+![](img/Kausalzusammenhang-3.png){.fragment fragment-index=1 width="80%" fig-align="center"}
+
+![](img/Kausalzusammenhang-2.png){.fragment fragment-index=2 width="80%" fig-align="center"}
+
+![](img/Kausalzusammenhang.png){.fragment fragment-index=3 width="80%" fig-align="center"}
+:::
+
+::: {.fragment fragment-index=5}
+::: {.callout-tip icon=false collapse="false"}
+## {{< iconify fa6-solid:book-open >}} Weiterführende Literatur
+Pearl, J., Glymour, M., & Jewell, N. P. (2016). Causal inference in statistics: A primer. Wiley.
+:::
+:::
+
+## Aufgabe
+<center>
+<iframe width="980" height="500" src="Integrierte Aufgaben/av-identifizieren.html" title="Aufgabe"></iframe>
+</center>
+
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/av-uv-mov-identifizieren-text.html" title="Aufgabe"></iframe>
+</center>
+
+## <!--Gütekriterien einer Messung--> {.center}
+[{{< iconify fa6-solid:medal >}} Gütekriterien einer Messung]{style="font-size: 1.5em;"}
+
+## Objektivität {.smaller .center}
+> Zur Beschreibung der Objektivität einer Messung oder eines Tests wird typischerweise zwischen der [Durchführungsobjektivität]{.imp}, der [Auswertungsobjektivität]{.imp} und der [Interpretationsobjektivität]{.imp} differenziert [@doering2016], also der Unabhängigkeit des Ergebnisses der Messung/des Test von der durchführenden, auswertenden bzw. interpretierenden Person.
+
+<br>
+
+::: {.r-stack}
+![](img/Objektivität-3.png){.fragment fragment-index=1 width="110%" fig-align="center"}
+
+![](img/Objektivität-2.png){.fragment fragment-index=2 width="110%" fig-align="center"}
+
+![](img/Objektivität.png){.fragment fragment-index=3 width="110%" fig-align="center"}
+:::
+
+
+## Reliabilität {.center .smaller}
+> Reliabilität ist das Ausmaß an Messfehlerfreiheit
+
+<br>
+
+::: {.r-stack}
+![](img/Reliabilitaet-2.png){.fragment fragment-index=1 width="120%" fig-align="center"}
+
+![](img/Reliabilitaet.png){.fragment fragment-index=2 width="120%" fig-align="center"}
+:::
+
+## Validität {.center .smaller}
+::: {.fragment}
+####  Kriteriumsvalidität
+"Ein Test weist Kriteriumsvalidität auf, wenn vom Verhalten der Testperson innerhalb der Testsituation erfolgreich auf ein »Kriterium«, nämlich auf ein Verhalten außerhalb der Testsituation, geschlossen werden kann" [@moosbrugger2020].  
+:::
+
+## Validität {.center .smaller}
+
+####  Konstruktvalidität
+Das Ausmaß der theoretischen und empirischen Belege für die Angemessenheit der Interpretation von Testwerten [@cronbach1955].
+
+<br>  
+
+
+![](img/Konstruktvalidität.png)
+
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/guetekriterien-einer-messung-erkennen.html" title="Aufgabe"></iframe>
+</center>
+
+
+## <!--(Einige) Erhebungsverfahren--> {.center}
+[{{< iconify fa6-solid:route >}} Erhebungsverfahren]{style="font-size: 1.5em;"}
+
+## (Externe) Beobachtung {.smaller .center}
+Wissenschaftliche Beobachtung ist die systematische und [regelgeleitete Registrierung des Auftretens]{.imp} und der Ausprägung von ausgewählten, psychologisch relevanten Merkmalen oder Ereignissen. Sie folgt einem zuvor festgelegten Beobachtungsplan, der festlegt, [1)]{.imp} was beobachtet werden soll, [2)]{.imp} welche Aspekte weniger oder nicht relevant sind, [3)]{.imp} welchen Interpretationsspielraum der Beobachtende bei der Beobachtung hat , [4)]{.imp} wann, wie lange und wo die Beobachtung erfolgt und [5)]{.imp} auf welche Weise das Beobachtete registriert und protokolliert wird [@hussy2013]. 
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Potentielle Vermeidung von Reaktanz
+* Teilw. höhere Reliabilität
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Oft nicht ökonomisch
+* Kognitive und psychische Variablen oft nur schwierig zugänglich
+:::
+
+::::
+
+
+## Selbstauskünfte {.smaller .center}
+Interview, Fragebögen und Tests stellen Beispiele für Selbstauskünfte dar.
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Kognitive und psychische Variablen zugänglich
+* Teilweise sehr ökonomisch
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Reaktanz oft höher
+* Entwicklung von Fragebögen und Tests oft sehr aufwändig
+:::
+
+::::
+
+
+## Physiologische Messung {.smaller .center}
+Beispiele für physiologische Messungen im bildungswissenschaftlichen Bereich stellen die Messung der Hautleitfähigkeit und der Blickbewegungen dar.
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Teilweise nur schwer verfälschbar
+* Unbewusste Prozesse werden zugänglich
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Meist nicht verdeckt durchführbar
+* Oft Laborbedingungen erforderlich
+:::
+
+::::
+
+
+## Dokumentenanalyse {.smaller .center}
+Bei der Dokumentenanalyse werden bereits existierende schriftliche Artefakte untersucht (z.B. Schriftliche Leitbilder, Klassentagebücher, Schriftwechsel, Homepages). Diese können sowohl in hoch- wie niedrigstrukturierten Prozessen gesammelt, transformiert und analysiert werden (quantitative und qualitative Dokumentenanalyse). 
+<br> <br>
+
+. . .
+
+
+:::: {.columns}
+
+::: {.column width='50%'}
+#### Zentrale Vorteile
+* Keine Genese von Daten notwendig
+* Teilweise sehr ökonomisch
+:::
+
+::: {.column width='50%'}
+#### Zentrale Nachteile
+* Beschränkte Auswahl an Variablen 
+* Artefakte müssen präexistieren
+:::
+
+::::
+
+
+
+
+## <!--Noten als Messung von Schüler:innenleistung--> {.center}
+[{{< iconify fluent:certificate-32-filled >}} Noten als Messung von Schüler:innenleistung]{style="font-size: 1.5em;"}
+
+
+## Konstruktvalidität von Noten {.smaller .center}
+:::: {.columns}
+
+::: {.column width='50%'}
+```{r}
+#| echo: false
+#| message: false
+#| fig-format: png
+#| fig-height: 5
+#| fig-width: 8.3
+#| out-width: 98%
+library(tidyverse)
+library(hrbrthemes)
+data <- tibble(Note = c(rep(1 ,4), rep(1, 28), rep(1, 62), rep(1, 204),
+                  rep(2, 62), rep(2, 335), rep(2, 576), rep(2, 812), rep(2, 810),
+                  rep(3,469), rep(3,1282), rep(3,1398), rep(3,1074), rep(3,430),
+                  rep(4,844), rep(4,1341), rep(4,904), rep(4,412), rep(4,91),
+                  rep(5,501), rep(5,390), rep(5,142), rep(5,40), rep(5,5),
+                  rep(6,83), rep(6,37), rep(6,7), rep(6,5), rep(6,2)
+                  ),
+         Kompetenzstufe = c(rep(2, 4), rep(3, 28), rep(4, 62), rep(5,204),
+                            rep(1, 62), rep(2, 335), rep(3, 576), rep(4, 812), rep(5, 810),
+                            rep(1,469), rep(2,1282), rep(3,1398), rep(4,1074), rep(5,430),
+                            rep(1,844), rep(2,1341), rep(3,904), rep(4,412), rep(5,91),
+                            rep(1,501), rep(2,390), rep(3,142), rep(4,40), rep(5,5),
+                            rep(1,83), rep(2,37), rep(3,7), rep(4,5), rep(5,2)
+                  ))
+data %>% 
+  group_by(Note, Kompetenzstufe) %>% 
+  mutate(count = n()) %>%
+  ggplot(aes(x = factor(Kompetenzstufe), y = factor(Note), size = count)) +
+  geom_point() +
+  geom_text(aes(label=count), size = 3, color = "white") +
+  scale_size(range = c(3, 25)) +
+  scale_y_discrete() +
+  guides(size = "none") +
+  ylab("Halbjahresnote (1.HJ, Kl. 8)") +
+  xlab("Kompetenzstufe (Vera-8)") +
+  theme_ipsum() +
+  labs(title = "Fairness", 
+       subtitle = "von Noten", 
+       caption = "Daten nach Pant (2020)") 
+```
+:::
+
+::: {.column width='50%'}
+Misst man die Kompetenz in Mathematik bei Schülerinnen und Schülern mit einem wissenschaftlich validierten Kompetenztest und trägt diese gegen deren Noten auf, erhält man typischerweise die folgenden Daten: Inwiefern sprechen diese Daten für oder gegen die 
+
+* Objektivität, 
+* Reliabilität und 
+* Konstruktvalidität 
+
+schulischer Leistungsbewertung mit Noten?
+:::
+
+::::
+
+## Konstruktvalidität von Noten {.smaller .center} 
+* Lehrer:innen können hochgradig objektiv und reliabel, die Leistung von Schüler:innen innerhalb einer Klasse ranken, diese jedoch nicht objektiv auf einer absoluten Skala verorten [@pant2020, @ingenkamp1977a]
+* Sollen Noten für Selektions- und Allokationszwecke genutzt werden [@fend1980] ist das Anlegen einer kriteriale Bezugsnorm (auch ‚sachliche Bezugnorm‘; Rheinberg & Fries, @rheinberg2010a), die a priori inhaltlich festlegt, was eine ‚gute‘ Leistung auszeichnet Voraussetzung für Konstruktvalidität.  
+* Sollen Noten motivieren sind formative Rückmeldungen  [@schuetze2018] und die Verwendung eine individuellen Bezugsnorm, welche die Leistungs**entwicklung** unabhängig von der absoluten Leistungsausprägung bewerten günstig.
+* Viele Forschende vermuten, dass Lehrkräfte zur Benotung meist (implizit oder explizit) eine soziale Bezugsnorm anlegen. Dies ist im Einklang mit erstgenanntem Befund.
+
+
+## Verbesserung der Konstruktvalidität  {.smaller}  
+
+:::: {.columns}
+
+::: {.column width='50%'}
+Ist eine summative Leistungsbewertung erforderlich, bieten sich folgende Möglichkeiten zur Verbesserung der Messgüte von Noten an [@ingenkamp1977]:
+
+* Objektivität
+    * A priori definierter Korrekturschlüssel
+    * Geeignete Aufgabenformate
+    * Mehrfachkorrektur
+    * Verblindung
+    * Automatisierte Auswertung
+    * Abgleich mit standardisierter Messung (z.B. Lernstand, VERA)
+:::
+
+::: {.column width='50%'}
+* Reliabilität
+    * Hinreichende Länge Aufgabenzahl je Thema
+    * Mehrfachkorrektur
+    * Abgleich mit standardisierter Messung (z.B. Lernstand, VERA)
+* Konstruktvalidität
+    * Constructive Alignment [@biggs1996]
+    * Explizite Kommunikation der Bezugsnorm [@rheinberg2014]
+    * Abgleich mit standardisierter Messung (z.B. Lernstand, VERA)
+
+:::
+
+::::
+
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/bezugsnormen-erkennen.html" title="Aufgabe"></iframe>
+</center>
+
+
+## <!--Empirische Häufigkeitsverteilungen--> {.center}
+{{< iconify mdi:chart-bell-curve >}} Empirische Häufigkeitsverteilungen
+
+## Beispiel zum Einstieg {.smaller .center}
+> @keppens2019 haben bei $N=4344$ Schülerinnen und Schülern den unautorisierten Absentismus erfasst.
+Was denken Sie: Welche Abbildung stellt die Ergebnisse korrekt dar? 
+
+<br>
+
+. . .
+
+
+
+```{r}
+#| label: absenceplot
+#| fig-width: 12
+#| fig-height: 4
+#| out-width: 80%
+#| echo: false
+#| fig-format: svg
+#| fig-align: center
+#| cache: true
+
+library(tidyverse)
+library(PearsonDS)
+library(hrbrthemes)
+library(patchwork)
+set.seed(2505)
+
+trunc_to_0_20 <- function(x){ifelse(x <= 20 & x >= 0, x, sample(0:21,1))}
+
+data_absence <- 
+  tibble(`A` = trunc_to_0_20(sample(0:21, 
+                       4344, 
+                       replace = T, 
+                       prob = c(61.9, 14.8,7.6,3.9,2.4,1.9,1.3,1.3,0.8,0.6,
+                                1.7/6,1.7/6,1.7/6,1.7/6,1.7/6,1.7/6,
+                                0.9/6,0.9/6,0.9/6,0.9/6,0.9/6,0.9/6))),
+         `B` = round(trunc_to_0_20(abs(rnorm(4344, 2.221685,  7.781657))), 0),
+         `C` = round(trunc_to_0_20(abs(1 + rpearson(4344, moments = c(2.221685,  3.781657, 0.1, 20)))), 0),
+         `D` = round(trunc_to_0_20(c(sample(`A`, 3800), rnorm(544, 15, 1))), 0))
+# PearsonDS::empMoments(data_absence$orig)
+absenceplot <- ggplot(data_absence%>%gather(var, val), aes(val)) + 
+  facet_wrap(~var, scales = "free_x", ncol = 4) + 
+  geom_histogram(fill = "#abfc04", color = "#abfc04", 
+                 binwidth = 1, center = 1) +
+  ggtitle("Verteilung der Fehltage", "Welche Grafik stellt die wahren Daten dar?") + 
+  ylab("Anzahl SuS") +
+  xlab("Anzahl Tage") +
+  theme(strip.text = element_text(color = "white")) +
+  theme_modern_rc()
+absenceplot
+```
+
+
+
+## <!--Maße der zentralen Tendenz--> {.center}
+[{{< iconify fa6-solid:crosshairs >}} Maße der zentralen Tendenz]{.em15 .c .imp}
+
+## Zentrale Tendenz {.smaller}
+
+::: {style="font-size:0.8em;"}
+```{r}
+
+dummydata <- tibble(`Schüler*in` = c("S1","S2","S3","S4","S5"),
+                    `Fehltage` = c(13, 4, 14, 4, 10),
+                    `Selbsteinschätzung` = c("nie", "selten", "selten", "oft", "selten"),
+                    Geschlecht = c("m", "j", "m", "j", "j"))
+library(reactable)
+options(reactable.theme = reactableTheme(
+  color = "hsl(233, 9%, 87%)",
+  backgroundColor = "#a51e4100",
+  borderColor = "#ffffff",
+  stripedColor = "hsl(233, 12%, 22%)",
+  highlightColor = "hsl(233, 12%, 24%)",
+  inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)")
+))
+
+tinytable::tt(
+  dummydata
+)
+```
+:::
+<br>
+
+::: {style="font-size:0.8em;" .incremental}
+* Bei [intervallskalierten Variablen]{.imp} kann die zentrale Tendenz als "Durchschnitt" ([arithmetisches Mittel]{.imp}) angegeben werden (alle Datenpunkte aufsummieren und diese Summe durch die Anzahl der Datenpunkte teilen).
+* Bei [ordinalen Daten]{.imp} entspricht der [Median]{.imp} der zentralen Tendenz. Man erhält ihn, indem man alle Datenpunkte der Größe nach ordnet und dann den Wert in der Mitte nimmt. Ist die Anzahl der Datenpunkte eine gerade Zahl, entspricht der Median dem arithm. Mittel der beiden mittleren Werte.
+* Bei [nominalen Daten]{.imp} kann man den [Modus]{.imp} (Kategorie mit der häufigsten Ausprägung) als zentrale Tendenz auffassen.
+
+:::
+
+
+---
+## Zentrale Tendenz: Definitionen {.smaller .center}
+
+Wenn $X = \{x_1, x_2, ..., x_n\}$ eine empirische Variable (= Datenreihe darstellt) sind das [arithmetische Mittel $\bar x$]{.imp} und der [Median $\widetilde{x}$]{.imp} wie folgt definiert:
+$$\bar{x}=\frac{1}{n} \sum_{i=1}^{n} x_{i}$$
+
+. . .
+
+$$\widetilde{x}=
+   \begin{cases}
+   x_{m+1} &   \text{für ungerades }n = 2m + 1 \\ 
+   \frac{1}{2}(x_m + x_{m+1}) & \text{für gerades }n = 2m \\
+   \end{cases}$$
+
+## Aufgaben
+> Bearbeiten Sie mehrere Versionen der **Aufgaben 3.1 - 3.3** unter [ogy.de/mvl](https://ogy.de/mvl)
+
+
+
+
+## <!--Maße der Streuung--> {.center}
+[{{< iconify fa6-solid:arrows-alt-h >}} Maße der Streuung]{.em15 .c .imp}
+
+## Mean Average Deviation {.smaller .center}
+$$Fehltage = 13, 4, 14, 4, 10$$
+
+::: {.r-stack}
+![](img/MAD-4.png){.fragment fragment-index=1 width="110%" fig-align="center"}
+
+![](img/MAD-3.png){.fragment fragment-index=2 width="110%" fig-align="center"}
+
+![](img/MAD-2.png){.fragment fragment-index=3 width="110%" fig-align="center"}
+:::
+
+. . .
+
+$$MeanAD(\text{Fehltage}) = \frac{4+5+5+5+1}{5} = 4$$
+
+## Varianz & Standardabweichung {.smaller}
+
+::: {.r-stack}
+![](img/var2.png){.fragment fragment-index=1 width="70%" fig-align="center"}
+
+![](img/var1.png){.fragment fragment-index=2 width="70%" fig-align="center"}
+
+![](img/var3.png){.fragment fragment-index=3 width="70%" fig-align="center"}
+:::
+
+. . .
+
+$$Varianz =s^2(\text{Fehltage}) = \frac{16+25+25+25+1}{4} = 23$$
+$$Standardabweichung = \sqrt{s^2} = \sqrt{23}$$
+
+## Streuungsmaße: Definitionen {.smaller .center}
+::: {style="font-size:.9em;"}
+Wenn $X = \{x_1, x_2, ..., x_n\}$ eine intervallskalierte empirische Variable darstellt, sind die _Mean Average Deviation_ $MeanAD$, die _Median Average Deviation_ $MedianAD$, die _Varianz_ $s^2$, die Standardabweichung $s$, die Quartile $Q_1$, $Q_2$, $Q_3$, sowie der Interquartilsbereich $IQR$ wie folgt definiert: 
+$$Range = [min(x_i);\;max(x_i)]$$
+$$MeanAD = \frac{1}{n} \sum_{i=1}^{n} \left(|\overline{x} - x_i |\right)  \;\;\;\;  MedianAD = \frac{1}{n} \sum_{i=1}^{n} \left(|\widetilde{x} - x_i |\right)$$
+$$s^2 = \frac{1}{n-1} \sum_{i=1}^{n} \left(\overline{x} - x_i \right)^2  \;\;\;\;  s = \sqrt{s^2} = \sqrt{ \frac{1}{n-1} \sum_{i=1}^{n} \left(\overline{x} - x_i \right)^2}$$
+$$\text{Quartil 1} = \text{Median aller } x_i ≤ \widetilde{x} \text{; } \text{Quartil 2} = \widetilde{x} \text{; } \text{Quartil 3} = \text{Median aller } x_i ≥ \widetilde{x} \text{; }$$
+$$IQR = \left[\text{Quartil 1}; \text{Quartil 3} \right] $$
+:::
+
+## Streuung ordinaler Variablen {.smaller .center}
+> Die Definitionen des Range, der Quartile und des IQR sind auch auf ordinale Variablen anwendbar, allerdings bei Variablen mit wenigen Ausprägungen nicht sehr informativ. In vielen Anwendungsfällen ist eine qualitative grafische Abschätzung sinnvoll.
+
+<br>
+
+![](img/VERA-3.png){.fragment fragment-index=1 width="70%" fig-align="center"}
+
+
+## Modalität{.smaller .center}
+> Mit Modalität wird die »Vielgipflichkeit« einer Verteilung bezeichnet. Die Modi entsprechen oftmals in den Daten enthaltenen Subgruppen [@eid2013].
+
+<br>
+
+![](img/Bimod.png){.fragment fragment-index=1 width="60%" fig-align="center"}
+
+
+## Schiefe {.smaller .center}
+> Die Verteilung einer (unimodalen) intervallskalierten Variable ist schief, wenn die Streuungen der oberen/unteren Hälfte unterschiedlich sind [@vonhippel2005].   
+
+![](img/Netto.png){.fragment width="75%" fig-align="center"}
+
+
+## <!--Einige grafische Darstellungen--> {.center}
+[{{< iconify fa6-solid:pencil >}} Einige grafische Darstellungen]{.em15 .c .imp}
+
+
+
+## Einige grafische Darstellungen {.center}
+<!--
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 600
+
+library(shiny)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(Hmisc)
+library(bslib)
+ 
+ 
+ 
+ ui <- fluidPage(
+    theme = bs_theme(
+  #    heading_font = font_google("Source Sans Pro"),
+  #    base_font = font_google("Source Sans Pro"),
+      preset = "shiny",
+  #   bg = "#ffffff",
+  #   fg = "#000",
+     primary = "#8cd000"
+      ),
+    
+   titlePanel("Verteilungen visualisieren"),
+   
+   sidebarLayout(
+     
+     # Sidebar with a slider input
+     sidebarPanel(
+       sliderInput("sample_n", "Größe der Stichprobe", 1, 800, 164),
+       selectInput("Eigenschaft", "Streuung, Schiefe & Modalität:",
+                    choices = c("große Streuung" = "große Streuung",
+                                "kleine Streuung" = "kleine Streuung",
+                                "Bimodalität" = "Bimodalität",
+                                "Rechtsschiefe" = "Rechtsschiefe")),
+     selectInput(
+       "plottype",
+       "Art der Visualisierung",
+       c("Histogramm" = "Histogramm",
+         "Dotplot" = "Dotplot",
+         "Densityplot" = "Densityplot",
+         "Violinplot" = "Violinplot",
+         "Sinaplot" = "Sinaplot",
+         "Jitterplot" = "Jitterplot",
+         "Boxplot" = "Boxplot",
+         "Errorbarplot" = "Errorbarplot"))
+     ),
+
+     
+ mainPanel(
+     uiOutput("plotUI")
+ )
+ )
+)
+
+
+server <- function(input, output, session) {
+ # bs_themer()
+ # adapt data to input
+ data_subsetted <- reactive({
+   tibble(`kleine Streuung` = rbeta(input$sample_n, 30, 10)*15,
+          `große Streuung` = rbeta(input$sample_n, 9, 3)*15,
+          `Bimodalität` = c(rbeta(floor(input$sample_n/2), 38, 15)*15,
+                            rbeta(ceil(input$sample_n/2), 28, 35)*15),
+          `Rechtsschiefe` = rbeta(input$sample_n, 2, .5)*15) %>%
+     gather(Variable, Notenpunkte)%>%
+     mutate(dummy = 1) %>%
+     filter(Variable == input$Eigenschaft) %>%
+     sample_n(input$sample_n) %>%
+     mutate(Note = (Notenpunkte - 7.5) * (-6 / 15) + 4)
+ })
+ 
+ # adapt plot title to input
+ subtitle_reactive <- reactive({
+   if(input$Eigenschaft == "große Streuung")
+     sr <- "Verteilung mit vglw. großer Streuung"
+   if(input$Eigenschaft == "kleine Streuung")
+     sr <- "Verteilung mit vglw. kleiner Streuung"
+   if(input$Eigenschaft == "Bimodalität")
+     sr <- "Bimodale Verteilung"
+   if(input$Eigenschaft == "Rechtsschiefe")
+     sr <- "Rechtsschiefe Verteilung"
+   return(sr)
+ })
+ 
+ output$plot <- renderPlot({
+   
+   
+   if (input$plottype == "Dotplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note)) +
+       geom_dotplot(
+         method = "histodot",
+         binwidth = .1,
+         right = F, # intervalls cloed to the left
+         #dotsize = .5,
+         fill = "#8cd000",
+         color = "#8cd000"
+       ) +
+       theme_minimal(base_size = 18) +
+       labs(
+         title = "Dotplot",
+         subtitle = paste(subtitle_reactive()),
+         y = "Anzahl Schüler*innen"
+       ) +
+       xlim(.5, 6.5)
+   
+   if (input$plottype == "Histogramm")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note)) +
+       geom_histogram(
+         binwidth = .5,
+         fill = "#8cd000",
+         color = "#8cd000"
+       ) +
+       theme_minimal(base_size = 18) +
+       labs(
+         title = "Histogramm",
+         subtitle = paste(subtitle_reactive()),
+         y = "Anzahl Schüler*innen"
+       ) +
+       xlim(.5, 6.5)
+   
+   if (input$plottype == "Boxplot")
+     plot <-
+       ggplot(data_subsetted(), 
+              aes(y = Note, x = dummy)) + 
+       geom_boxplot(color = "#8cd000",
+                    fill = "#8cd00020") + 
+       coord_flip() +
+       labs(
+         title = "Boxplot",
+         subtitle = paste(subtitle_reactive()),
+         x = ""
+       ) +
+       ylim(1, 6) +
+       xlim(0, 2)+
+       theme_minimal(base_size = 18) +
+       theme(axis.text.y = element_blank())
+ 
+   if (input$plottype == "Jitterplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note, y = dummy)) + 
+       geom_jitter(color = "#8cd000") + 
+       labs(title = "Jitterplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Densityplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note)) + 
+       geom_density(color = "#8cd000",
+                    fill = "#8cd00020") + 
+       labs(title = "Densityplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       #ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Violinplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note, y = dummy)) + 
+       geom_violin(color = "#8cd000",
+                   fill = "#8cd00020") + 
+       labs(title = "Violinplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Sinaplot")
+     plot <-
+       ggplot(data_subsetted(), aes(x = Note, y = dummy)) + 
+       ggforce::geom_sina(color = "#8cd000") + 
+       labs(title = "Sinaplot",
+            subtitle = paste(subtitle_reactive()),
+            y = "") + 
+       ylim(0,2) +
+       xlim(1,6)+
+       theme_minimal(base_size = 18) + 
+       theme(axis.text.y = element_blank())
+   
+   if (input$plottype == "Errorbarplot")
+     plot <-
+       ggplot(data_subsetted(), aes(y=Note, x = dummy)) + 
+       stat_summary(fun.data = mean_sdl, 
+                    geom = "linerange", 
+                    fun.args = list(mult = 1), 
+                    color = "#8cd000") + 
+       stat_summary(fun.y = mean, 
+                    geom = "point",
+                    color = "#8cd000",
+                    size = 3) + 
+       coord_flip() +
+       labs(title = "Errorbarplot",
+            subtitle = paste(subtitle_reactive()),
+            x = "") + 
+       ylim(1,6)+
+       theme_minimal(base_size = 18) +
+       theme(axis.text.y = element_blank())
+   
+   return(plot)
+ })
+ 
+ output$plotUI <- renderUI({
+   plotOutput("plot", 
+              height = case_when(input$plottype == "Dotplot" ~ "400px",
+                                 input$plottype == "Histogramm" ~ "400px",
+                                 input$plottype == "Boxplot" ~ "200px",
+                                 input$plottype == "Jitterplot" ~ "300px",
+                                 input$plottype == "Densityplot" ~ "400px",
+                                 input$plottype == "Violinplot" ~ "330px",
+                                 input$plottype == "Sinaplot" ~ "330px",
+                                 input$plottype == "Errorbarplot" ~ "200px")
+   )
+ })
+}
+
+shinyApp(ui = ui, server = server)
+```
+-->
+
+<iframe id="VerteilungenDarstellen" src="https://shinylive.io/r/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw4BzSampFSAJmGiGzNuwAms1o2Vi1HUrQ069qiewASMWpwJnx60tzgwoR+yP0X6nMcoACESCIEICAV1oAgB4AWgCAM2pIjQAFKEk4dmCA3OdXOACAXgDfAH18+GzQgIBiXNyXKA0+STKEklJixM6yySIiSWosoTAAZSJwxgJCsagITgDUxiJRgVwc+ob6KE44ds7ujrI+gaGR8cnp2fnF5dWwdZyGgNRGOD2uktGePlZRjY1LalSTdUa1BKQqEAzYNBKg75gWoABlRMJqDTetDcbDBSIAHAQNKjkaNng0nhjnpxjHAdowADJQViTUjVF5hF71Ma0+kBADutGcASgAT8tMYAT4qHCpHJYt5LHSEDg1HZHLFdA0cEYAEkIDK2T9YLJ9hAAUEwABxRgAN4A+4VtZKxh5uG8iPQ4BaAIy4AL41H+n0ANgALJSNWLVXACKR9YbsmAAKK0TILAjcKAJOV4S2u97hcIQST+saZ2hwBKFABkAQAskQNFA6KQACekRDoqM9jmZoi0GaLEoEJOSFaOgIFuBFkujPHjoiT6ezyTd3sbzeWgDWwz4s1IheLa7AeN3cH3U8PM+P663945owAQtimy2hR354iXzA363P3g8oPveoxYLG3CkJwdi8FW3qnoiYGZpB0GVtWayRi8ezDHGCayuqj5gLI8ikKwqBwYCUajAAgowXTOgEABqtjhO+NI6regEYi8o6jJYtikIMzAwDAX6WnxnACeOsAiZxvajAAIvIRG5niimkMpd4agpFA0iRGnwZa8k6UKpFyLmFE9qMTFEHQBpmaJVm0DZ0r2bJlnjHwaCuXiPLQPpFmUWAABSQrkIw+l4iFpBhf5QENM+RAAB4Rd+SWxVxBHJowKyMPSKWWllOV5a5AiBC8lLysEbh8Mqqr4bkkQAPKyomozKQAqrqazBIEyjKCIIh7IwABuOoxPECTFnGTkQOw0qyv6rKGv6exQTNAgBCAwT1OUlQ6uwgT1M0aB0e4ooCVKBqysEzakFAZScOEvhwNFcAaONATvFA02jewW0YkY9D0MM7AAAbnpeK7HqD3S5S9UBzVdpAACScCawxlBA-oAMzIsGyICAAVD6ACsAVRqDi7Lteq4wyUcN3Yjhqo+jZr+gAnDjROk+TGqgz+f4fqQdMBKODMI0kAyMEzsoszApqYwA9EoOP4sGJPc2TcXARq4vsDMtBqvNKNo-LGMQMr6wBAoasBNjGvExrvMcqDiEQVBFawSLevG3LCtY9b-oYA7pMbQApAAfGH8qSO4LjSwxLC0FAwNwP6ABy8gUDKEDbuQAiR9HGUwLK7hZBo4TCaw3Q+uHUfygkhthewieMMnqfFCUvupum0HZqQddFxypv+zLJus5jg-yiXd3kOwmfkN089Z1dueL-EADswcbYTATsLEIYBIrAShwEADUAQRsEAC+gTbSKzaoF0ykBEYpDDK-RCXYawSPfQb8Yy+j9QocRPpwG+kYX6-0Gi0ASGPZGPcdKZn7p3S0VMDxHjnI8eUnBJSgKsjqcghtjwBBsF0YaQx+QYACOgl0NMOLPFgfAxBGYsw5lQaMCGKoryYJPGVBouCPoENoheZIJZSFCgCBQ6gVCAhcLGlDLBjC4HdzTEgthXxvyvmbP+XM-DciCPwWAAWOjCgMUIaIhhGImGqN7sg9hRQELgWQp7NC2CMqGPiKBZxHsYLVkYhY4hSiMTvFIFMWauDAi32CMEJassX6gPeBAZ0qQzJ-WeBk6xCQ96+2UnpQojjDJKRKvKBJsQ4rSGUpoM6D0nqfHIBoA6-ooAfHYIlboC84ClXPhUuARAYBlA0MU+Q9UOTwGcE2PEvAJJNnkJpDk9A+CCg0MKEoGA-Ta0+mmCC3QABi-p6h8DCsNFs1BFgEDkG9T+r8XABGGDmTZtQhmQVoAALwKQEYOzs4SG2oHiWohJiRojclGYgchJSIgBUSEkZIMq5A2mfOKe0yg2AgNiFs7Adh7Aem8j5Pp8QIritQFOnBRkvAAR8hSwzzKbL-hS7oqBdhzzpUKQB4DgEHQwlGauiIqIQFeVAbgfzyzcAAD-DEYITPgKpzRgDioSuFAREp0BgOwL5AQQzb0yTA7J8C8mkQKYicSkkhIyX0a8My40KkyDSbde6f96lvSaSKVp7SSidO6YixVmR+llGmSa2AZLthLOMKsz5WtFW5EbtQP5kLAUwpBRqMFRAIWWihUC0kcrFUKqjMi1F6K1RYv2DSd5NcCU9MVcS3wQa8isspWAY1glpLzMwk9elJRGUSSyCy9++wgGQKyKVb5uQeWWj5QKoVU5Mzip1FKiAMrYVRhzRqZV2I1Vkw1VqqkWSclI2RvqsiHDjFpRKRlMp1qql2tqc9V6jSrabI5C00lo7On+jdQECuVdPWcg5D6gZ9AT0jOTam8E8bgXDq3NG2NaawPIgUJmhFP7uJSw0O0OgqADoVqjFW0lmz22WifIBmlkaxRtrrQypl3ayO9rKP22gv0h2bPfWSLNS6sMalYCq9gfoNXLo5Ku1VeNrYCC9bmlw8AUV8ALZi3YxbcVlr4+S8TWQoCJVsBgcgiVSAYFHTGeAJxgbzG3JymJO69VmXyUeqKMVT0cnPd6m1Iyr0Opeg051T62kdKzv6Udn6YCCEQ7031AArUK+1gP-Ng2sc+SGGg4fYPh0Y1mdTpS3D2j+HbKNcGo2yiB9HB1ct7KOljgXFWcbXXjJQ7H+Ncb9CGETSLlOSbRW4QtsmcWlpKPi0rYmCjsFU+pzT2ndPDH06QMohnc4me3Tq3dzMD2GsMsZPStmXj2ajJU21NSXO3vc66rz+cesaj-YM5bHAItxuheBh9G4oORau3BhDMWiUkoS+RxERkFgmVS5udLHzO3Mpy329lA7OUQYaMVuVjxnuKtqOVwTuAquiZXbV3A9XkccjzVJ1rMnsUlrxeWi+jW+sDc4BpuAWmdPdD0xQcbk3jOlW1bkWBc34kWYNUe6ytl9LmvW8dxzbJnN1Nc06q2Hn32voCL5yu-nv1BYGcNJytl9Y2RTfdjNLb7x3cuxm+D0WieVte4lsAXOXJzMTT2P7FGu3Zf-nW2jIP8tg5u1LvE+vYsjq45VxTDQBPcbRw1xVWOWsYqLR1gnR3MfKf62psnQ2qclBpwZ4lU3GczeZ7q3J7PD2FNGL5Ly5veeWriBerbd1r2Orvc0-b7rvOu5KH5gLMONuSA6NcRAiATs0mgCr8F6uE2R5ePF43+efsbit5lm3f2Hd5YY4VnskP3dxXh+wb31WXh+7q4H3rEn8047D-jhTzeNR7Rj4Ninw3qejdpxNlPDP+HKNZyjBbR7CopuKoX0pxfykOcvdt4Xu2YurSrARQku76jecuiqEk7gtSwkFgk0EAGAdq3Q8A8wD0Gg1A-oLuPYf6eItkOo8wmQFo2BUYCBGALAkgw4dy-E7AJc1AXwJ896JGm4yyYaPoGA2M4OG4F2MGD2S+UBs8sBOIHAZBo6qBAcJBx2fSMAeIqAA4ZAmu94PBoGfBFuwEh+JQ2Mg+DQxAKaqGSQtAGGPuuQw+72BU2U7+LAY+vYE+rwWW0+dGc+XBSqbu0OBu3KqO6OxOu+2Ooe7WGhJ8hO3hKmse5OlOI2BQyeRm028UISL04S7AykUSd8oQcSz+ZknUH0SSzonU6SGIykzU6keEbUrkWBzBLwLg2yDBBA7W-ILgs0WexEHOueYAakEUAAfpaGGKiKgIlIoTrL2I0dFM0UavxE2sJPOJ0aMN0ciL0f0QMVGEMZZi0YRslN5FMWAPBrMX0WoQsYMXui-i0cluFOsZaLjNsfMXsS8EsSMUtl9itubgEBsTMXMbsVcRqDcTnoiKbnZI8RsdjLjK8c4e8Z8Ytnnp5B0WcYCTscCVcaCa-hYblFYacaMFsa8fwskSINfANAsLwPwFROgOwJEN0JECtDqKNKmkNBSQIGANfAALpAA" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" id="iframe_container" frameborder="0" ></iframe>
+</center>
+<style>
+#VerteilungenDarstellen {height: 500px; width: 900px; margin-top: 0.0cm; border:0px;}
+</style>
+
+<!--
+<iframe id="VerteilungenDarstellen" src="https://sammerk.shinyapps.io/Verteilungen-darstellen" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" id="iframe_container" frameborder="0" ></iframe>
+</center>
+<style>
+#VerteilungenDarstellen {height: 500px; width: 900px; margin-top: 0.0cm; border:0px;}
+</style>
+-->
+
+## Cheat Sheet - Plottypes {.center}
+![](img/Plottypes_embedded.svg){width="140%" fig-align="center"}
+
+
+## Literatur
+<style>
+div.callout {border-left-color: #8cd000 !important;
+</style>
+
