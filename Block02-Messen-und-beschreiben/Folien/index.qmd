@@ -590,6 +590,11 @@ $$MeanAD(\text{Fehltage}) = \frac{4+5+5+5+1}{5} = 4$$
 $$Varianz =s^2(\text{Fehltage}) = \frac{16+25+25+25+1}{4} = 23$$
 $$Standardabweichung = \sqrt{s^2} = \sqrt{23}$$
 
+::: footer
+
+:::
+
+
 ## Streuungsmaße: Definitionen {.smaller .center}
 ::: {style="font-size:.9em;"}
 Wenn $X = \{x_1, x_2, ..., x_n\}$ eine intervallskalierte empirische Variable darstellt, sind die _Mean Average Deviation_ $MeanAD$, die _Median Average Deviation_ $MedianAD$, die _Varianz_ $s^2$, die Standardabweichung $s$, die Quartile $Q_1$, $Q_2$, $Q_3$, sowie der Interquartilsbereich $IQR$ wie folgt definiert: 
