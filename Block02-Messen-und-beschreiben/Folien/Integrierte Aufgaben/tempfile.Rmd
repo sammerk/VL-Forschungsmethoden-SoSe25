@@ -1,44 +1,119 @@
-```{r, Datengenese, echo = FALSE, message=FALSE}
-x <- sample(1:100, 6)
-median <- median(x)
-i <- sample(1:6,6)
-library(dplyr)
+```{r data generation, echo = FALSE, results = "hide", message=FALSE}
 library(exams)
+library(bayestestR)
+library(tidyverse)
+
+n1 <- sample(18:27, 1)
+n2 <- sample(18:27, 1)
+
+max_count <- sample(40:65, 1)
+  
 data <- 
   tibble(
-    answerlist = c(
-      setdiff(x, median)[1],
-      setdiff(x, median)[2],
-      setdiff(x, median)[3],
-      setdiff(x, median)[4],
-      setdiff(x, median)[5],
-      median
-    ),
-    exsolution = c(F,F,F,F,F,T)
+    `Anzahl richtig gelesener Wörter` = c(distribution_beta(n1, 
+                                                      runif(1, 5, 15),
+                                                      runif(1, 1, 5)),
+                                    distribution_beta(n2, 
+                                                      runif(1, 5, 15),
+                                                      runif(1, 1, 5))),
+    Klasse = c(rep("Klasse 3a", n1), rep("Klasse 3b", n2))
   ) |> 
-  sample_frac(1)
+  mutate(`Anzahl richtig gelesener Wörter` = round(`Anzahl richtig gelesener Wörter`*max_count, 0))
+
+descriptives <- 
+  data |> 
+  group_by(Klasse) |> 
+  skimr::skim() |> 
+  slice(1)
+
+
+start_answerlist <- sample(1:6, 1)
+answerlist_mean <- 
+  round(descriptives$numeric.p75, 1) * seq(0, 2, .2) %>% 
+  .[start_answerlist:(start_answerlist + 5)]
+
+
+
 ```
 
 Question
 ========
+Eine Grundschullehrerin erhebt die Leseflüssigkeit in zwei Klassen, indem sie erfasst, wie viele Wörter einer bestimmten Schwierigkeitsstufe jedes Kind in einer Minute richtig lesen kann.
 
-Gegeben sei die ordinale Variable mit folgenden Ausprägungen: Y = (`r x[1]`, `r x[2]`, `r x[3]`, `r x[4]`, `r x[5]`, `r x[6]`).  
+> Wo liegt das dritte Quartil $Q_3$ der Anzahl richtig gelesener Wörter in Klasse 3a?
 
-Welchen Wert hat der Median von Y?
+```{r, echo = F, dev='svglite', message=FALSE, warning=FALSE}
+randcol <- randomcoloR::randomColor()
+randplottype <- sample(1:6, 1)
+
+if(randplottype == 1){
+ggplot(data, aes(`Anzahl richtig gelesener Wörter`, group = Klasse, color = Klasse)) +
+  geom_density() +
+  theme_minimal() +
+    ylab("Anzahl SuS") +
+    scale_color_viridis_d()
+}
+
+if(randplottype == 2){
+ggplot(data, aes(`Anzahl richtig gelesener Wörter`)) +
+  geom_histogram(fill = randcol,
+                 color = randcol,
+                 bins = 12) +
+  theme_minimal() +
+  facet_wrap(~ Klasse, 
+             ncol = 2) + 
+    ylab("Anzahl SuS")
+}
+
+if(randplottype == 3){
+ggplot(data, aes(`Anzahl richtig gelesener Wörter`)) +
+  geom_dotplot(color = randcol, fill = randcol) +
+  theme_minimal() +
+  facet_wrap(~ Klasse, 
+             ncol = 2) + 
+    ylab("Anzahl SuS")
+}
+
+if(randplottype == 4){
+ggplot(data, aes(`Anzahl richtig gelesener Wörter`, Klasse)) +
+  geom_boxplot(fill = randcol) +
+  theme_minimal() +
+    ylab("Anzahl SuS")
+}
+
+if(randplottype == 5){
+ggplot(data, aes(`Anzahl richtig gelesener Wörter`, Klasse)) +
+  geom_violin(color = randcol) +
+  theme_minimal() +
+    ylab("Anzahl SuS")
+}
+
+if(randplottype == 6){
+ggplot(data, aes(`Anzahl richtig gelesener Wörter`, Klasse)) +
+  ggforce::geom_sina(color = randcol) +
+  theme_minimal() +
+    ylab("Anzahl SuS")
+}
+```
 
 
-
-```{r questionlist, echo = FALSE, results='asis'}
-answerlist(
-  data |> pull(answerlist),
+```{r, echo=FALSE, results='asis'}
+answerlist(answerlist_mean,
   markup = "markdown")
 ```
 
+Solution
+========
+
+```{r exsolutiongeneration, echo = F, results='hide'}
+ex_solution <- 
+  answerlist_mean == round(descriptives$numeric.p75, 1)
+```
 
 
 
 Meta-information
 ================
-exname: Median_berechnen_geradeAnzahl
 extype: schoice
-exsolution: `r mchoice2string(data |> pull(exsolution))`
+exsolution: `r mchoice2string(ex_solution)`
+exname: Q3_guessing_reading_SC

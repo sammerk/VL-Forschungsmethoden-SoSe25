@@ -561,6 +561,10 @@ $$\widetilde{x}=
 <iframe width="1280" height="500" src="Integrierte Aufgaben/Median_berechnen_geradeAnzahl.html" title="Aufgabe"></iframe>
 </center>
 
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/Median_berechnen_ungeradeAnzahl.html" title="Aufgabe"></iframe>
+</center>
 
 
 ## <!--Maße der Streuung--> {.center}
@@ -580,6 +584,7 @@ $$Fehltage = 13, 4, 14, 4, 10$$
 . . .
 
 $$MeanAD(\text{Fehltage}) = \frac{4+5+5+5+1}{5} = 4$$
+
 
 ## Varianz & Standardabweichung {.smaller}
 
@@ -611,12 +616,21 @@ $$\text{Quartil 1} = \text{Median aller } x_i ≤ \widetilde{x} \text{; } \text{
 $$IQR = \left[\text{Quartil 1}; \text{Quartil 3} \right] $$
 :::
 
+
+
 ## Streuung ordinaler Variablen {.smaller .center}
 > Die Definitionen des Range, der Quartile und des IQR sind auch auf ordinale Variablen anwendbar, allerdings bei Variablen mit wenigen Ausprägungen nicht sehr informativ. In vielen Anwendungsfällen ist eine qualitative grafische Abschätzung sinnvoll.
 
 <br>
 
 ![](img/VERA-3.png){.fragment fragment-index=1 width="70%" fig-align="center"}
+
+
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/Streuung_in_Kompetenzstufen_erkennen.html" title="Aufgabe"></iframe>
+</center>
+
 
 
 ## Modalität{.smaller .center}
@@ -871,6 +885,21 @@ shinyApp(ui = ui, server = server)
 ## Cheat Sheet - Plottypes {.center}
 ![](img/Plottypes_embedded.svg){width="140%" fig-align="center"}
 
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/Mean_guessing_SC.html" title="Aufgabe"></iframe>
+</center>
+
+
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/MAD_guessing_SC.html" title="Aufgabe"></iframe>
+</center>
+
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/Q3_guessing_reading_SC.html" title="Aufgabe"></iframe>
+</center>
 
 ## Literatur
 <style>
