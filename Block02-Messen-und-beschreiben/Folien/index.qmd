@@ -19,6 +19,9 @@ lang: de
 
 bibliography: references.bib
 csl: apa.csl
+
+filters:
+  - shinylive
 ---
 
 ## Inhalte dieses Vorlesungsblocks {.center}
@@ -442,7 +445,7 @@ Ist eine summative Leistungsbewertung erforderlich, bieten sich folgende Möglic
 
 
 ## <!--Empirische Häufigkeitsverteilungen--> {.center}
-{{< iconify mdi:chart-bell-curve >}} Empirische Häufigkeitsverteilungen
+[{{< iconify mdi:chart-bell-curve >}} Empirische Häufigkeitsverteilungen]{style="font-size: 1.5em;"}
 
 ## Beispiel zum Einstieg {.smaller .center}
 > @keppens2019 haben bei $N=4344$ Schülerinnen und Schülern den unautorisierten Absentismus erfasst.
@@ -498,7 +501,7 @@ absenceplot
 
 
 ## <!--Maße der zentralen Tendenz--> {.center}
-[{{< iconify fa6-solid:crosshairs >}} Maße der zentralen Tendenz]{.em15 .c .imp}
+[{{< iconify fa6-solid:crosshairs >}} Maße der zentralen Tendenz]{style="font-size: 1.5em;"}
 
 ## Zentrale Tendenz {.smaller}
 
@@ -551,14 +554,15 @@ $$\widetilde{x}=
    \frac{1}{2}(x_m + x_{m+1}) & \text{für gerades }n = 2m \\
    \end{cases}$$
 
-## Aufgaben
-> Bearbeiten Sie mehrere Versionen der **Aufgaben 3.1 - 3.3** unter [ogy.de/mvl](https://ogy.de/mvl)
-
+## Aufgabe
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/Median_berechnen_geradeAnzahl.html" title="Aufgabe"></iframe>
+</center>
 
 
 
 ## <!--Maße der Streuung--> {.center}
-[{{< iconify fa6-solid:arrows-alt-h >}} Maße der Streuung]{.em15 .c .imp}
+[{{< iconify fa-solid:arrows-alt-h >}} Maße der Streuung]{style="font-size: 1.5em;"}
 
 ## Mean Average Deviation {.smaller .center}
 $$Fehltage = 13, 4, 14, 4, 10$$
@@ -628,11 +632,11 @@ $$IQR = \left[\text{Quartil 1}; \text{Quartil 3} \right] $$
 
 
 ## <!--Einige grafische Darstellungen--> {.center}
-[{{< iconify fa6-solid:pencil >}} Einige grafische Darstellungen]{.em15 .c .imp}
+[{{< iconify fa6-solid:pencil >}} Einige grafische Darstellungen]{style="font-size: 1.5em;"}
 
 
 
-## Einige grafische Darstellungen {.center}
+## Einige grafische Darstellungen
 <!--
 ```{shinylive-r}
 #| standalone: true
@@ -852,7 +856,7 @@ server <- function(input, output, session) {
                                  input$plottype == "Histogramm" ~ "400px",
                                  input$plottype == "Boxplot" ~ "200px",
                                  input$plottype == "Jitterplot" ~ "300px",
-                                 input$plottype == "Densityplot" ~ "400px",
+                                 input$plottype == "Densityplot" ~ "400px", 
                                  input$plottype == "Violinplot" ~ "330px",
                                  input$plottype == "Sinaplot" ~ "330px",
                                  input$plottype == "Errorbarplot" ~ "200px")
@@ -862,7 +866,7 @@ server <- function(input, output, session) {
 
 shinyApp(ui = ui, server = server)
 ```
--->
+
 
 <iframe id="VerteilungenDarstellen" src="https://shinylive.io/r/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw4BzSampFSAJmGiGzNuwAms1o2Vi1HUrQ069qiewASMWpwJnx60tzgwoR+yP0X6nMcoACESCIEICAV1oAgB4AWgCAM2pIjQAFKEk4dmCA3OdXOACAXgDfAH18+GzQgIBiXNyXKA0+STKEklJixM6yySIiSWosoTAAZSJwxgJCsagITgDUxiJRgVwc+ob6KE44ds7ujrI+gaGR8cnp2fnF5dWwdZyGgNRGOD2uktGePlZRjY1LalSTdUa1BKQqEAzYNBKg75gWoABlRMJqDTetDcbDBSIAHAQNKjkaNng0nhjnpxjHAdowADJQViTUjVF5hF71Ma0+kBADutGcASgAT8tMYAT4qHCpHJYt5LHSEDg1HZHLFdA0cEYAEkIDK2T9YLJ9hAAUEwABxRgAN4A+4VtZKxh5uG8iPQ4BaAIy4AL41H+n0ANgALJSNWLVXACKR9YbsmAAKK0TILAjcKAJOV4S2u97hcIQST+saZ2hwBKFABkAQAskQNFA6KQACekRDoqM9jmZoi0GaLEoEJOSFaOgIFuBFkujPHjoiT6ezyTd3sbzeWgDWwz4s1IheLa7AeN3cH3U8PM+P663945owAQtimy2hR354iXzA363P3g8oPveoxYLG3CkJwdi8FW3qnoiYGZpB0GVtWayRi8ezDHGCayuqj5gLI8ikKwqBwYCUajAAgowXTOgEABqtjhO+NI6regEYi8o6jJYtikIMzAwDAX6WnxnACeOsAiZxvajAAIvIRG5niimkMpd4agpFA0iRGnwZa8k6UKpFyLmFE9qMTFEHQBpmaJVm0DZ0r2bJlnjHwaCuXiPLQPpFmUWAABSQrkIw+l4iFpBhf5QENM+RAAB4Rd+SWxVxBHJowKyMPSKWWllOV5a5AiBC8lLysEbh8Mqqr4bkkQAPKyomozKQAqrqazBIEyjKCIIh7IwABuOoxPECTFnGTkQOw0qyv6rKGv6exQTNAgBCAwT1OUlQ6uwgT1M0aB0e4ooCVKBqysEzakFAZScOEvhwNFcAaONATvFA02jewW0YkY9D0MM7AAAbnpeK7HqD3S5S9UBzVdpAACScCawxlBA-oAMzIsGyICAAVD6ACsAVRqDi7Lteq4wyUcN3Yjhqo+jZr+gAnDjROk+TGqgz+f4fqQdMBKODMI0kAyMEzsoszApqYwA9EoOP4sGJPc2TcXARq4vsDMtBqvNKNo-LGMQMr6wBAoasBNjGvExrvMcqDiEQVBFawSLevG3LCtY9b-oYA7pMbQApAAfGH8qSO4LjSwxLC0FAwNwP6ABy8gUDKEDbuQAiR9HGUwLK7hZBo4TCaw3Q+uHUfygkhthewieMMnqfFCUvupum0HZqQddFxypv+zLJus5jg-yiXd3kOwmfkN089Z1dueL-EADswcbYTATsLEIYBIrAShwEADUAQRsEAC+gTbSKzaoF0ykBEYpDDK-RCXYawSPfQb8Yy+j9QocRPpwG+kYX6-0Gi0ASGPZGPcdKZn7p3S0VMDxHjnI8eUnBJSgKsjqcghtjwBBsF0YaQx+QYACOgl0NMOLPFgfAxBGYsw5lQaMCGKoryYJPGVBouCPoENoheZIJZSFCgCBQ6gVCAhcLGlDLBjC4HdzTEgthXxvyvmbP+XM-DciCPwWAAWOjCgMUIaIhhGImGqN7sg9hRQELgWQp7NC2CMqGPiKBZxHsYLVkYhY4hSiMTvFIFMWauDAi32CMEJassX6gPeBAZ0qQzJ-WeBk6xCQ96+2UnpQojjDJKRKvKBJsQ4rSGUpoM6D0nqfHIBoA6-ooAfHYIlboC84ClXPhUuARAYBlA0MU+Q9UOTwGcE2PEvAJJNnkJpDk9A+CCg0MKEoGA-Ta0+mmCC3QABi-p6h8DCsNFs1BFgEDkG9T+r8XABGGDmTZtQhmQVoAALwKQEYOzs4SG2oHiWohJiRojclGYgchJSIgBUSEkZIMq5A2mfOKe0yg2AgNiFs7Adh7Aem8j5Pp8QIritQFOnBRkvAAR8hSwzzKbL-hS7oqBdhzzpUKQB4DgEHQwlGauiIqIQFeVAbgfzyzcAAD-DEYITPgKpzRgDioSuFAREp0BgOwL5AQQzb0yTA7J8C8mkQKYicSkkhIyX0a8My40KkyDSbde6f96lvSaSKVp7SSidO6YixVmR+llGmSa2AZLthLOMKsz5WtFW5EbtQP5kLAUwpBRqMFRAIWWihUC0kcrFUKqjMi1F6K1RYv2DSd5NcCU9MVcS3wQa8isspWAY1glpLzMwk9elJRGUSSyCy9++wgGQKyKVb5uQeWWj5QKoVU5Mzip1FKiAMrYVRhzRqZV2I1Vkw1VqqkWSclI2RvqsiHDjFpRKRlMp1qql2tqc9V6jSrabI5C00lo7On+jdQECuVdPWcg5D6gZ9AT0jOTam8E8bgXDq3NG2NaawPIgUJmhFP7uJSw0O0OgqADoVqjFW0lmz22WifIBmlkaxRtrrQypl3ayO9rKP22gv0h2bPfWSLNS6sMalYCq9gfoNXLo5Ku1VeNrYCC9bmlw8AUV8ALZi3YxbcVlr4+S8TWQoCJVsBgcgiVSAYFHTGeAJxgbzG3JymJO69VmXyUeqKMVT0cnPd6m1Iyr0Opeg051T62kdKzv6Udn6YCCEQ7031AArUK+1gP-Ng2sc+SGGg4fYPh0Y1mdTpS3D2j+HbKNcGo2yiB9HB1ct7KOljgXFWcbXXjJQ7H+Ncb9CGETSLlOSbRW4QtsmcWlpKPi0rYmCjsFU+pzT2ndPDH06QMohnc4me3Tq3dzMD2GsMsZPStmXj2ajJU21NSXO3vc66rz+cesaj-YM5bHAItxuheBh9G4oORau3BhDMWiUkoS+RxERkFgmVS5udLHzO3Mpy329lA7OUQYaMVuVjxnuKtqOVwTuAquiZXbV3A9XkccjzVJ1rMnsUlrxeWi+jW+sDc4BpuAWmdPdD0xQcbk3jOlW1bkWBc34kWYNUe6ytl9LmvW8dxzbJnN1Nc06q2Hn32voCL5yu-nv1BYGcNJytl9Y2RTfdjNLb7x3cuxm+D0WieVte4lsAXOXJzMTT2P7FGu3Zf-nW2jIP8tg5u1LvE+vYsjq45VxTDQBPcbRw1xVWOWsYqLR1gnR3MfKf62psnQ2qclBpwZ4lU3GczeZ7q3J7PD2FNGL5Ly5veeWriBerbd1r2Orvc0-b7rvOu5KH5gLMONuSA6NcRAiATs0mgCr8F6uE2R5ePF43+efsbit5lm3f2Hd5YY4VnskP3dxXh+wb31WXh+7q4H3rEn8047D-jhTzeNR7Rj4Ninw3qejdpxNlPDP+HKNZyjBbR7CopuKoX0pxfykOcvdt4Xu2YurSrARQku76jecuiqEk7gtSwkFgk0EAGAdq3Q8A8wD0Gg1A-oLuPYf6eItkOo8wmQFo2BUYCBGALAkgw4dy-E7AJc1AXwJ896JGm4yyYaPoGA2M4OG4F2MGD2S+UBs8sBOIHAZBo6qBAcJBx2fSMAeIqAA4ZAmu94PBoGfBFuwEh+JQ2Mg+DQxAKaqGSQtAGGPuuQw+72BU2U7+LAY+vYE+rwWW0+dGc+XBSqbu0OBu3KqO6OxOu+2Ooe7WGhJ8hO3hKmse5OlOI2BQyeRm028UISL04S7AykUSd8oQcSz+ZknUH0SSzonU6SGIykzU6keEbUrkWBzBLwLg2yDBBA7W-ILgs0WexEHOueYAakEUAAfpaGGKiKgIlIoTrL2I0dFM0UavxE2sJPOJ0aMN0ciL0f0QMVGEMZZi0YRslN5FMWAPBrMX0WoQsYMXui-i0cluFOsZaLjNsfMXsS8EsSMUtl9itubgEBsTMXMbsVcRqDcTnoiKbnZI8RsdjLjK8c4e8Z8Ytnnp5B0WcYCTscCVcaCa-hYblFYacaMFsa8fwskSINfANAsLwPwFROgOwJEN0JECtDqKNKmkNBSQIGANfAALpAA" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" id="iframe_container" frameborder="0" ></iframe>
 </center>
@@ -870,7 +874,7 @@ shinyApp(ui = ui, server = server)
 #VerteilungenDarstellen {height: 500px; width: 900px; margin-top: 0.0cm; border:0px;}
 </style>
 
-<!--
+
 <iframe id="VerteilungenDarstellen" src="https://sammerk.shinyapps.io/Verteilungen-darstellen" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" id="iframe_container" frameborder="0" ></iframe>
 </center>
 <style>
