@@ -12,7 +12,6 @@ library(viridis)
 
 
 ui <-  page_sidebar(
-  theme = bs_theme(brand = "../../_template/_brand.yml"),
   title = "App: Überlappung vs. Mittelwertsdifferenz",
   sidebar = sidebar(
     sliderInput("sample_n", "Größe der Stichprobe", 1, 800, 164),
