@@ -12,6 +12,12 @@ library(viridis)
 
 
 ui <-  page_sidebar(
+  theme = bs_theme(
+    base_font = "Open Sans",
+    heading_font = "Open Sans",
+    fg = "#267326",
+    bg = "#F2F2F2",
+    primary = "#174717"),
   title = "App: Überlappung vs. Mittelwertsdifferenz",
   sidebar = sidebar(
     sliderInput("sample_n", "Größe der Stichprobe", 1, 800, 164),
@@ -121,7 +127,11 @@ server <- function(input, output, session) {
           method = "histodot",
           color = "#ffffff00") +
         theme_minimal(base_size = 18) +
-        scale_fill_manual(values = c("#26732690", "#d77d0090")) 
+        scale_fill_manual(values = c("#26732690", "#d77d0090")) +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
     
     if (input$plottype == "Histogramm")
       plot <-
@@ -133,7 +143,11 @@ server <- function(input, output, session) {
         theme_minimal(base_size = 18) +
         labs(title = "Histogramm") +
         theme_minimal(base_size = 18) +
-        scale_fill_manual(values = c("#26732690", "#d77d0090"))
+        scale_fill_manual(values = c("#26732690", "#d77d0090")) +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
     
     if (input$plottype == "Boxplot")
       plot <-
@@ -142,7 +156,11 @@ server <- function(input, output, session) {
         geom_boxplot(color = "#267326",
                      fill = "#26732620") + 
         theme_minimal(base_size = 18) +
-        labs(title = "Boxplot")
+        labs(title = "Boxplot") +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
   
     if (input$plottype == "Jitterplot")
       plot <-
@@ -150,7 +168,11 @@ server <- function(input, output, session) {
                aes(x = Ausprägung, y = Gruppe)) + 
         geom_jitter(color = "#267326") + 
         theme_minimal(base_size = 18) +
-        labs(title = "Jitterplot") 
+        labs(title = "Jitterplot")  +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
     
     if (input$plottype == "Densityplot")
       plot <-
@@ -161,7 +183,11 @@ server <- function(input, output, session) {
         theme_minimal(base_size = 18) +
         scale_fill_manual(values = c("#26732650", "#d77d0050")) +
         scale_color_manual(values = c("#267326", "#d77d00")) +
-        geom_density() 
+        geom_density()  +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
       
     
     if (input$plottype == "Violinplot")
@@ -171,7 +197,11 @@ server <- function(input, output, session) {
         geom_violin(color = "#267326",
                      fill = "#26732620") + 
         theme_minimal(base_size = 18) +
-        labs(title = "Violinplot")
+        labs(title = "Violinplot") +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
     
     if (input$plottype == "Sinaplot")
       plot <-
@@ -180,7 +210,11 @@ server <- function(input, output, session) {
         ggforce::geom_sina(color = "#267326",
                     fill = "#26732620") + 
         theme_minimal(base_size = 18) +
-        labs(title = "Violinplot")
+        labs(title = "Violinplot") +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
     
     if (input$plottype == "Errorbarplot")
       plot <-
@@ -195,7 +229,11 @@ server <- function(input, output, session) {
                      color = "#267326",
                      size = 3) + 
         theme_minimal(base_size = 18) +
-        labs(title = "Errorbarplot")
+        labs(title = "Errorbarplot") +
+        theme(plot.background = element_rect(fill = "#F2F2F2",
+                                             color = "#f2f2f2"),
+              panel.background = element_rect(fill = "#F2F2F2",
+                                              color = "#f2f2f2"))
     
     return(plot)
   })
