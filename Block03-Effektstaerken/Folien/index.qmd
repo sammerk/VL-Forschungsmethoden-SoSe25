@@ -10,7 +10,7 @@ logo: img/PHlogo.svg
 
 format: 
   revealjs:
-    embed-resources: true
+    embed-resources: false
     slide-number: c
     html-math-method: mathjax
 
