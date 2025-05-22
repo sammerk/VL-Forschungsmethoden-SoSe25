@@ -1701,35 +1701,12 @@ plot +
 
 > Misst man die Steigung einer »Ausgleichsgerade« in Standardabweichungen, erhält man den Pearson Korrelationskoeffizienten r
 
-## Aufgaben {.center}
-> Bearbeiten Sie mehrere Versionen der **Aufgaben 5.5 - 5.7** unter [ogy.de/mvl](https://ogy.de/mvl)
+
 
 ## Aufgaben {.center}
 <center>
 <iframe width="1280" height="500" src="Integrierte Aufgaben/Korr_Bildungsabschluesse_erkennen.html" title="Aufgabe"></iframe>
 </center>
-
-## Ableitung: Formel Pearsons's r {.smaller}
-:::: {.columns}
-
-::: {.column width='55%'}
-<iframe scrolling="no"
-src="https://www.geogebra.org/material/iframe/id/xj3vvgvp/szb/true/smb/false/sfsb/true/sri/true"
-width="523px"
-height="540px"
-style="border:0px;" allowfullscreen>
-</iframe>
-:::
-
-::: {.column width='45%'}
-<br>
-<br>
-<br>
-<br>
-$$r_{x, y}=\frac{\sum_{i=1}^n\left(x_i-\bar{x}\right)\left(y_i-\bar{y}\right)}{\sqrt{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2 \sum_{i=1}^n\left(y_i-\bar{y}\right)^2}}$$
-:::
-
-::::
 
 
 ## Eigenschaften Pearson's $r$  {.center}
