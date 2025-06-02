@@ -9,37 +9,35 @@ editor: visual
 ---
 
 ## Design des Experiments
+
 Between-Person Randomisierung in drei Gruppen:
 
-:::: {.columns}
-
-::: {.column width='30%'}
+:::::::: columns
+::: {.column width="30%"}
 ![Das Original](https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original.jpg)
 :::
 
-::: {.column width='3%'}
+::: {.column width="3%"}
 :::
 
-::: {.column width='30%'}
+::: {.column width="30%"}
 ![Alternative 1](https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_u3.jpg)
 :::
 
-::: {.column width='3%'}
+::: {.column width="3%"}
 :::
 
-::: {.column width='30%'}
+::: {.column width="30%"}
 ![Alternative 2](https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_overlap.jpg)
 :::
-
-::::
-
+::::::::
 
 ## Hypothese
 
 > Die Originalabbildung führt zu einer starken Überschätzung des tatsächlichen Effekts
 
-
 ## Ihre Daten
+
 ```{r}
 #| warning: false
 #| message: false
@@ -68,4 +66,3 @@ ggplot(data, aes(`Differenz OECD/GER (in h)`, Bedingung)) +
   ylab("") +
   theme_minimal()
 ```
-
