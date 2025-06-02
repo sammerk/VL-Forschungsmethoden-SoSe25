@@ -39,7 +39,7 @@ defaults:
         embed-resources: false
         picture: img/KA.jpeg
         logo: img/ph-logo.svg
-        footer: Samuel Merk | Pädagogische Hochschule Karlsruhe
+        footer: C. Parrisius & S. Merk
         bibliography: references.bib
         csl: _template/apa.csl
 

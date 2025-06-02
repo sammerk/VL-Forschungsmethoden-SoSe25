@@ -2,8 +2,10 @@
 
 ###### LOAD PACKAGES ######
 library(dplyr)
+library(ggplot2)
 library(shiny)
 library(shinycssloaders)
+library(munsell)
 library(bslib)
 library(ggdist) # for the dot plots
 #library(shinyWidgets) # for the action buttons
@@ -13,7 +15,7 @@ library(ggtext)
 
 
 # Define UI for the application 
-ui <- page_fillable(
+ui <- page(
   theme = bs_theme(
     base_font = "Open Sans",
     heading_font = "Open Sans",
@@ -25,32 +27,82 @@ ui <- page_fillable(
   # Layout columns for the two plots
   layout_columns(
     card(
-      card_header("OECD Durchschnitt vs. Deutschland"),
+      card_header("OECD vs. Deutschland"),
       card_body(
+        card(markdown("**Aufgabe**: Stellen Sie mit den ±-Buttons die Grafik so ein, dass Sie Ihrem Eindruck nach die Situation der folgenden Schlagzeile bestmöglich wiederspiegelt")),
+        uiOutput("headline"),
         card(
           # Center the first plot
           div(class = "d-flex justify-content-center",
               shinycssloaders::withSpinner(
-                plotOutput("plot1", 
-                           width = "500px",
-                           height = "500px"),
+                plotOutput("plot1", height = "400px", 
+                           width = "300px"),
                 color = "#267326"
               )
           )
           ),
         layout_columns(
           actionButton("smaller_plot1", icon("minus"), label = "Unterschied verkleinern"),
-          actionButton("larger_plot1", icon("plus"), label = "Unterschied vergrößern")
+          actionButton("larger_plot1", icon("plus"), label = "Unterschied vergrößern"),
+          actionButton("send_results", 
+                       icon("paper-plane", lib = "font-awesome"), 
+                       label = "Einschätzung Abschicken")
         ),
-        verbatimTextOutput("cohend_renderedtext"),
-        actionButton("send_results", 
-                     icon("paper-plane", lib = "font-awesome"), 
-                     label = "Einschätzung Abschicken")
+       # verbatimTextOutput("cohend_renderedtext"),
+        
       )
     ),
   ))
 
 server <- function(input, output, session) {
+  
+  condition <- sample(c("headline_original",
+                        "headline_u3",
+                        "headline_overlap"), 
+                      1)
+  
+  output$headline <- renderUI({
+    if (condition == "headline_original") {
+      card(
+        tags$figure(
+          class = "centerFigure",
+          tags$img(
+            src = "headline_original.jpg",
+            style = "max-width: 500px; height: auto;",
+            alt = "ARD Headline zur Bildschirmzeit"
+          )
+        )
+      )
+    } else {
+      if (condition == "headline_u3") {
+        card(
+          tags$figure(
+            class = "centerFigure",
+            tags$img(
+              src = "headline_original_u3.jpg",
+              width = "100%",
+              alt = "ARD Headline zur Bildschirmzeit"
+            )
+          )
+        )
+      } else {
+        card(
+          tags$figure(
+            class = "centerFigure",
+            tags$img(
+              src = "headline_original_overlap.jpg",
+              width = "100%",
+              alt = "ARD Headline zur Bildschirmzeit"
+            )
+          )
+        )
+      }
+      
+    }
+  })
+  
+  
+  
   
   shift_per_click <- .2 # for randomization of the shift + cohens d increase
   
@@ -79,16 +131,16 @@ server <- function(input, output, session) {
       Group = factor(
         rep(c
             ( 
-              "<span style='color:#236327;'>OECD Durchschnitt</span>",
+              "<span style='color:#236327;'>OECD</span>",
               "<span style='color:#d77d00;'>Deutschland</span>"), 
             each = n_group
         ),
         levels = c(
-          "<span style='color:#236327;'>OECD Durchschnitt</span>", 
+          "<span style='color:#236327;'>OECD</span>", 
           "<span style='color:#d77d00;'>Deutschland</span>"
         )
       ),
-      GroupFill = factor(rep(c("OECD Durchschnitt", "Deutschland"), each = n_group))
+      GroupFill = factor(rep(c("OECD", "Deutschland"), each = n_group))
     )
     
     # Return a *list* so we can easily access separate vectors if needed
@@ -104,52 +156,55 @@ server <- function(input, output, session) {
     # Grab the data frame
     data <- dist_data()$df
     
-    ggplot(data, aes(x = Words, fill = GroupFill, color = GroupFill)) +
+    ggplot(data, aes(x = Words,
+                     fill = GroupFill, color = GroupFill)) +
       stat_dots( 
         geom = "dots",
-        binwidth = 1/4,
-        dotsize = .8,
+        #binwidth = 1/4,
+        #dotsize = .8,
         stackratio = 1,
         overflow = "keep", 
-        subguide = subguide_count(label_side = "left",
-                                  breaks = scales::breaks_width(4)),
+        subguide = subguide_integer(position = "left"),
         position = "identity",
         alpha = 0.6
       ) +
-      facet_wrap(~ Group, ncol = 1, axes ="all", axis.labels = "all_x") +
+     facet_wrap(~ Group, ncol = 1, axes ="all", 
+                axis.labels = "all") +
       scale_fill_manual(
-        values = c("OECD Durchschnitt" = "#267326",
+        values = c("OECD" = "#267326",
                    "Deutschland" = "#d77d00")
       ) +
       scale_color_manual(
-        values = c("OECD Durchschnitt" = "#267326",
+        values = c("OECD" = "#267326",
                    "Deutschland" = "#d77d00")
       ) +
-      labs(x = "Bildschirmzeit in Stunden pro Tag", y = "Anzahl Kinder",
-           caption = "Jeder Punkt stellt eine:n 15-Jährige:n dar") +
+      labs(x = "Bildschirmzeit in Stunden pro Tag",
+           caption = "Jeder Punkt stellt eine:n 15-Jährige:n dar",
+           y = "Anzahl der Befragten") +
       theme_minimal() +
-      theme(strip.text.x = element_markdown(size = 16)) +
+      
       scale_x_continuous(
         limits = c(0, max(data$Words)),
         breaks = seq(0, max(data$Words), by = 2)
       ) +
-      theme(
-        strip.text = element_text(size = 16, margin = margin(t = 30)), # for the panel title font size 
-        panel.spacing = unit(1.2, "lines"), # adds spacing between the x-axis and the title of the lower plot
-        axis.title = element_text(size = 16),
-        axis.text.x = element_text(size = 10),
-        axis.text.y.left = element_text(color = "#11111100"),
-        axis.title.x = element_text(margin = margin(t = 20)), # adds margin between the plot and the y-axis title
-        axis.title.y = element_text(margin = margin(r = 10)),
-        axis.ticks.y = element_blank(), # removes the "initial" y-axis ticks
+      scale_y_continuous(
+        breaks   = NULL                  # no left‐axis ticks or labels
+        ) +
+        theme(
+        strip.text = element_markdown(size = 13), # for the panel title font size 
+        axis.line.y.right  = element_line(),
+        axis.ticks.y.right = element_line(),
         panel.grid.major = element_blank(), # no grid lines
         panel.grid.minor = element_blank(),
         legend.position = "none",
         plot.background = element_rect(fill = "#F2F2F2",
                                        color = "#f2f2f2"),
         panel.background = element_rect(fill = "#F2F2F2",
-                                        color = "#f2f2f2"))
-  })
+                                        color = "#f2f2f2"),
+        plot.margin = margin(0, 0, 0, 0))
+    
+  }, height = 400 
+  )
   
   
   # 3) Compute Cohen's d from the same data
@@ -179,23 +234,20 @@ server <- function(input, output, session) {
     ))
   })
   
-  ## Usage Logging #############################################################
- # observeEvent(cohend(), {
- #   sheet_append("1j-Dh0VrNSKBVenbMllVr6EASX3O9_DX_op0s95VXFpw",
- #                tibble(PROLIFIC_PID = ifelse(is.null(url_vars()$PROLIFIC_PID), 
- #                                             "code is missing", #to keep ncol constant
- #                                             url_vars()$PROLIFIC_PID), # Person identifier from URL
- #                       task_name = "ES_estimation",
- #                       task_version = "main",
- #                       cohend = cohend(),
- #                       time = Sys.time(),
- #                       timezone = Sys.timezone(),
- #                       shift_per_click = shift_per_click,
- #                ),
- #                sheet = 2)
- #   
- #   
- # })
+  observeEvent(input$send_results, {
+    con <- 
+      url(
+        paste0("https://survey.ph-karlsruhe.de/test23/?condition=",
+               condition,
+               "&cohend=",
+               cohend(),
+               "&PID=",
+               url_vars()$PID),
+           open = "r")
+    readLines(con, warn = FALSE)
+     close(con)
+  })
+  
 }
 
 
