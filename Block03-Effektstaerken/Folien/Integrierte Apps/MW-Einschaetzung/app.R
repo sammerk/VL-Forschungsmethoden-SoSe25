@@ -67,7 +67,7 @@ server <- function(input, output, session) {
         tags$figure(
           class = "centerFigure",
           tags$img(
-            src = "headline_original.jpg",
+            src = "www/headline_original.jpg",
             style = "max-width: 500px; height: auto;",
             alt = "ARD Headline zur Bildschirmzeit"
           )
@@ -79,7 +79,7 @@ server <- function(input, output, session) {
           tags$figure(
             class = "centerFigure",
             tags$img(
-              src = "headline_original_u3.jpg",
+              src = "www/headline_original_u3.jpg",
               width = "100%",
               alt = "ARD Headline zur Bildschirmzeit"
             )
@@ -90,7 +90,7 @@ server <- function(input, output, session) {
           tags$figure(
             class = "centerFigure",
             tags$img(
-              src = "headline_original_overlap.jpg",
+              src = "www/headline_original_overlap.jpg",
               width = "100%",
               alt = "ARD Headline zur Bildschirmzeit"
             )
