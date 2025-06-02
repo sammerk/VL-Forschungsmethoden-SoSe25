@@ -1,0 +1,71 @@
+---
+title: "Auswertung Live-Experiment"
+format: 
+  html:
+    toc: true
+lightbox: true
+brand: _template/_brand.yml
+editor: visual
+---
+
+## Design des Experiments
+Between-Person Randomisierung in drei Gruppen:
+
+:::: {.columns}
+
+::: {.column width='30%'}
+![Das Original](https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original.jpg)
+:::
+
+::: {.column width='3%'}
+:::
+
+::: {.column width='30%'}
+![Alternative 1](https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_u3.jpg)
+:::
+
+::: {.column width='3%'}
+:::
+
+::: {.column width='30%'}
+![Alternative 2](https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_overlap.jpg)
+:::
+
+::::
+
+
+## Hypothese
+
+> Die Originalabbildung führt zu einer starken Überschätzung des tatsächlichen Effekts
+
+
+## Ihre Daten
+```{r}
+#| warning: false
+#| message: false
+#| fig-width: 6
+#| fig-height: 4
+library(tidyverse)
+eval(parse("https://survey.ph-karlsruhe.de/test23/?act=49pV9Nj9Zr0sihSpoQNeMZTk&vQuality&rScript", encoding="UTF-8"))
+
+data <- ds %>% 
+  mutate(Bedingung = case_when(condition == "headline_overlap" ~ "Alternative 2",
+                               condition == "headline_u3" ~ "Alternative 1",
+                               T ~ "Original"),
+         `Differenz OECD/GER (in h)` = abs(as.numeric(cohend))*2.5)
+
+ggplot(data, aes(`Differenz OECD/GER (in h)`, Bedingung)) +
+ # geom_boxplot(width = .3) +
+  geom_jitter(height = .1) +
+  geom_vline(xintercept = .1*2.5) +
+  geom_curve(aes(x = .5, y = 1.5, xend = 0.25, yend = 1.5),
+           arrow = arrow(length = unit(0.02, "npc")),
+           curvature = -0.3,
+           color = "#237326") +
+  # Label
+  annotate("text", x = .75, y = 1.5, label = "Wahrer Wert", color = "#237326") +
+  labs(title = "Ihre Einschätzungen", subtitle = "je Bedingung") +
+  ylab("") +
+  theme_minimal()
+```
+

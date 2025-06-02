@@ -27,6 +27,7 @@ defaults:
     format:
       # basic format-specific settings
       html:
+        toc: true
       revealjs:
         controls: true
         template-partials:
