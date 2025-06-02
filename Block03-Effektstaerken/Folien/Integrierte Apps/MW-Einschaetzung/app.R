@@ -67,7 +67,7 @@ server <- function(input, output, session) {
         tags$figure(
           class = "centerFigure",
           tags$img(
-            src = "www/headline_original.jpg",
+            src = "https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original.jpg",
             style = "max-width: 500px; height: auto;",
             alt = "ARD Headline zur Bildschirmzeit"
           )
@@ -79,7 +79,7 @@ server <- function(input, output, session) {
           tags$figure(
             class = "centerFigure",
             tags$img(
-              src = "www/headline_original_u3.jpg",
+              src = "https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_u3.jpg",
               width = "100%",
               alt = "ARD Headline zur Bildschirmzeit"
             )
@@ -90,7 +90,7 @@ server <- function(input, output, session) {
           tags$figure(
             class = "centerFigure",
             tags$img(
-              src = "www/headline_original_overlap.jpg",
+              src = "https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_overlap.jpg",
               width = "100%",
               alt = "ARD Headline zur Bildschirmzeit"
             )
