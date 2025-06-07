@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observable Notebook - Two Histograms</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .histogram {
+            margin: 20px 0;
+        }
+        .axis {
+            font-size: 12px;
+        }
+        .axis-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Histogramme der Bildschirmzeit</h1>
+        <div id="histogram1" class="histogram"></div>
+        <div id="histogram2" class="histogram"></div>
+    </div>
+
+    <script>
+        try {
+            // Approximate inverse normal CDF (quantile function)
+            function qnorm(p) {
+                // Beasley-Springer-Moro algorithm for inverse normal CDF
+                const a = [0, -3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+                const b = [0, -5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+                const c = [0, -7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+                const d = [0, 7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+
+                const pLow = 0.02425;
+                const pHigh = 1 - pLow;
+                let q, r;
+
+                if (p < pLow) {
+                    q = Math.sqrt(-2 * Math.log(p));
+                    return (((((c[1] * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) * q + c[6]) / ((((d[1] * q + d[2]) * q + d[3]) * q + d[4]) * q + 1);
+                } else if (p <= pHigh) {
+                    q = p - 0.5;
+                    r = q * q;
+                    return (((((a[1] * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * r + a[6]) * q / (((((b[1] * r + b[2]) * r + b[3]) * r + b[4]) * r + b[5]) * r + 1);
+                } else {
+                    q = Math.sqrt(-2 * Math.log(1 - p));
+                    return -(((((c[1] * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) * q + c[6]) / ((((d[1] * q + d[2]) * q + d[3]) * q + d[4]) * q + 1);
+                }
+            }
+
+            // R's ppoints equivalent: (1:n - 0.5) / n
+            function ppoints(n) {
+                const points = [];
+                for (let i = 1; i <= n; i++) {
+                    points.push((i - 0.5) / n);
+                }
+                return points;
+            }
+
+            // Generate perfectly normally distributed data (R equivalent: qnorm(ppoints(n), mean, sd))
+            function generateNormalData(mean, stdDev, count) {
+                const probabilities = ppoints(count);
+                return probabilities.map(p => qnorm(p) * stdDev + mean);
+            }
+
+            // Function to calculate dynamic x-domain based on both datasets
+            function calculateXDomain(data1, data2) {
+                const allData = [...data1, ...data2];
+                const extent = d3.extent(allData);
+                return [Math.max(0, extent[0] - 0.5), extent[1] + 0.5];
+            }
+
+            // Configuration
+            const mean = 7;
+            const stdDev = 2.5;
+            const sampleSize = 10000;
+            const colors = ['#237326', '#f2f2f2'];
+            let lowerMean = mean;
+
+            // Chart dimensions
+            const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+            const width = 700 - margin.left - margin.right;
+            const height = 250 - margin.bottom - margin.top;
+
+            // Create histogram function
+            function createHistogram(data, containerId, color, xDomain, histogramMean) {
+                // Clear previous content
+                d3.select(containerId).selectAll("*").remove();
+
+                // Create SVG
+                const svg = d3.select(containerId)
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom);
+
+                const g = svg.append("g")
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                // Create x scale
+                const xScale = d3.scaleLinear()
+                    .domain(xDomain)
+                    .range([0, width]);
+
+                // Create histogram bins
+                const histogram = d3.histogram()
+                    .value(d => d)
+                    .domain(xScale.domain())
+                    .thresholds(xScale.ticks(20));
+
+                const bins = histogram(data);
+
+                const yScale = d3.scaleLinear()
+                    .domain([0, d3.max(bins, d => d.length)])
+                    .nice()
+                    .range([height, 0]);
+
+                // Create bars
+                g.selectAll(".bar")
+                    .data(bins)
+                    .enter().append("rect")
+                    .attr("class", "bar")
+                    .attr("x", d => xScale(d.x0))
+                    .attr("y", d => yScale(d.length))
+                    .attr("width", d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 1))
+                    .attr("height", d => height - yScale(d.length))
+                    .attr("fill", color)
+                    .attr("stroke", "#333")
+                    .attr("stroke-width", 0.5);
+
+                // Add x-axis
+                g.append("g")
+                    .attr("class", "axis")
+                    .attr("transform", `translate(0,${height})`)
+                    .call(d3.axisBottom(xScale));
+
+                // Add y-axis with German number formatting
+                const germanFormat = d3.format(",");
+                const yAxis = d3.axisLeft(yScale)
+                    .tickFormat(d => germanFormat(d).replace(/,/g, "."));
+                
+                g.append("g")
+                    .attr("class", "axis")
+                    .call(yAxis);
+
+                // Add x-axis label
+                g.append("text")
+                    .attr("class", "axis-label")
+                    .attr("transform", `translate(${width / 2}, ${height + 45})`)
+                    .style("text-anchor", "middle")
+                    .text("Bildschirmzeit");
+
+                // Add y-axis label
+                g.append("text")
+                    .attr("class", "axis-label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - margin.left + 15)
+                    .attr("x", 0 - (height / 2))
+                    .style("text-anchor", "middle")
+                    .text("Anzahl der Kinder");
+
+                // Add histogram title with mean and SD
+                const baseName = containerId === "#histogram1" ? "OECD" : "Deutschland";
+                const title = `${baseName} (MW = ${histogramMean.toFixed(1)}; SD = ${stdDev.toFixed(1)})`;
+                const titleColor = containerId === "#histogram1" ? "#237326" : "#000000";
+                g.append("text")
+                    .attr("class", "histogram-title")
+                    .attr("x", xScale(histogramMean))
+                    .attr("y", -5)
+                    .style("text-anchor", "middle")
+                    .style("font-size", "16px")
+                    .style("font-weight", "600")
+                    .style("fill", titleColor)
+                    .text(title);
+            }
+
+            // Generate initial data
+            let data1 = generateNormalData(mean, stdDev, sampleSize);
+            let data2 = generateNormalData(lowerMean, stdDev, sampleSize);
+            
+            // Calculate dynamic domain
+            let xDomain = calculateXDomain(data1, data2);
+
+            // Create both histograms with same domain
+            createHistogram(data1, "#histogram1", colors[0], xDomain, mean);
+            createHistogram(data2, "#histogram2", colors[1], xDomain, lowerMean);
+
+            // Add button
+            const buttonContainer = d3.select(".container")
+                .append("div")
+                .style("text-align", "center")
+                .style("margin-top", "30px");
+
+            // First button - decrease difference
+            buttonContainer.append("button")
+                .style("padding", "10px 20px")
+                .style("font-size", "14px")
+                .style("background-color", "#d77d00")
+                .style("color", "white")
+                .style("border", "none")
+                .style("border-radius", "5px")
+                .style("cursor", "pointer")
+                .style("margin-right", "10px")
+                .text("- Unterschied verkleinern")
+                .on("click", function() {
+                    try {
+                        // Only decrease if it won't go below 7.0
+                        if (lowerMean - 0.3 >= 7.0) {
+                            lowerMean -= 0.3;
+                            data1 = generateNormalData(mean, stdDev, sampleSize);
+                            data2 = generateNormalData(lowerMean, stdDev, sampleSize);
+                            
+                            // Recalculate dynamic domain for new data
+                            xDomain = calculateXDomain(data1, data2);
+                            
+                            createHistogram(data1, "#histogram1", colors[0], xDomain, mean);
+                            createHistogram(data2, "#histogram2", colors[1], xDomain, lowerMean);
+                        }
+                    } catch (error) {
+                        console.error("Error in button click handler:", error);
+                    }
+                });
+
+            // Second button - increase difference
+            buttonContainer.append("button")
+                .style("padding", "10px 20px")
+                .style("font-size", "14px")
+                .style("background-color", "#d77d00")
+                .style("color", "white")
+                .style("border", "none")
+                .style("border-radius", "5px")
+                .style("cursor", "pointer")
+                .text("+ Unterschied vergrößern")
+                .on("click", function() {
+                    try {
+                        lowerMean += 0.3;
+                        data1 = generateNormalData(mean, stdDev, sampleSize);
+                        data2 = generateNormalData(lowerMean, stdDev, sampleSize);
+                        
+                        // Recalculate dynamic domain for new data
+                        xDomain = calculateXDomain(data1, data2);
+                        
+                        createHistogram(data1, "#histogram1", colors[0], xDomain, mean);
+                        createHistogram(data2, "#histogram2", colors[1], xDomain, lowerMean);
+                    } catch (error) {
+                        console.error("Error in button click handler:", error);
+                    }
+                });
+
+        } catch (error) {
+            console.error("Script initialization error:", error);
+            document.body.innerHTML = "<h2>Error loading visualization. Please check the browser console.</h2>";
+        }
+    </script>
+</body>
+</html>
