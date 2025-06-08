@@ -5,7 +5,6 @@ format:
     toc: true
 lightbox: true
 brand: _template/_brand.yml
-editor: visual
 ---
 
 ## Design des Experiments
@@ -47,6 +46,8 @@ library(tidyverse)
 eval(parse("https://survey.ph-karlsruhe.de/test23/?act=49pV9Nj9Zr0sihSpoQNeMZTk&vQuality&rScript", encoding="UTF-8"))
 
 data <- ds %>% 
+  # Filter der Testdaten
+  filter(STARTED > ymd_hms("2025-06-17 08:00:00")) %>% 
   mutate(Bedingung = case_when(condition == "headline_overlap" ~ "Alternative 2",
                                condition == "headline_u3" ~ "Alternative 1",
                                T ~ "Original"),
@@ -61,7 +62,10 @@ ggplot(data, aes(`Differenz OECD/GER (in h)`, Bedingung)) +
            curvature = -0.3,
            color = "#237326") +
   # Label
-  annotate("text", x = .75, y = 1.5, label = "Wahrer Wert", color = "#237326") +
+  annotate("text", x = .52, y = 1.5, 
+           label = "Wahrer Wert", 
+           color = "#237326",
+           hjust = 0) +
   labs(title = "Ihre Einschätzungen", subtitle = "je Bedingung") +
   ylab("") +
   theme_minimal()
