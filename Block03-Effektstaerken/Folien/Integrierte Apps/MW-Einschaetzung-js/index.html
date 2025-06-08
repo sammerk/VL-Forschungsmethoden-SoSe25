@@ -5,44 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observable Notebook - Two Histograms</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             background-color: #fff;
         }
         .container {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
         .histogram {
-            margin: 20px 0;
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .axis {
-            font-size: 12px;
-        }
-        .axis-label {
-            font-size: 14px;
-            font-weight: 500;
+        .histogram-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            width: 100%;
         }
         .title {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+        .instruction-text {
+            font-size: 14px;
+            font-weight: normal;
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fafafa;
+        }
+        .image-container img {
+            max-width: 100%;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .control-button {
+            padding: 8px 16px;
+            font-size: 12px;
+            background-color: #d77d00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px 10px 5px;
+            display: inline-block;
+        }
+        .survey-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+        .survey-button:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                max-width: 100%;
+            }
+            .title {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            .image-container img {
+                max-width: 300px;
+            }
+            .control-button {
+                padding: 6px 12px;
+                font-size: 11px;
+                margin: 0 2px 8px 2px;
+            }
+            .survey-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .control-button {
+                display: block;
+                margin: 5px auto;
+                width: 80%;
+                max-width: 200px;
+            }
+            .survey-button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Histogramme der Bildschirmzeit</h1>
+        <h1 class="title">Aufgabe:</h1>
+        <div class="instruction-text">Im Folgenden sehen Sie eine Schlagzeile aus den Tagesmedien. Stellen Sie mit den ±-Buttons die Grafik so ein, dass Sie Ihrem Eindruck nach die Situation der folgenden Schlagzeile bestmöglich wiederspiegelt</div>
+        <div class="image-container" id="imageContainer"></div>
         <div id="histogram1" class="histogram"></div>
         <div id="histogram2" class="histogram"></div>
+        <div class="button-container" id="buttonContainer"></div>
     </div>
 
     <script>
         try {
+            // Get URL parameter 'id' if it exists
+            const urlParams = new URLSearchParams(window.location.search);
+            const participantId = urlParams.get('id') || '';
+
             // Approximate inverse normal CDF (quantile function)
             function qnorm(p) {
                 // Beasley-Springer-Moro algorithm for inverse normal CDF
@@ -77,7 +188,7 @@
                 return points;
             }
 
-            // Generate perfectly normally distributed data (R equivalent: qnorm(ppoints(n), mean, sd))
+            // Generate perfectly normally distributed data
             function generateNormalData(mean, stdDev, count) {
                 const probabilities = ppoints(count);
                 return probabilities.map(p => qnorm(p) * stdDev + mean);
@@ -90,6 +201,40 @@
                 return [Math.max(0, extent[0] - 0.5), extent[1] + 0.5];
             }
 
+            // Random headline selection
+            const headlines = ["headline_original", "headline_u3", "headline_overlap"];
+            const selectedHeadline = headlines[Math.floor(Math.random() * headlines.length)];
+            
+            // Add headline image above histograms
+            const imageUrls = {
+                "headline_original": "https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original.jpg",
+                "headline_u3": "https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_u3.jpg",
+                "headline_overlap": "https://raw.githubusercontent.com/sammerk/VL-Forschungsmethoden-SoSe25/refs/heads/master/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung/www/headline_original_overlap.jpg"
+            };
+            
+            // Create image element
+            const imageContainer = document.getElementById('imageContainer');
+            const img = document.createElement('img');
+            img.src = imageUrls[selectedHeadline];
+            img.alt = 'Headline Image';
+            
+            // Add error handling for image loading
+            img.onerror = function() {
+                console.error("Failed to load image:", imageUrls[selectedHeadline]);
+                console.log("Selected headline type:", selectedHeadline);
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = 'background-color: #f0f0f0; border: 2px dashed #ccc; padding: 20px; text-align: center; color: #666; max-width: 400px; margin: 0 auto;';
+                errorDiv.textContent = `Image loading failed (${selectedHeadline})`;
+                imageContainer.appendChild(errorDiv);
+                img.remove();
+            };
+            
+            img.onload = function() {
+                console.log("Successfully loaded image:", selectedHeadline);
+            };
+            
+            imageContainer.appendChild(img);
+
             // Configuration
             const mean = 7;
             const stdDev = 2.5;
@@ -97,100 +242,67 @@
             const colors = ['#237326', '#f2f2f2'];
             let lowerMean = mean;
 
-            // Chart dimensions
-            const margin = { top: 20, right: 30, bottom: 60, left: 60 };
-            const width = 700 - margin.left - margin.right;
-            const height = 250 - margin.bottom - margin.top;
-
-            // Create histogram function
-            function createHistogram(data, containerId, color, xDomain, histogramMean) {
-                // Clear previous content
-                d3.select(containerId).selectAll("*").remove();
-
-                // Create SVG
-                const svg = d3.select(containerId)
-                    .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom);
-
-                const g = svg.append("g")
-                    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-                // Create x scale
-                const xScale = d3.scaleLinear()
-                    .domain(xDomain)
-                    .range([0, width]);
-
-                // Create histogram bins
-                const histogram = d3.histogram()
-                    .value(d => d)
-                    .domain(xScale.domain())
-                    .thresholds(xScale.ticks(20));
-
-                const bins = histogram(data);
-
-                const yScale = d3.scaleLinear()
-                    .domain([0, d3.max(bins, d => d.length)])
-                    .nice()
-                    .range([height, 0]);
-
-                // Create bars
-                g.selectAll(".bar")
-                    .data(bins)
-                    .enter().append("rect")
-                    .attr("class", "bar")
-                    .attr("x", d => xScale(d.x0))
-                    .attr("y", d => yScale(d.length))
-                    .attr("width", d => Math.max(0, xScale(d.x1) - xScale(d.x0) - 1))
-                    .attr("height", d => height - yScale(d.length))
-                    .attr("fill", color)
-                    .attr("stroke", "#333")
-                    .attr("stroke-width", 0.5);
-
-                // Add x-axis
-                g.append("g")
-                    .attr("class", "axis")
-                    .attr("transform", `translate(0,${height})`)
-                    .call(d3.axisBottom(xScale));
-
-                // Add y-axis with German number formatting
-                const germanFormat = d3.format(",");
-                const yAxis = d3.axisLeft(yScale)
-                    .tickFormat(d => germanFormat(d).replace(/,/g, "."));
+            // Calculate responsive dimensions (60% of original size)
+            function getChartDimensions() {
+                const containerWidth = Math.min(window.innerWidth - 40, 700);
+                const baseWidth = Math.min(containerWidth * 0.9, 420); // 60% of 700
+                const baseHeight = 150; // 60% of 250
                 
-                g.append("g")
-                    .attr("class", "axis")
-                    .call(yAxis);
+                return {
+                    width: baseWidth,
+                    height: baseHeight,
+                    marginRight: 20,
+                    marginBottom: 50,
+                    marginLeft: 60
+                };
+            }
 
-                // Add x-axis label
-                g.append("text")
-                    .attr("class", "axis-label")
-                    .attr("transform", `translate(${width / 2}, ${height + 45})`)
-                    .style("text-anchor", "middle")
-                    .text("Bildschirmzeit");
+            // Create histogram function using Observable Plot
+            function createHistogram(data, containerId, color, xDomain, histogramMean, title) {
+                // Clear previous content
+                const container = document.getElementById(containerId.replace('#', ''));
+                container.innerHTML = '';
 
-                // Add y-axis label
-                g.append("text")
-                    .attr("class", "axis-label")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 0 - margin.left + 15)
-                    .attr("x", 0 - (height / 2))
-                    .style("text-anchor", "middle")
-                    .text("Anzahl der Kinder");
+                const dimensions = getChartDimensions();
+                
+                // Create title element above the plot
+                const titleElement = document.createElement('div');
+                titleElement.className = 'histogram-title';
+                titleElement.style.color = containerId === "#histogram1" ? "#237326" : "#000000";
+                titleElement.textContent = title;
+                container.appendChild(titleElement);
+                
+                // Create the plot
+                const plot = Plot.plot({
+                    width: dimensions.width,
+                    height: dimensions.height,
+                    marginTop: 20,
+                    marginRight: dimensions.marginRight,
+                    marginBottom: dimensions.marginBottom,
+                    marginLeft: dimensions.marginLeft,
+                    x: {
+                        domain: xDomain,
+                        label: "Bildschirmzeit (Stunden pro Woche)",
+                        grid: true
+                    },
+                    y: {
+                        label: "Anzahl der Kinder",
+                        tickFormat: d => d.toLocaleString('de-DE'),
+                        grid: true
+                    },
+                    marks: [
+                        Plot.rectY(data, Plot.binX({y: "count"}, {
+                            x: d => d,
+                            fill: color,
+                            stroke: "#333",
+                            strokeWidth: 0.5,
+                            thresholds: 20
+                        }))
+                    ]
+                });
 
-                // Add histogram title with mean and SD
-                const baseName = containerId === "#histogram1" ? "OECD" : "Deutschland";
-                const title = `${baseName} (MW = ${histogramMean.toFixed(1)}; SD = ${stdDev.toFixed(1)})`;
-                const titleColor = containerId === "#histogram1" ? "#237326" : "#000000";
-                g.append("text")
-                    .attr("class", "histogram-title")
-                    .attr("x", xScale(histogramMean))
-                    .attr("y", -5)
-                    .style("text-anchor", "middle")
-                    .style("font-size", "16px")
-                    .style("font-weight", "600")
-                    .style("fill", titleColor)
-                    .text(title);
+                // Append the plot to the container
+                container.appendChild(plot);
             }
 
             // Generate initial data
@@ -201,70 +313,110 @@
             let xDomain = calculateXDomain(data1, data2);
 
             // Create both histograms with same domain
-            createHistogram(data1, "#histogram1", colors[0], xDomain, mean);
-            createHistogram(data2, "#histogram2", colors[1], xDomain, lowerMean);
+            function updateHistograms() {
+                createHistogram(data1, "#histogram1", colors[0], xDomain, mean, "OECD");
+                createHistogram(data2, "#histogram2", colors[1], xDomain, lowerMean, "Deutschland");
+            }
 
-            // Add button
-            const buttonContainer = d3.select(".container")
-                .append("div")
-                .style("text-align", "center")
-                .style("margin-top", "30px");
+            updateHistograms();
+
+            // Add buttons
+            const buttonContainer = document.getElementById('buttonContainer');
 
             // First button - decrease difference
-            buttonContainer.append("button")
-                .style("padding", "10px 20px")
-                .style("font-size", "14px")
-                .style("background-color", "#d77d00")
-                .style("color", "white")
-                .style("border", "none")
-                .style("border-radius", "5px")
-                .style("cursor", "pointer")
-                .style("margin-right", "10px")
-                .text("- Unterschied verkleinern")
-                .on("click", function() {
-                    try {
-                        // Only decrease if it won't go below 7.0
-                        if (lowerMean - 0.3 >= 7.0) {
-                            lowerMean -= 0.3;
-                            data1 = generateNormalData(mean, stdDev, sampleSize);
-                            data2 = generateNormalData(lowerMean, stdDev, sampleSize);
-                            
-                            // Recalculate dynamic domain for new data
-                            xDomain = calculateXDomain(data1, data2);
-                            
-                            createHistogram(data1, "#histogram1", colors[0], xDomain, mean);
-                            createHistogram(data2, "#histogram2", colors[1], xDomain, lowerMean);
-                        }
-                    } catch (error) {
-                        console.error("Error in button click handler:", error);
-                    }
-                });
-
-            // Second button - increase difference
-            buttonContainer.append("button")
-                .style("padding", "10px 20px")
-                .style("font-size", "14px")
-                .style("background-color", "#d77d00")
-                .style("color", "white")
-                .style("border", "none")
-                .style("border-radius", "5px")
-                .style("cursor", "pointer")
-                .text("+ Unterschied vergrößern")
-                .on("click", function() {
-                    try {
-                        lowerMean += 0.3;
+            const decreaseButton = document.createElement('button');
+            decreaseButton.type = 'button';
+            decreaseButton.className = 'control-button';
+            decreaseButton.textContent = '- Unterschied verkleinern';
+            decreaseButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const currentScrollY = window.scrollY;
+                try {
+                    // Only decrease if it won't go below 7.0
+                    if (lowerMean - 0.3 >= 7.0) {
+                        lowerMean -= 0.3;
                         data1 = generateNormalData(mean, stdDev, sampleSize);
                         data2 = generateNormalData(lowerMean, stdDev, sampleSize);
                         
                         // Recalculate dynamic domain for new data
                         xDomain = calculateXDomain(data1, data2);
+                        updateHistograms();
                         
-                        createHistogram(data1, "#histogram1", colors[0], xDomain, mean);
-                        createHistogram(data2, "#histogram2", colors[1], xDomain, lowerMean);
-                    } catch (error) {
-                        console.error("Error in button click handler:", error);
+                        // Restore scroll position after a brief delay
+                        setTimeout(() => {
+                            window.scrollTo(0, currentScrollY);
+                        }, 10);
                     }
-                });
+                } catch (error) {
+                    console.error("Error in button click handler:", error);
+                }
+            });
+            buttonContainer.appendChild(decreaseButton);
+
+            // Second button - increase difference
+            const increaseButton = document.createElement('button');
+            increaseButton.type = 'button';
+            increaseButton.className = 'control-button';
+            increaseButton.textContent = '+ Unterschied vergrößern';
+            increaseButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const currentScrollY = window.scrollY;
+                try {
+                    lowerMean += 0.3;
+                    data1 = generateNormalData(mean, stdDev, sampleSize);
+                    data2 = generateNormalData(lowerMean, stdDev, sampleSize);
+                    
+                    // Recalculate dynamic domain for new data
+                    xDomain = calculateXDomain(data1, data2);
+                    updateHistograms();
+                    
+                    // Restore scroll position after a brief delay
+                    setTimeout(() => {
+                        window.scrollTo(0, currentScrollY);
+                    }, 10);
+                } catch (error) {
+                    console.error("Error in button click handler:", error);
+                }
+            });
+            buttonContainer.appendChild(increaseButton);
+
+            // Line break
+            buttonContainer.appendChild(document.createElement('br'));
+
+            // Large survey button
+            const surveyButton = document.createElement('button');
+            surveyButton.className = 'survey-button';
+            surveyButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M20.56 3.34a1 1 0 0 0-1-.08l-17 8a1 1 0 0 0-.57.92a1 1 0 0 0 .6.9L8 15.45v6.72L13.84 18l4.76 2.08a.9.9 0 0 0 .4.09a1 1 0 0 0 .52-.15a1 1 0 0 0 .48-.79l1-15a1 1 0 0 0-.44-.89M18.1 17.68l-5.27-2.31L16 9.17l-7.65 4.25l-2.93-1.29l13.47-6.34Z"/></svg>
+                Einschätzung Abschicken
+            `;
+            surveyButton.onclick = function() {
+                try {
+                    // Calculate Cohen's d: (Deutschland - OECD) / pooled standard deviation
+                    const cohensD = (lowerMean - mean) / 2.5;
+                    let url = `https://survey.ph-karlsruhe.de/test23/?cohend=${cohensD.toFixed(3)}&condition=${selectedHeadline}`;
+                    
+                    // Add PID parameter if participant ID exists
+                    if (participantId) {
+                        url += `&PID=${participantId}`;
+                    }
+                    
+                    window.open(url, '_blank');
+                } catch (error) {
+                    console.error("Error in survey button click handler:", error);
+                }
+            };
+            buttonContainer.appendChild(surveyButton);
+
+            // Handle window resize for responsive design
+            window.addEventListener('resize', function() {
+                clearTimeout(window.resizeTimeout);
+                window.resizeTimeout = setTimeout(function() {
+                    updateHistograms();
+                }, 250);
+            });
 
         } catch (error) {
             console.error("Script initialization error:", error);
