@@ -3,6 +3,7 @@ title: "Auswertung Live-Experiment"
 format: 
   html:
     toc: true
+    self-contained: true
 lightbox: true
 brand: _template/_brand.yml
 ---
@@ -31,6 +32,9 @@ Between-Person Randomisierung in drei Gruppen:
 :::
 ::::::::
 
+## Measurement
+<iframe src="https://sammerk.github.io/VL-Forschungsmethoden-SoSe25/Block03-Effektstaerken/Folien/Integrierte%20Apps/MW-Einschaetzung-js/" width="100%" height="800"></iframe>
+
 ## Hypothese
 
 > Die Originalabbildung führt zu einer starken Überschätzung des tatsächlichen Effekts
@@ -43,11 +47,12 @@ Between-Person Randomisierung in drei Gruppen:
 #| fig-width: 6
 #| fig-height: 4
 library(tidyverse)
+library(ggdist)
 eval(parse("https://survey.ph-karlsruhe.de/test23/?act=49pV9Nj9Zr0sihSpoQNeMZTk&vQuality&rScript", encoding="UTF-8"))
 
 data <- ds %>% 
   # Filter der Testdaten
-  filter(STARTED > ymd_hms("2025-06-17 08:00:00")) %>% 
+ # filter(STARTED > ymd_hms("2025-06-17 08:00:00")) %>% 
   mutate(Bedingung = case_when(condition == "headline_overlap" ~ "Alternative 2",
                                condition == "headline_u3" ~ "Alternative 1",
                                T ~ "Original"),
@@ -56,17 +61,36 @@ data <- ds %>%
 ggplot(data, aes(`Differenz OECD/GER (in h)`, Bedingung)) +
  # geom_boxplot(width = .3) +
   geom_jitter(height = .1) +
-  geom_vline(xintercept = .1*2.5) +
-  geom_curve(aes(x = .5, y = 1.5, xend = 0.25, yend = 1.5),
+  geom_vline(xintercept = .2*2.5) +
+  geom_curve(aes(x = .75, y = 1.5, xend = 0.5, yend = 1.5),
            arrow = arrow(length = unit(0.02, "npc")),
            curvature = -0.3,
            color = "#237326") +
   # Label
-  annotate("text", x = .52, y = 1.5, 
+  annotate("text", x = .77, y = 1.5, 
            label = "Wahrer Wert", 
            color = "#237326",
            hjust = 0) +
   labs(title = "Ihre Einschätzungen", subtitle = "je Bedingung") +
   ylab("") +
   theme_minimal()
+
+ggplot(data, aes(`Differenz OECD/GER (in h)`, Bedingung)) +
+  #stat_pointinterval(color = "darkgrey") +
+  geom_boxplot(width = .2) +
+  geom_jitter(height = .1, alpha = .5) +
+  geom_vline(xintercept = .2*2.5) +
+  geom_curve(aes(x = .75, y = 1.5, xend = 0.5, yend = 1.5),
+           arrow = arrow(length = unit(0.02, "npc")),
+           curvature = -0.3,
+           color = "#237326") +
+  # Label
+  annotate("text", x = .77, y = 1.5, 
+           label = "Wahrer Wert", 
+           color = "#237326",
+           hjust = 0) +
+  labs(title = "Ihre Einschätzungen", subtitle = "je Bedingung") +
+  ylab("") +
+  theme_minimal() +
+  xlim(c(0,5))
 ```
