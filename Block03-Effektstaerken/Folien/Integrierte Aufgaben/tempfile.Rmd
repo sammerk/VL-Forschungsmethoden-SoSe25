@@ -3,60 +3,39 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 Question
 ========
-```{r, echo = F, message = F, warning=FALSE,  fig.width=6, fig.height=6, out.width="400px", fig.retina=2, fig.cap=""}
+Eine Lehrkraft will vergleichen ob Schülerinnen der 8ten oder 9ten Klasse häufiger die Schule schwänzen. Dazu berechnet Sie Cliff's $d = \frac{\#(Kl8_i > Kl9_i) - \#(Kl8_i < Kl9_i)}{\#Kl8 \cdot \#Kl9}$ für die folgenden (Minimal-)Daten. Welcher Koeffizient ergibt sich? Runden Sie auf drei Nachkommastellen und verwenden Sie "," als Dezimaltrennzeichen.  
+
+```{r, echo = F, message = F, warning=FALSE,  fig.width=5, fig.height=5, out.width="400px", dev="svglite", fig.cap=""}
 library(tidyverse)
 library(hrbrthemes)
 library(exams)
+ ## Data for task ####
+data <- tibble(Kl8 = sample(0:10, 3),
+               Kl9 = sample(0:10, 3)) |>
+  pivot_longer(cols = c(Kl8, Kl9),
+               names_to = "Klassenstufe",
+               values_to = "Häufigkeit unerlaubtes Fehlen")
 
-pop_corr <- runif(1, -1, 1) %>% 
-  round(., digits = 2)
+cl_d <-
+  effsize::cliff.delta(`Häufigkeit unerlaubtes Fehlen` ~ Klassenstufe,
+                       data = data)$estimate
 
-pop_N <- round(runif(1,30,300), 0)
+ggplot(data, aes(Klassenstufe, `Häufigkeit unerlaubtes Fehlen`)) +
+  geom_point() +
+  ggtitle("Häufigkeit unerlaubten Fehlens", "nach Klassenstufe") +
+  theme_ipsum()
 
-true_corr <- runif(1, -1, 1)
-
-sample <- MASS::mvrnorm(pop_N, mu = c(0,0), Sigma = matrix(c(1,true_corr,true_corr,1),2,2)) %>% 
-  as_tibble()
-
-sample_r <- round(cor(sample$V1, sample$V2), 2)
-
-answerlist <- 
-  c(sample_r + seq(-1.75, 1.75, .35)) |> 
-  sort() 
-
-answerlist <- answerlist[answerlist <= 1 & answerlist >= -1]
-
-sample %>% 
-  ggplot(., aes(V1, V2)) + 
-  geom_point(color = "#8CD000") +
-  stat_smooth(se = F, method = "lm", color = "#8CD000") +
-  geom_rug(color = "#8CD000", alpha = .5) + 
-  theme_modern_rc() + 
-  coord_fixed() +
-  ggtitle("Streudiagramm", "der Variablen V1 & V2")
-```
-
-Obige Abbildung zeigt die Assoziation der beiden Variablen V1 und V2. Welches Pearson's r(V1,V2) passt am besten zu diesen Daten? 
-
-```{r, echo=FALSE, results='asis'}
-answerlist(round(answerlist, 2),
-  markup = "markdown")
-```
-
-Solution
-========
-
-```{r exsolutiongeneration, echo = F, results='hide'}
-ex_solution <- 
-  answerlist == sample_r
 ```
 
 
 
 Meta-information
 ================
-extype: schoice
-exsolution: `r mchoice2string(ex_solution)`
-exname: Guessing_r_SC
+extype: num
+exname: cliff d aus Plot bestimmen
+exsolution: `r cl_d`
+exclozetype: num
+extol: 0.02
