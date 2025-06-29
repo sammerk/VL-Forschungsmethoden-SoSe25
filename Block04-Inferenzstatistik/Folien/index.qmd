@@ -22,7 +22,6 @@ csl: apa.csl
 ---
 
 ## Inhalte dieses Vorlesungsblocks {.center .smaller}
-
 ```{r hidden chunk which creates template stuff}
 #| echo: false
 #| cache: true
