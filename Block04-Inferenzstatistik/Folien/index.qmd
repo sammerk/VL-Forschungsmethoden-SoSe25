@@ -705,9 +705,6 @@ Ein Vergleich der beiden Gruppen mit einem Posttest ergibt ein Cohen's $U_3 = .5
 Da die Daten unter der Annahme von $H_0$ 1000 mal wahrscheinlich sind, als unter der Annahe von $H_A$ liegt sehr starke inferenzstatistische Evidenz für einen Nulleffekt vor.
 :::
 
-## Aufgaben {.center}
-> Bearbeiten Sie mehrere Versionen der **Aufgaben 6.5 - 6.7** unter [ogy.de/mvl](https://ogy.de/mvl)
-
 
 ## Literatur
 
