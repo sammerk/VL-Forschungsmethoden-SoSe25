@@ -419,7 +419,7 @@ Im binären Entscheidungskonzept von Neyman-Pearson [-@neyman1928use] dienen p-W
 * $H_A$ & 
 * das sogenante $\alpha$-Niveau 
 
-festgelegt (typischerweise gilt $\alpha = .05$). Dieses entspricht der Wahrscheinlichkeit unter die ein *p*-Wert fallen muss um die Nullhypothese zugunsten der Alternativhypothese zu verwerfen (»der p-Wert wird signifikant«). Gilt *p* ≥ $\alpha$ ist der Test inkonklusiv (es wurde keine neue Information generiert).
+festgelegt (typischerweise gilt $\alpha = .05$). Dieses entspricht der Wahrscheinlichkeit unter die ein *p*-Wert fallen muss, um die Nullhypothese zugunsten der Alternativhypothese zu verwerfen (»der p-Wert wird signifikant«). Gilt *p* ≥ $\alpha$, ist der Test inkonklusiv (es wurde keine neue Information generiert).
 
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa book-open >}} Weiterführende Literatur
@@ -429,7 +429,7 @@ Lakens, Daniël. (2022). Improving Your Statistical Inferences (v1.0.0). Zenodo.
 ## Testung mit *p*-Wert: Beispiel 1 {.smaller .center}
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa question-circle >}} Forschungsfrage & -design
-Forschende fragen sich inwiefern die Visualisierung von Magnetfeldern mithilfe von Augmented Reality das konzeptuelle Verständnis der Schülerinnen und Schüler fördern kann. Sie führen ein randomisiert kontrolliertes Experiment durch, indem ein Gruppe mit und eine Gruppe ohne Augmented Reality arbeitet. Anschließend wird in beiden Gruppen das konzeptuelle Verständnis mit einem Test erfasst.
+Forschende fragen sich, inwiefern die Visualisierung von Magnetfeldern mithilfe von Augmented Reality das konzeptuelle Verständnis der Schülerinnen und Schüler fördern kann. Sie führen ein randomisiert kontrolliertes Experiment durch, in dem eine Gruppe mit und eine Gruppe ohne Augmented Reality arbeitet. Anschließend wird in beiden Gruppen das konzeptuelle Verständnis mit einem Test erfasst.
 :::
 
 . . .
@@ -458,20 +458,20 @@ Forschende versuchen den Lernstilmythos zu widerlegen. Dazu befragen Sie Proband
 
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa chart-column >}} Ergebnis
-Ein Vergleich der beiden Gruppen mit einem Posttest ergibt ein Cohen's $U_3 = .53$ mit einem *p*-Wert von .073 für die Nullhypothese $H_0:\; U_3 = .5$ und die Alternativhypothese $H_A:\; U_3 > .5$.
+Ein Vergleich der beiden Gruppen mit einem Posttest ergibt ein Cohen's $U_1 = .03$ mit einem *p*-Wert von .073 für die Nullhypothese $H_0:\; U_1 = 0$ und die Alternativhypothese $H_A:\; U_1 > 0$.
 :::
 
 . . .
 
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa lightbulb >}} Interpretation
-Da der *p*-Wert über dem $\alpha$-Wert von .05 liegt ist die Studie inkonklusiv. Die Forschenden wissen nach der Studie genau gleich viel wie zuvor, es wurde keine Erkenntnis generiert.
+Da der *p*-Wert über dem $\alpha$-Wert von .05 liegt, ist die Studie inkonklusiv. Die Forschenden wissen nach der Studie genau gleich viel wie zuvor, es wurde keine Erkenntnis generiert.
 :::
 
 ## Testung mit *p*-Wert: Beispiel 3 {.smaller}
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa question-circle >}} Forschungsfrage & -design
-Forschende untersuchen ob Schülerinnen und Schüler aus ländlichen Gebieten seltener vom Religionsunterricht abgemeldet werden. Dazu führen Sie eine Sekundäranalyse eines großen Paneldatensatzes durch.
+Forschende untersuchen, ob Schülerinnen und Schüler aus ländlichen Gebieten seltener vom Religionsunterricht abgemeldet werden. Dazu führen Sie eine Sekundäranalyse eines großen Paneldatensatzes durch.
 :::
 
 . . .
@@ -507,11 +507,11 @@ In den Daten liegt ein Effekt sehr geringer Größe vor. Dennoch kann $H_0$ zugu
 [{{< fa scale-unbalanced >}} Bayes-Faktoren]{.em15 .c .imp}
 
 ## Bayes-Faktoren: Definition {.smaller .center}
-Im Gegensatz zu *p*-Werten bieten Bayes-Faktoren [relative Evidenz]{.imp}. D.h. sie relationieren die Passung der vorliegenden Daten zur Alternativhypothese zur Passung der vorliegenden Daten zur Nullhypothese. Dadurch sind Bayes-Faktoren (im Gegensatz zu *p*-Werten) in der Lage auch Evidenz für eine Nullhypothese zu generieren. Typischerweise unterscheidet man zwei Bayes-Faktoren, $BF_{10}$ und $BF_{01}$.
+Im Gegensatz zu *p*-Werten bieten Bayes-Faktoren [relative Evidenz]{.imp}. D.h. sie relationieren die *Passung der vorliegenden Daten zur Alternativhypothese* zur *Passung der vorliegenden Daten zur Nullhypothese*. Dadurch sind Bayes-Faktoren (im Gegensatz zu *p*-Werten) in der Lage, auch Evidenz für eine Nullhypothese zu generieren. Typischerweise unterscheidet man zwei Bayes-Faktoren, $BF_{10}$ und $BF_{01}$.
 
 $$BF_{10} = \frac{P(vorl.\;Daten|H_1)}{P(vorl.\;Daten|H_0)}\;\;\;\;\;\;\;\;\;BF_{01} = \frac{P(vorl.\;Daten|H_0)}{P(vorl.\;Daten|H_1)}$$
 
-Gilt $BF_{10}=1$ oder $BF_{01}=1$ muss $P(vorl.\;Daten|H_1)=P(vorl.\;Daten|H_0)$ gelten. Damit bieten die Daten keine relative Evidenz für $H_0$ oder $H_1$ womit der Test inkonklusiv ausfällt. Gilt bspw. $BF_{10}$ = 10.3 ist $P(vorl.\;Daten|H_1)$ 10.3-fach wahrscheinlicher als $P(vorl.\;Daten|H_0)$. Damit liegt relative Evidenz für $H_1$ vor.
+Gilt $BF_{10}=1$ oder $BF_{01}=1$, muss $P(vorl.\;Daten|H_1)=P(vorl.\;Daten|H_0)$ gelten. Damit bieten die Daten keine relative Evidenz für $H_0$ oder $H_1$, womit der Test inkonklusiv ausfällt. Gilt bspw. $BF_{10}$ = 10.3, ist $P(vorl.\;Daten|H_1)$ 10.3-fach wahrscheinlicher als $P(vorl.\;Daten|H_0)$. Damit liegt relative Evidenz für $H_1$ vor.
 
 
 ## {background-iframe="https://shinylive.io/r/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKegZzvoEoAOhF7M27LgAtaEVoOENRHUrQAmrAG5xGXOHJEsOk6awBWXOUICutAAQAeALQ3UUAOZwA+gDNq1leyEbG1IJOHgbAF4bbg8QsLgAiCCbATB6VwcVFgBrVMiUsABiAA4CFQAGStTcQOTCmwBhElJGImouYNCbKAICClIbdjgMVwxcGwlWVC06CGzx+ktSUhJxuFICPhtiaiJtWqDURloYA3zUkrLK8uqDmx1iCCy2c6LSiqq8O9TpVCWHeh7FRaBw7PZ5KIXd7XVK1Pg1JJBAgsfzIxgqDyAtTsAjUKBcDqQtIZZ65PATAAsATAADVaFxLFA6FxaFpLBBXIgbAAhKCsOAdABiUGyK0YqT4koRQTxrCISw8O0sMAgHgA7sxUIlktsUTiUR5QlBgYwcXiCa90pkctUCgAFdmiyaoIhxHQQCXSnU6tEYrEcO7eoI8VRaACSED+pG1QdjBTipCgAEZbakABJTV2hHQ2JNcgCCZDgtGoNjtrRsAHEAJy3RFx70waT5cpehs604AD3ySbb7aC6iZljg+QwFL7-a45FQo5T9bj8MDQZDJojUZj-aCqQTUAATKmwBmXW6R7uC0WS2WKzW65vkk2klFW0uG12exP24PfCOohgAGwfg2U5wDOv5zv2kqLvOvr6uihpwMaWhmvihIFFapIHgAIlA5AemAUENr6mJENiL7ehAypaLQBBrksG79qkRxEK4tZfPO7apBAgCBBPk3JwF4AA-jBqnspDsq4VasYBsYPi20lBl+w49s+7FAdOPYEe2FHwMcNGRnRZHeoxrSuMUt6bpxgBBBLx-FCSJjBiRyVZmWxd6yU+8k6opP42AArJ5yTAaBuZyA2kHjLUMFEUaJrUgAMrQ2RwHQEhECRHTsioPJ8gKNjCgQYq2riKGWiSNr4YBRH+uIUgyAQBK7Ih2iIIgaq0CEADKqDSBASGoLspAAPJLOujEDZ62xtHsryXB8Nz4UIkqLUIK0QDojCaIw9hOF47IFbQJDsL8SzjPKpBRuMOgEgdEBbCAtTfBA9RJI4NgAMzlDY9QAHLsHI9RENw202Lun3HaQAAkTEsUI9Q7kmwMYL5X02ODEPw7DnTrHuiMAOwo2jO77k9Nhqkl7UI69BCpUQOjsBAp3cHwABU8MAHqA1wzPsEmDjw3wbP0w4nNbPUZPFqQSZ-Zj4vtbuwPU2ldMMzYIus6Eia7hz3Dc7zRMC0LIso7LpC7tLHpPYU9QEJYU5EDANiMAh+2aDY3kdFbnte97Pu+37-v+0I33A07PTKJo7AgGj0PFDYADUqP6ZD0PVgAvhYEAm5TTh3KHLsJCAiu0wkv3wikql3kE0cmdWLOExryZs9XzHVszhkNjzDj19jSYG6XXdJ1DNd8Onq0m-Lr25874cF0XdOlxFFeV83LF14PRNN4PKdt0v7ad93mt939A9RkPLcjxnnvbKH5A2FkiZfQHT-Py-r+e0I99QCH0+0BH93zk7MSjAID0R1Iweg0h-DKHoPQagCRsg9kQAvdu-ZgpzxLn9cY2Q16n3ZtkXWJ8ljowbr3QW-dsGL0rrGHc+R8QYGpiwMOSED7JilCg5I0DYHwMQcg3em40E03npgmw2DmYsK1vg-e68G67iPnwBwFCtx8P7DQqIdCGHMAKsw6R2NZGShsAAUgAHwGPLpXGASwcIJE5h4OAABHDwCCohOKiKXLYxjTHsKCPiWIDAuHmx1HIUeFsr79VdI-N+kSonRPfhAM6p8wkDFek7J4Wg7QDUjqtGwrhXCJL+vHO49RjRZTVKlOB0RpD21oEyO+9IWgMCWDdDobUQjdGoKgCQUA7juHth4HQrh4BkHYJ-fIn98keLMVQ9sXgSzkFNKoqILDe6UKmVAAU7BuzOJsE4DAvYbCdgoFlLZDhdnjFYHJGw-Inj5FQGXLxPoppbSJLNa4f55pbDjt0uAvT+mDOjCMqIYz3EmMmVM5IMzqBzPYAsxOuCZF3OUUGNZXANn5AQQnU5+zDlovjpi85HlLnYqiLclZVCwRPIKIUegBAkz0GrFAXy7yCnziKSoLKOg4FaKyhAuJTYakqDqccRYygSDNPaqlJYbSOldPnD0mAfS4ADP6MMnCX9AWqvGSC+5sYIVQphUsmwAAyERkRFlb2HqSyuyLUXHJsJig51zjl4ouVco5zhxjkpmtCT4+jPmyu+fK35yqAV3w1cCzxiKGy6qQvqnRmsjUmoiGahJFrQVWvWZsk1GK9kOrdei51BLXU3I9Y8ma1LaX0olB8u4cR4AeAfCcJk+S-U6jlbEOAnZ-mqvyJwuBNrYVEJTmc-IJzKj+TTWC6hHaBjEvxOQak3JBSRFTJGyd0y9inFIA0dgWc-oAHpx7CO1WuqhXgN04VeHAFdJ6b1xgFa4dqqE9GaU3NazsZzxh4noMlHt07fV3E7F+6khYABeUAJDUAlPHS5QHUgAHVwPaGpsWeQ1NyakCgy25IOTlCkD7akPiTtqYUScsCDovJ+RcAcMKUUewuAHm-bYB0cwQiZhPHhat84uDIjgYqR5HhQxkHahwaA4QiQJSSilNKKhzK3uiKHbIqECDUheZ8CKRRy10q6RVY9DYv3JSU9SI8GBcwHiPCDDAnpdNxlcH4HyqQ4HuCeBKIQwTYZWzvnARYEkYm+b8wHIQ8SiHAm89-VJjByzSGjP-UNiZzZuYgKnVaRgZD5nQOwaw+RrCXS0JtfI61Np8DAKnAAukAA"}
@@ -666,7 +666,7 @@ shinyApp(ui = ui, server = server)
 ## Testung mit Bayes-Faktor: Beispiel 1 {.smaller .center}
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa question-circle >}} Forschungsfrage & -design
-Forschende fragen sich inwiefern die Visualisierung von Magnetfeldern mithilfe von Augmented Reality das konzeptuelle Verständnis der Schülerinnen und Schüler fördern kann. Sie führen ein randomisiert kontrolliertes Experiment durch, indem ein Gruppe mit und eine Gruppe ohne Augmented Reality arbeitet. Anschließend wird in beiden Gruppen das konzeptuelle Verständnis mit einem Test erfasst.
+Forschende fragen sich, inwiefern die Visualisierung von Magnetfeldern mithilfe von Augmented Reality das konzeptuelle Verständnis der Schülerinnen und Schüler fördern kann. Sie führen ein randomisiert kontrolliertes Experiment durch, in dem eine Gruppe mit und eine Gruppe ohne Augmented Reality arbeitet. Anschließend wird in beiden Gruppen das konzeptuelle Verständnis mit einem Test erfasst.
 :::
 
 . . .
@@ -680,7 +680,7 @@ Ein Vergleich der beiden Gruppen im Posttest ergibt ein Cliff's $d = .31$ zuguns
 
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa lightbulb >}} Interpretation
-In den Daten liegt ein Effekt substantieller Größe vor. Da die Daten unter Annahme der Alternativhypothese 10 mal wahrscheinlicher sind, als unter der Annahme der Nullhypothese liegt auch starke inferenzstatistische Evidenz für die Existenz des Effektes in der Population vor. 
+In den Daten liegt ein Effekt substantieller Größe vor. Da die Daten unter Annahme der Alternativhypothese 10 mal wahrscheinlicher sind als unter der Annahme der Nullhypothese, liegt auch starke inferenzstatistische Evidenz für die Existenz des Effektes in der Population vor. 
 :::
 
 
@@ -688,7 +688,7 @@ In den Daten liegt ein Effekt substantieller Größe vor. Da die Daten unter Ann
 ## Testung mit Bayes-Faktor: Beispiel 2 {.smaller}
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa question-circle >}} Forschungsfrage & -design
-Forschende versuchen den Lernstilmythos zu widerlegen. Dazu befragen Sie Probandinnen nach ihrem vermeintlichen Lernstil. Diese durchlaufen danach eine Unterrichtseinheit zum Thema Photosynthese entweder (randomisiert) gemäß dieses vermeintlichen Lernstils oder nicht gemäß diesem.
+Forschende versuchen, den Lernstilmythos zu widerlegen. Dazu befragen Sie Probandinnen nach ihrem vermeintlichen Lernstil. Diese durchlaufen danach eine Unterrichtseinheit zum Thema Photosynthese entweder (randomisiert) gemäß dieses vermeintlichen Lernstils oder nicht gemäß diesem.
 :::
 
 . . .
@@ -702,7 +702,7 @@ Ein Vergleich der beiden Gruppen mit einem Posttest ergibt ein Cohen's $U_3 = .5
 
 ::: {.callout-tip icon=false collapse="false"}
 ## {{< fa lightbulb >}} Interpretation
-Da die Daten unter der Annahme von $H_0$ 1000 mal wahrscheinlich sind, als unter der Annahe von $H_A$ liegt sehr starke inferenzstatistische Evidenz für einen Nulleffekt vor.
+Da die Daten unter der Annahme von $H_0$ 1000 mal wahrscheinlich sind als unter der Annahe von $H_A$, liegt sehr starke inferenzstatistische Evidenz für einen Nulleffekt vor.
 :::
 
 
