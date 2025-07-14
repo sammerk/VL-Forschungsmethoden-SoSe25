@@ -1,0 +1,27 @@
+---
+format: 
+  html:
+    embed-resources: true
+    css: webex.css
+    include-after-body: webex.js
+---
+
+```{r}
+#| label: quiz2
+#| echo: false
+#| message: false
+#| results: "asis"
+#| warning: false
+
+library(exams2forms)
+download.file("https://raw.githubusercontent.com/sammerk/aufgaben/refs/heads/master/qualitative-methoden/TypischQuali_TypischQuanti.Rmd",
+              "tempfile.Rmd")
+exams2forms("tempfile.Rmd", n = 20)
+```
+
+<style>
+body {
+    margin: 0;
+    background-color: #f2f2f200 !important;
+}
+</style>

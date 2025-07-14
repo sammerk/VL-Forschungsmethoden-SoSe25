@@ -1,22 +1,24 @@
 ---
-title: "Qualitative Methoden"
-subtitle: "Charakteristika und Beispiele"
+title: "VL Forschungsmethoden" 
+subtitle: "Qualitative Methoden"
 author: "Samuel Merk & Cora Parrisius"
+date: today
+date-format: "[Sommersemster] YYYY"
+
+logo: img/PHlogo.svg
+
 format: 
   revealjs:
-    auto-stretch: false
-    self-contained: true
-    slide-number: false
-    preview-links: false
-    pdf-separate-fragments: true
-    controls: true
-    logo: img/PHlogo.svg
-    theme: [default, css/custom.scss]
-    fullscreen: true
-    pdfexport: true
+    embed-resources: false
+    slide-number: c
+    html-math-method: mathjax
+
+brand: _template/_brand.yml    
+
+lang: de
+
 bibliography: references.bib
 csl: apa.csl
-lightbox: true
 ---
 
 ## Inhalte dieses Vorlesungsblocks {.center .smaller}
@@ -101,7 +103,9 @@ close(fileConn)
 :::
 
 ## Aufgaben {.center}
-> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.1** unter [ogy.de/mvl](https://ogy.de/mvl)
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/Induktion_Deduktion_Abduktion.html" title="Aufgabe"></iframe>
+</center>
 
 ## Mixed Methods {.smaller}
 
@@ -189,7 +193,9 @@ Meist erfolgen Mixed Methods Studien entweder im sogenannten Vorstudien- oder im
 -   Es macht also Sinn sich qualitative & quantitative Sozialforschung als Pole eines Spektrums hochgradig vorstrukturierter und niedrig vorstrukturierter Forschung vorzustellen
 
 ## Aufgaben {.center}
-> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.2** unter [ogy.de/mvl](https://ogy.de/mvl)
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/TypischQuali_TypischQuanti.html" title="Aufgabe"></iframe>
+</center>
 
 # Beispiele qualitativer Sozialforschung
 
@@ -219,7 +225,9 @@ Für die Überführung der Freitextantworten in Kodierungen der angewendeten Bez
 </center>
 
 ## Aufgaben {.center}
-> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.3** unter [ogy.de/mvl](https://ogy.de/mvl)
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/Ded_Ind_IndDed_Inhaltsanalyse.html" title="Aufgabe"></iframe>
+</center>
 
 ## Die Arbeitslosen von Marienthal {.smaller}
 
@@ -293,7 +301,10 @@ Für die Überführung der Freitextantworten in Kodierungen der angewendeten Bez
 
 
 ## Aufgaben {.center}
-> Bearbeiten Sie mehrere Versionen der **Aufgabe 7.4** unter [ogy.de/mvl](https://ogy.de/mvl)
+<center>
+<iframe width="1280" height="500" src="Integrierte Aufgaben/FF_vs_Datenerhebung.html" title="Aufgabe"></iframe>
+</center>
+
 
 ## Literatur
 
