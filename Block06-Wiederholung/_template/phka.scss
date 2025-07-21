@@ -1,0 +1,110 @@
+/*-- scss:rules --*/
+.picture {
+    border-style: solid;
+    border-width: 3pt;
+    border-color: #267326;
+    border-radius: 50%;
+    padding: 5pt;
+    width: auto;
+}
+
+
+#title-slide .subtitle, #title-slide .institute, #title-slide .quarto-title-affiliation, #title-slide .quarto-title-author-email {
+    font-style: italic;
+    color: #7f7f7f;
+    font-size: .8em;
+}
+
+.reveal .footer {
+    color: #267326;
+}
+
+.reveal {
+    color: #174717 !important;
+}
+
+.reveal .slide-number {
+    color: #267326 !important;
+}
+
+.reveal blockquote {
+    color: #174717;
+    border-left: .25rem solid #267326;
+}
+
+$link-color: #267326 !default;
+
+
+// Selected Text #################################
+.reveal ::selection {
+  background: #267326;
+  color: #f2f2f2;
+}
+
+
+div.gslide-description .gslide-title {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    font-weight: 500;
+    font-family: Alegreya Sans;
+}
+
+
+// Title Slide #################################
+
+
+#title-slide {
+  text-align: center;
+
+  .columns>.column:last-child>:not(ul,ol), .columns>.column>:not(ul,ol) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .subtitle,
+  .institute,
+  .quarto-title-affiliation,
+  .quarto-title-author-email {
+    font-style: italic;
+    // font-size: 80%;
+    color: #7F7F7F;
+  }
+
+  .author, .quarto-title-author-name {
+    color: $body-color;
+  }
+
+  .quarto-title-authors {
+    display: flex;
+    justify-content: left;
+  
+    .quarto-title-author {
+      padding-left: 0em;
+      padding-right: 0em;
+      width: 100%;
+    }
+  }
+
+  p.author::before, div.quarto-title-author::before {
+    content: "";
+    display: block;
+    border: none;
+    background-color: $body-color;
+    color: $body-color;
+    height: 3px;
+    margin-bottom: 1em;
+  }
+
+}
+
+// Agenda Table #################################
+
+#tbl-agenda table th {
+font-weight: normal !important;
+border: none !important;
+}
+
+#tbl-agenda table td {
+font-weight: normal !important;
+border: none !important;
+}
