@@ -22,7 +22,7 @@ csl: apa.csl
 ---
 
 ## Liveexperiment {.center .smaller}
-> Bitte bearbeiten Sie das Liveexperiment (Masterarbeit) unter [https://ogy.de/mvl-25](https://ogy.de/mvl-25), anhand dessen Ergebnisse wir die Inhalte wiederholen werden.
+> Bitte bearbeiten Sie das Liveexperiment (Masterarbeit) unter [https://ogy.de/mvl-25](https://ogy.de/mvl-25), anhand dessen Ergebnisse wir die Inhalte wiederholen werden. Unter den Datenspender:innen werden als symbolische Anerkennung zwei Einkaufsgutscheine im Wert von 10€ verlost.
 
 ![](img/qrcode.svg){fig-align="center" width="400px"}
 
