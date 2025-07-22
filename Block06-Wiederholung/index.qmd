@@ -204,6 +204,18 @@ library(BayesFactor)
 correlationBF(data$Sicherheit_pre, data$Handlungsabsicht_Change)
 ```
 
+## Gutschein Code
+Der Gewinnercode (bis auf die letzten vier Zeichen) lautet:
+
+```{r}
+#| echo: true
+set.seed(1893)
+ds %>% 
+  filter(!is.na(ZG03_01)) %>% 
+  sample_n(1) %>%
+  pull(ZG03_01) %>% 
+  substr(., 1,8)
+```
 
 
  
